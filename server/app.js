@@ -10,6 +10,8 @@ const usersRouter = require('./routes/users.routes');
 const app = express();
 
 // Connect to database
+// db.sync({ force: true })
+// db.sync({ alter: true })
 db.sync()
   .then(console.log('Connexion a la base de données OK'))
   .catch((err) =>

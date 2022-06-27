@@ -49,14 +49,10 @@ const User = db.define('user', {
     type: DataTypes.STRING(10)
   },
   linkedinUrl: {
-    type: DataTypes.STRING(2083),
-    allowNull: false,
-    unique: true
+    type: DataTypes.STRING(2083)
   },
   bio: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-    unique: true
+    type: DataTypes.TEXT
   },
   isAdmin: {
     type: DataTypes.BOOLEAN,
