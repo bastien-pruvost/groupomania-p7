@@ -21,7 +21,8 @@ db.sync()
 
 // Set headers for all responses
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', process.env.CLIENT_URL);
+  res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader(
     'Access-Control-Allow-Headers',
     'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization'
@@ -44,6 +45,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(addAuthFeatures);
 
-app.use('/users', usersRouter);
+app.use('/api/users', usersRouter);
 
 module.exports = app;
