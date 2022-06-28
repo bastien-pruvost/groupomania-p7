@@ -34,6 +34,7 @@ exports.registerValidator = [
       'Le prénom ne doit pas contenir de caractères spéciaux ni de chiffres'
     ),
   body('password')
+    .isLength({ min: 8, max: 1024 })
     .isStrongPassword({
       minLength: 8,
       minLowercase: 1,
