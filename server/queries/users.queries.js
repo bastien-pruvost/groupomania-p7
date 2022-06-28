@@ -1,13 +1,5 @@
 const User = require('../models/user.model');
 
-exports.createUser = async (newUser) => {
-  try {
-    await User.create(newUser);
-  } catch (err) {
-    const errors = [];
-    err.errors.forEach((error) => {
-      errors.push(error.message);
-    });
-    throw errors;
-  }
-};
+exports.createUser = async (newUser) => User.create(newUser);
+
+exports.findUserById = (id) => User.findByPk(id);

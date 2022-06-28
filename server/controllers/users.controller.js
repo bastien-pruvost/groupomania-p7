@@ -1,7 +1,9 @@
 const { createUser } = require('../queries/users.queries');
 const argon = require('../utils/argon.utils');
 
-exports.signup = async (req, res) => {
+const { findUserById } = require('../queries/users.queries');
+
+exports.register = async (req, res) => {
   try {
     const { body } = req;
     const newUser = {
@@ -19,7 +21,9 @@ exports.signup = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
-    res.status(200).json({ message: 'Controller login OK !' });
+    const user = await findUserById(5);
+    console.log(user);
+    res.status(200).json({ message: user });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const db = require('./configs/db.config');
 const usersRouter = require('./routes/users.routes');
+const { addAuthFeatures } = require('./middlewares/auth.middleware');
 
 // Initialize express
 const app = express();
@@ -40,6 +41,8 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(addAuthFeatures);
 
 app.use('/users', usersRouter);
 

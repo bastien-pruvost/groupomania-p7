@@ -6,15 +6,15 @@ const checkValidationErrors = (req, res, next) => {
   if (!errors.isEmpty()) {
     let errorMsg = '';
     errors.errors.forEach((error) => {
-      errorMsg += `${error.msg}.   `;
+      errorMsg += `${error.msg}. `;
     });
-    return res.status(400).json({ message: errors });
+    return res.status(400).json({ message: errorMsg });
   }
   return next();
 };
 
-// Check the format of inputs in the signup form
-exports.signupValidator = [
+// Check the format of inputs in the register form
+exports.registerValidator = [
   body('email')
     .trim()
     .isEmail()
