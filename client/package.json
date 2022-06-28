@@ -13,6 +13,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-jsx-a11y": "^6.6.0",
     "eslint-plugin-prettier": "^4.1.0",
+    "eslint-plugin-react": "^7.30.1",
     "prettier": "^2.7.1"
   },
   "dependencies": {
@@ -21,6 +22,7 @@
     "@testing-library/user-event": "^14.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
