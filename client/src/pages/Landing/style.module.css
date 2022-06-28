@@ -1,0 +1,34 @@
+.Landing {
+  background-color: var(--grey50);
+}
+
+.Landing__header {
+  display: flex;
+  align-items: center;
+  padding: var(--wrapper-padding) 0;
+}
+
+.Landing__header__logo {
+  width: 18rem;
+}
+
+.Landing__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  min-height: 70vh;
+}
+
+.Landing__container > h1 {
+  flex: 1 1 40%;
+  width: 40%;
+}
+
+.Landing__container > img {
+  flex: 1 1 30rem;
+  width: 60%;
+}
+
+@media screen and (max-width: 992px) {
+}
