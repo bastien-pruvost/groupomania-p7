@@ -1,7 +1,7 @@
 const { createUser } = require('../queries/users.queries');
 const argon = require('../utils/argon.utils');
 
-const { findUserById } = require('../queries/users.queries');
+const { findUserByEmail } = require('../queries/users.queries');
 
 exports.register = async (req, res) => {
   try {
@@ -12,19 +12,51 @@ exports.register = async (req, res) => {
       lastname: body.lastname,
       firstname: body.firstname
     };
-    await createUser(newUser);
-    res.status(201).json({ message: 'Utilisateur créé avec succés' });
+    const user = await createUser(newUser);
+    req.login(user);
+    return res.status(201).json({ message: 'Utilisateur créé' });
   } catch (err) {
-    res.status(500).json({ message: err });
+    return res.status(500).json({ message: err.message });
   }
 };
 
+// Controller to connect a user by creating a token
 exports.login = async (req, res) => {
+  console.log(req.body);
   try {
-    const user = await findUserById(5);
-    console.log(user);
-    res.status(200).json({ message: user });
+    const user = await findUserByEmail(req.body.email);
+    if (!user)
+      return res
+        .status(401)
+        .json({ message: `Email ou mot de passe incorrect` });
+    const passwordIsValid = await argon.verify(
+      req.body.password,
+      user.password
+    );
+    if (!passwordIsValid)
+      return res
+        .status(401)
+        .json({ message: `Email ou mot de passe incorrect` });
+    req.login(user);
+    return res.status(200).json({ message: 'Utilisateur connecté' });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: err.message });
+  }
+};
+
+exports.logout = async (req, res) => {
+  try {
+    req.logout();
+    return res.status(200).json({ message: 'Utilisateur déconnecté' });
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+};
+
+exports.jwtid = async (req, res) => {
+  try {
+    return res.status(200).json({ userId: req.user.id });
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
   }
 };

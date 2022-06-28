@@ -1,16 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { findUserById } = require('../queries/users.queries');
 const { createJwt } = require('../utils/jwt.utils');
-
-// Middleware to add login and logout feature on req object
-exports.addAuthFeatures = (req, res, next) => {
-  req.login = (user) => {
-    const token = createJwt(user);
-    res.cookie('jwt', token);
-  };
-  req.logout = () => res.clearCookie('jwt');
-  next();
-};
+const { jwtConfig } = require('../configs/jwt.config');
 
 // Middleware to ensure that the user is properly connected and add the user to the request object if he is connected
 exports.ensureAuthenticated = async (req, res, next) => {
@@ -32,4 +23,19 @@ exports.ensureAuthenticated = async (req, res, next) => {
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
+};
+
+// Middleware to add login and logout feature on req object
+exports.addAuthFeatures = (req, res, next) => {
+  req.login = (user) => {
+    const token = createJwt(user);
+    res.cookie('jwt', token, {
+      // secure: true,
+      httpOnly: true,
+      sameSite: 'strict',
+      maxAge: jwtConfig.maxAge
+    });
+  };
+  req.logout = () => res.clearCookie('jwt');
+  next();
 };
