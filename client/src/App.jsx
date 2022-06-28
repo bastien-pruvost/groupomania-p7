@@ -1,11 +1,19 @@
-import Landing from './pages/Landing';
+import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
+import Landing from 'pages/Landing';
 
-function App() {
+const App = () => {
   return (
-    <div>
-      <Landing />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Navigate to='/home' />} />
+        <Route path='/home' element={<div>Homepage</div>} />
+        <Route path='/landing' element={<Landing />} />
+        <Route path='/register' element={<div>Homepage</div>} />
+        <Route path='/login' element={<div>Homepage</div>} />
+        <Route path='*' element={<h1>Error</h1>} />
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
