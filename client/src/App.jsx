@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Landing from 'pages/Landing';
 
 const App = () => {
@@ -6,11 +6,11 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Navigate to='/home' />} />
-        <Route path='/home' element={<div>Homepage</div>} />
+        <Route path='/home' element={<h1>Homepage</h1>} />
         <Route path='/landing' element={<Landing />} />
-        <Route path='/register' element={<div>Homepage</div>} />
-        <Route path='/login' element={<div>Homepage</div>} />
-        <Route path='*' element={<h1>Error</h1>} />
+        <Route path='/register' element={<h1>Signup page</h1>} />
+        <Route path='/login' element={<h1>Login page</h1>} />
+        <Route path='*' element={<h1>Error page</h1>} />
       </Routes>
     </BrowserRouter>
   );
