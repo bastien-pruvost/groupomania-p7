@@ -1,0 +1,6 @@
+.Header {
+  display: flex;
+  align-items: center;
+  padding-top: var(--wrapper-padding);
+  padding-bottom: var(--wrapper-padding);
+}
