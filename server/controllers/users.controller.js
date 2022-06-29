@@ -13,7 +13,7 @@ exports.register = async (req, res) => {
       firstname: body.firstname
     };
     const user = await createUser(newUser);
-    req.login(user);
+    req.login(user.id);
     return res
       .status(201)
       .json({ message: 'Utilisateur créé', userId: user.id });
@@ -26,6 +26,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const user = await findUserByEmail(req.body.email);
+    // console.log(user);
     if (!user)
       return res
         .status(401)
@@ -38,7 +39,7 @@ exports.login = async (req, res) => {
       return res
         .status(401)
         .json({ message: `Email ou mot de passe incorrect` });
-    req.login(user);
+    req.login(user.id);
     return res
       .status(200)
       .json({ message: 'Utilisateur connecté', userId: user.id });

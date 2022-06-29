@@ -27,8 +27,8 @@ exports.ensureAuthenticated = async (req, res, next) => {
 
 // Middleware to add login and logout feature on req object
 exports.addAuthFeatures = (req, res, next) => {
-  req.login = (user) => {
-    const token = createJwt(user);
+  req.login = (userId) => {
+    const token = createJwt(userId);
     res.cookie('jwt', token, {
       // secure: true,
       httpOnly: true,
