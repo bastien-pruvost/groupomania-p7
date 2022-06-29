@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import api from 'services/apiRequest';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './AuthForm.module.css';
 import FormGroup from 'components/FormGroup';
 
@@ -11,11 +11,30 @@ const AuthForm = ({ isLoginMode }) => {
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [authErrorMessage, setAuthErrorMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await api.post('/users/login', { email, password });
+      console.log(response.data.message);
+      navigate('/home');
+    } catch (err) {
+      console.log(err.response.data.message);
+      setAuthErrorMessage(err.response.data.message);
+    }
+  };
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await api.post('/users/register', {
+        email,
+        lastname,
+        firstname,
+        password,
+        passwordConfirm
+      });
       console.log(response.data.message);
     } catch (err) {
       console.log(err.response.data.message);
@@ -24,7 +43,11 @@ const AuthForm = ({ isLoginMode }) => {
   };
 
   return (
-    <form className={styles.AuthForm} onSubmit={handleLogin} id='auth-form'>
+    <form
+      className={styles.AuthForm}
+      onSubmit={isLoginMode ? handleLogin : handleRegister}
+      id='auth-form'
+    >
       <h2>{isLoginMode ? 'Connexion' : 'Inscription'}</h2>
 
       <FormGroup
@@ -61,7 +84,7 @@ const AuthForm = ({ isLoginMode }) => {
       <FormGroup
         label='Mot de passe'
         id='password'
-        type='text'
+        type='password'
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         errorMsg='Erreur mot de passe'
@@ -71,7 +94,7 @@ const AuthForm = ({ isLoginMode }) => {
         <FormGroup
           label='Confirmation mot de passe'
           id='passwordConfirm'
-          type='text'
+          type='password'
           value={passwordConfirm}
           onChange={(e) => setPasswordConfirm(e.target.value)}
           errorMsg='Erreur confirmation mdp'

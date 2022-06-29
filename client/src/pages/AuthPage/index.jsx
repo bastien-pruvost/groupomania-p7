@@ -8,7 +8,9 @@ const AuthPage = ({ isLoginMode }) => {
     <div className={styles.AuthPage}>
       <Header />
       <Wrapper>
-        <AuthForm isLoginMode={isLoginMode} />
+        <div className={styles.container}>
+          <AuthForm isLoginMode={isLoginMode} />
+        </div>
       </Wrapper>
     </div>
   );
