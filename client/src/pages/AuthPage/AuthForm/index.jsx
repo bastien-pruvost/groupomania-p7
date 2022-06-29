@@ -33,91 +33,54 @@ const AuthForm = ({ isLoginMode }) => {
         type='text'
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        errorMsg='Error test'
+        errorMsg='Erreur email'
       />
 
-      {/* <div className='form-group'>
-        <label htmlFor='email' className='form-label'>
-          Email
-        </label>
-        <input
-          className='form-input'
+      {!isLoginMode && (
+        <FormGroup
+          label='Nom'
+          id='lastname'
           type='text'
-          name='email'
-          id='email'
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
+          value={lastname}
+          onChange={(e) => setLastname(e.target.value)}
+          errorMsg='Erreur nom'
         />
-        <span className='form-alert'>Test erreur</span>
-      </div> */}
-
-      {!isLoginMode && (
-        <div className='form-group'>
-          <label htmlFor='lastname' className='form-label'>
-            Nom
-          </label>
-          <input
-            className='form-input'
-            type='text'
-            name='lastname'
-            id='lastname'
-            onChange={(e) => setLastname(e.target.value)}
-            value={lastname}
-          />
-          <span className='form-alert'>Test erreur</span>
-        </div>
       )}
 
       {!isLoginMode && (
-        <div className='form-group'>
-          <label htmlFor='firstname' className='form-label'>
-            Prénom
-          </label>
-          <input
-            className='form-input'
-            type='text'
-            name='firstname'
-            id='firstname'
-            onChange={(e) => setFirstname(e.target.value)}
-            value={firstname}
-          />
-          <span className='form-alert'>Test erreur</span>
-        </div>
-      )}
-
-      <div className='form-group'>
-        <label htmlFor='password' className='form-label'>
-          Mot de passe
-        </label>
-        <input
-          className='form-input'
-          type='password'
-          name='password'
-          id='password'
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
+        <FormGroup
+          label='Prénom'
+          id='firstname'
+          type='text'
+          value={firstname}
+          onChange={(e) => setFirstname(e.target.value)}
+          errorMsg='Erreur prénom'
         />
-        <span className='form-alert'>Test erreur</span>
-      </div>
-
-      {!isLoginMode && (
-        <div className='form-group'>
-          <label htmlFor='passwordConfirm' className='form-label'>
-            Confirmation du mot de passe
-          </label>
-          <input
-            className='form-input'
-            type='password'
-            name='passwordConfirm'
-            id='passwordConfirm'
-            onChange={(e) => setPasswordConfirm(e.target.value)}
-            value={passwordConfirm}
-          />
-          <span className='form-alert'>Test erreur</span>
-        </div>
       )}
 
-      <span className='alert alert-danger'>{authErrorMessage}</span>
+      <FormGroup
+        label='Mot de passe'
+        id='password'
+        type='text'
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        errorMsg='Erreur mot de passe'
+      />
+
+      {!isLoginMode && (
+        <FormGroup
+          label='Confirmation mot de passe'
+          id='passwordConfirm'
+          type='text'
+          value={passwordConfirm}
+          onChange={(e) => setPasswordConfirm(e.target.value)}
+          errorMsg='Erreur confirmation mdp'
+        />
+      )}
+
+      {!!authErrorMessage && (
+        <span className='alert alert-danger'>{authErrorMessage}</span>
+      )}
 
       <input
         type='submit'
