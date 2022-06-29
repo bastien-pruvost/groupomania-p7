@@ -2,3 +2,10 @@
   background-color: var(--background-color);
   min-height: 100vh;
 }
+
+.container {
+  min-height: calc(90vh - var(--header-height));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

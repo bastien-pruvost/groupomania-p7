@@ -122,8 +122,8 @@
   --wrapper-padding-sm: 1rem;
 
   /* Other vars */
+  --header-height: 7.5rem;
   --background-color: var(--grey-50);
-
   --border-radius: 1rem;
   --btn-border-radius: 0.5rem;
   --transition: 0.2s ease-in-out all;
@@ -132,6 +132,12 @@
   --shadow-1: rgba(33, 34, 43, 0.2) 0px 1px 4px;
   --shadow-2: rgba(33, 34, 43, 0.25) 1px 2px 6px;
   --shadow-3: rgba(33, 34, 43, 0.2) 0px 4px 16px;
+}
+
+@media screen and (max-width: 576px) {
+  :root {
+    --header-height: 5.5rem;
+  }
 }
 
 /* Reset */
@@ -145,14 +151,15 @@
 
 html {
   font-size: 100%;
+  line-height: 0.9;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   font-family: var(--body-font);
+  font-size: 1.1rem;
   font-weight: 400;
-  line-height: 1.5;
   color: var(--text-color);
 }
 
@@ -173,6 +180,7 @@ ul {
 /* Fonts */
 p {
   max-width: 40rem;
+  line-height: 1.4;
 }
 
 h1,
@@ -224,7 +232,7 @@ h5 {
 /* Buttons */
 .btn {
   display: inline-block;
-  padding: 0.5rem 1.2rem;
+  padding: 0.9rem 1.6rem;
   font-size: 1.2rem;
   font-weight: 600;
   letter-spacing: var(--letter-spacing);
@@ -297,10 +305,10 @@ h5 {
 
 /* alerts */
 .alert {
-  padding: 0.5rem 0.8rem;
-  font-size: 1.1rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
   font-weight: 600;
-  /* margin-bottom: 1rem; */
+  letter-spacing: 0.7px;
   border-color: transparent;
   border-radius: var(--btn-border-radius);
 }
@@ -328,14 +336,13 @@ h5 {
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .form-label {
   display: block;
-  font-size: 1.1rem;
   padding-left: 0.2rem;
-  margin-bottom: 0.1rem;
+  margin-bottom: 0.3rem;
   text-transform: capitalize;
   letter-spacing: var(--letter-spacing);
 }
@@ -343,7 +350,8 @@ h5 {
 .form-input,
 .form-textarea {
   width: 100%;
-  padding: 0.5rem 0.8rem;
+  margin-bottom: 0.1rem;
+  padding: 0.75rem 1rem;
   border-radius: var(--btn-border-radius);
   border: 1px solid var(--grey-200);
 }

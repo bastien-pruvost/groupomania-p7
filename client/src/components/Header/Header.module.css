@@ -1,6 +1,6 @@
 .Header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding-top: var(--wrapper-padding);
-  padding-bottom: var(--wrapper-padding);
+  height: var(--header-height);
 }
