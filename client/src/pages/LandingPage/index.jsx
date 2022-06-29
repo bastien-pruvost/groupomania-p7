@@ -1,16 +1,16 @@
 import { Link } from 'react-router-dom';
-import styles from './style.module.css';
+import styles from './LandingPage.module.css';
 import landingIllustration from 'assets/images/landing-illustration.svg';
 import Header from 'components/Header';
 import Wrapper from 'components/Wrapper';
 
 function LandingPage() {
   return (
-    <div className={styles.Landing}>
+    <div className={styles.LandingPage}>
       <Header />
       <Wrapper>
-        <main className={styles.Landing__container}>
-          <div className={styles.Landing__text}>
+        <main className={styles.hero}>
+          <div className={styles.hero__text}>
             <h1>
               Restez en <span>contact</span> avec vos collègues
             </h1>
@@ -19,19 +19,20 @@ function LandingPage() {
               réseau social d'entreprise.
             </p>
             <Link
-              to='/login'
-              className={styles.Landing__btn + ' btn btn-secondary-red'}
-            >
-              Se connecter
-            </Link>
-            <Link
               to='/register'
-              className={styles.Landing__btn + ' btn btn-primary-red'}
+              className={styles.hero__btn + ' btn btn-primary-red'}
             >
               S'inscrire
             </Link>
+            <Link
+              to='/login'
+              className={styles.hero__btn + ' btn btn-secondary-red'}
+            >
+              Se connecter
+            </Link>
           </div>
           <img
+            className={styles.hero__img}
             src={landingIllustration}
             alt='Groupe de personnes qui tiennent des posts de reseaux sociaux dans leurs mains'
           />

@@ -1,4 +1,4 @@
-import styles from './style.module.css';
+import styles from './ProfilePage.module.css';
 
 const ProfilePage = () => {
   return (

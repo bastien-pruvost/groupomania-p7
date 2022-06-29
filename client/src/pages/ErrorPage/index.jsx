@@ -1,8 +1,8 @@
-import styles from './style.module.css';
+import styles from './ErrorPage.module.css';
 
 const ErrorPage = () => {
   return (
-    <div>
+    <div className={styles.ErrorPage}>
       <h1>ErrorPage</h1>
     </div>
   );

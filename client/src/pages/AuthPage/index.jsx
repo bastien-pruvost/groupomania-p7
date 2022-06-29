@@ -1,6 +1,4 @@
-import axios from 'axios';
-import { useState, useEffect } from 'react';
-import styles from './style.module.css';
+import styles from './AuthPage.module.css';
 import Header from 'components/Header';
 import Wrapper from 'components/Wrapper';
 import AuthForm from 'pages/AuthPage/AuthForm';

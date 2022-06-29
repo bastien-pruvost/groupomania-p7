@@ -1,8 +1,8 @@
-import styles from './style.module.css';
+import styles from './HomePage.module.css';
 
 const HomePage = () => {
   return (
-    <div>
+    <div className={styles.HomePage}>
       <h1>HomePage</h1>
     </div>
   );

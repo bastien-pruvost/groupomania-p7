@@ -1,0 +1,28 @@
+.AuthForm {
+  display: flex;
+  flex-direction: column;
+  max-width: 35rem;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: var(--white);
+  box-shadow: var(--shadow-3);
+  border-radius: var(--border-radius);
+}
+
+h2 {
+  text-align: center;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.submit_btn {
+  margin: 1.5rem 0;
+}
+
+.switch_auth_text {
+  text-align: center;
+}

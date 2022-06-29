@@ -1,48 +1,55 @@
-.Landing {
+.LandingPage {
   background-color: var(--grey-50);
 }
 
-.Landing__container {
+.hero {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   gap: 4rem;
-  min-height: 70vh;
+  min-height: 75vh;
   padding-bottom: 2rem;
 }
 
-.Landing__container > img {
+.hero__img {
   flex: 1 1 22rem;
   width: 40%;
+  max-width: 40rem;
 }
 
-.Landing__text {
-  flex: 1 1 22rem;
+.hero__text {
+  flex: 1 1 23rem;
+  max-width: 36rem;
 }
 
-.Landing__text > h1 > span {
+.hero__text > h1 > span {
   color: var(--primary-500);
 }
 
-.Landing__text > p {
+.hero__text > p {
   font-size: 1.5rem;
   margin-bottom: 2rem;
 }
 
-.Landing__btn {
+.hero__btn {
+  min-width: 165px;
   margin-right: 1rem;
   margin-bottom: 1rem;
 }
 
 @media screen and (max-width: 992px) {
-  .Landing__text > p {
+  .hero__text > p {
     font-size: 1.3rem;
   }
 }
 
 @media screen and (max-width: 576px) {
-  .Landing__text > p {
-    font-size: 1.1rem;
+  .hero__text > p {
+    font-size: 1.2rem;
+  }
+
+  .hero__btn {
+    width: 100%;
   }
 }
