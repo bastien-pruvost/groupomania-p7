@@ -1,5 +1,5 @@
 .Landing {
-  background-color: var(--grey50);
+  background-color: var(--grey-50);
 }
 
 .Landing__container {
@@ -12,8 +12,13 @@
   padding-bottom: 2rem;
 }
 
+.Landing__container > img {
+  flex: 1 1 22rem;
+  width: 40%;
+}
+
 .Landing__text {
-  flex: 1 1 20rem;
+  flex: 1 1 22rem;
 }
 
 .Landing__text > h1 > span {
@@ -26,12 +31,8 @@
 }
 
 .Landing__btn {
-  margin-right: 10px;
-}
-
-.Landing__container > img {
-  flex: 1 1 20rem;
-  width: 55%;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
 }
 
 @media screen and (max-width: 992px) {
