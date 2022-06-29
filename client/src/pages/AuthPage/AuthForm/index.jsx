@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import axios from 'axios';
+import api from 'services/apiRequest';
 import { Link } from 'react-router-dom';
 import styles from './AuthForm.module.css';
+import FormGroup from 'components/FormGroup';
 
 const AuthForm = ({ isLoginMode }) => {
   const [email, setEmail] = useState('');
@@ -9,18 +10,36 @@ const AuthForm = ({ isLoginMode }) => {
   const [firstname, setFirstname] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [authErrorMessage, setAuthErrorMessage] = useState('');
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    axios.post();
+    try {
+      const response = await api.post('/users/login', { email, password });
+      console.log(response.data.message);
+    } catch (err) {
+      console.log(err.response.data.message);
+      setAuthErrorMessage(err.response.data.message);
+    }
   };
 
   return (
     <form className={styles.AuthForm} onSubmit={handleLogin} id='auth-form'>
       <h2>{isLoginMode ? 'Connexion' : 'Inscription'}</h2>
-      <p>{process.env.REACT_APP_API_URL}</p>
-      <div className={styles.group}>
-        <label htmlFor='email'>Email</label>
+
+      <FormGroup
+        label='Email'
+        id='email'
+        type='text'
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        errorMsg='Error test'
+      />
+
+      {/* <div className='form-group'>
+        <label htmlFor='email' className='form-label'>
+          Email
+        </label>
         <input
           className='form-input'
           type='text'
@@ -29,11 +48,14 @@ const AuthForm = ({ isLoginMode }) => {
           onChange={(e) => setEmail(e.target.value)}
           value={email}
         />
-      </div>
+        <span className='form-alert'>Test erreur</span>
+      </div> */}
 
       {!isLoginMode && (
-        <div className={styles.group}>
-          <label htmlFor='lastname'>Nom</label>
+        <div className='form-group'>
+          <label htmlFor='lastname' className='form-label'>
+            Nom
+          </label>
           <input
             className='form-input'
             type='text'
@@ -42,12 +64,15 @@ const AuthForm = ({ isLoginMode }) => {
             onChange={(e) => setLastname(e.target.value)}
             value={lastname}
           />
+          <span className='form-alert'>Test erreur</span>
         </div>
       )}
 
       {!isLoginMode && (
-        <div className={styles.group}>
-          <label htmlFor='firstname'>Prénom</label>
+        <div className='form-group'>
+          <label htmlFor='firstname' className='form-label'>
+            Prénom
+          </label>
           <input
             className='form-input'
             type='text'
@@ -56,11 +81,14 @@ const AuthForm = ({ isLoginMode }) => {
             onChange={(e) => setFirstname(e.target.value)}
             value={firstname}
           />
+          <span className='form-alert'>Test erreur</span>
         </div>
       )}
 
-      <div className={styles.group}>
-        <label htmlFor='password'>Mot de passe</label>
+      <div className='form-group'>
+        <label htmlFor='password' className='form-label'>
+          Mot de passe
+        </label>
         <input
           className='form-input'
           type='password'
@@ -69,11 +97,14 @@ const AuthForm = ({ isLoginMode }) => {
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
+        <span className='form-alert'>Test erreur</span>
       </div>
 
       {!isLoginMode && (
-        <div className={styles.group}>
-          <label htmlFor='passwordConfirm'>Confirmation du mot de passe</label>
+        <div className='form-group'>
+          <label htmlFor='passwordConfirm' className='form-label'>
+            Confirmation du mot de passe
+          </label>
           <input
             className='form-input'
             type='password'
@@ -82,8 +113,11 @@ const AuthForm = ({ isLoginMode }) => {
             onChange={(e) => setPasswordConfirm(e.target.value)}
             value={passwordConfirm}
           />
+          <span className='form-alert'>Test erreur</span>
         </div>
       )}
+
+      <span className='alert alert-danger'>{authErrorMessage}</span>
 
       <input
         type='submit'
