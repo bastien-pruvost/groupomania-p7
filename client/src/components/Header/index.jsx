@@ -1,11 +1,18 @@
 import styles from './style.module.css';
 import Logo from 'components/Logo';
+import Wrapper from 'components/Wrapper';
+import { Link } from 'react-router-dom';
 
 const Header = ({ children }) => {
   return (
     <header className={styles.Header}>
-      <Logo />
-      {children}
+      <Wrapper>
+        <Link to='/'>
+          <Logo />
+        </Link>
+
+        {children}
+      </Wrapper>
     </header>
   );
 };
