@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import api from 'services/apiRequest';
+import { api } from 'utils/api.utils';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './AuthForm.module.css';
 import FormGroup from 'components/FormGroup';
@@ -18,7 +18,7 @@ const AuthForm = ({ isLoginMode }) => {
     try {
       const response = await api.post('/users/login', { email, password });
       console.log(response.data.message);
-      navigate('/home');
+      navigate('/');
     } catch (err) {
       console.log(err.response.data.message);
       setAuthErrorMessage(err.response.data.message);
@@ -36,6 +36,7 @@ const AuthForm = ({ isLoginMode }) => {
         passwordConfirm
       });
       console.log(response.data.message);
+      navigate('/');
     } catch (err) {
       console.log(err.response.data.message);
       setAuthErrorMessage(err.response.data.message);

@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import RequireAuth from './RequireAuth';
 import LandingPage from 'pages/LandingPage';
 import AuthPage from 'pages/AuthPage';
 import HomePage from 'pages/HomePage';
@@ -8,10 +9,17 @@ const Routing = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<LandingPage />} />
+        <Route path='/landing' element={<LandingPage />} />
         <Route path='/login' element={<AuthPage isLoginMode={true} />} />
         <Route path='/register' element={<AuthPage isLoginMode={false} />} />
-        <Route path='/home' element={<HomePage />} />
+        <Route
+          path='/'
+          element={
+            <RequireAuth>
+              <HomePage />
+            </RequireAuth>
+          }
+        />
         <Route path='*' element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>
