@@ -14,7 +14,9 @@ exports.register = async (req, res) => {
     };
     const user = await createUser(newUser);
     req.login(user);
-    return res.status(201).json({ message: 'Utilisateur créé' });
+    return res
+      .status(201)
+      .json({ message: 'Utilisateur créé', userId: user.id });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
@@ -37,7 +39,9 @@ exports.login = async (req, res) => {
         .status(401)
         .json({ message: `Email ou mot de passe incorrect` });
     req.login(user);
-    return res.status(200).json({ message: 'Utilisateur connecté' });
+    return res
+      .status(200)
+      .json({ message: 'Utilisateur connecté', userId: user.id });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }

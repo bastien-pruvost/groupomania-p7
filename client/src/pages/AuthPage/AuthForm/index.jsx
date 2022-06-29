@@ -1,10 +1,13 @@
-import { useState } from 'react';
-import { api } from 'utils/api.utils';
-import { Link, useNavigate } from 'react-router-dom';
 import styles from './AuthForm.module.css';
+import { useContext, useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { api } from 'utils/axios.utils';
+import { handleError } from 'utils/errors.utils';
+import { UserContext } from 'contexts/UserContext';
 import FormGroup from 'components/FormGroup';
 
-const AuthForm = ({ isLoginMode }) => {
+const AuthForm = ({ loginMode }) => {
+  const { setCurrentUserId } = useContext(UserContext);
   const [email, setEmail] = useState('');
   const [lastname, setLastname] = useState('');
   const [firstname, setFirstname] = useState('');
@@ -17,10 +20,10 @@ const AuthForm = ({ isLoginMode }) => {
     e.preventDefault();
     try {
       const response = await api.post('/users/login', { email, password });
-      console.log(response.data.message);
+      setCurrentUserId(response.data.userId);
       navigate('/');
     } catch (err) {
-      console.log(err.response.data.message);
+      handleError(err);
       setAuthErrorMessage(err.response.data.message);
     }
   };
@@ -35,10 +38,10 @@ const AuthForm = ({ isLoginMode }) => {
         password,
         passwordConfirm
       });
-      console.log(response.data.message);
+      setCurrentUserId(response.data.userId);
       navigate('/');
     } catch (err) {
-      console.log(err.response.data.message);
+      handleError(err);
       setAuthErrorMessage(err.response.data.message);
     }
   };
@@ -46,10 +49,10 @@ const AuthForm = ({ isLoginMode }) => {
   return (
     <form
       className={styles.AuthForm}
-      onSubmit={isLoginMode ? handleLogin : handleRegister}
+      onSubmit={loginMode ? handleLogin : handleRegister}
       id='auth-form'
     >
-      <h2>{isLoginMode ? 'Connexion' : 'Inscription'}</h2>
+      <h2>{loginMode ? 'Connexion' : 'Inscription'}</h2>
 
       <FormGroup
         label='Email'
@@ -60,7 +63,7 @@ const AuthForm = ({ isLoginMode }) => {
         errorMsg='Erreur email'
       />
 
-      {!isLoginMode && (
+      {!loginMode && (
         <FormGroup
           label='Nom'
           id='lastname'
@@ -71,7 +74,7 @@ const AuthForm = ({ isLoginMode }) => {
         />
       )}
 
-      {!isLoginMode && (
+      {!loginMode && (
         <FormGroup
           label='Prénom'
           id='firstname'
@@ -91,7 +94,7 @@ const AuthForm = ({ isLoginMode }) => {
         errorMsg='Erreur mot de passe'
       />
 
-      {!isLoginMode && (
+      {!loginMode && (
         <FormGroup
           label='Confirmation mot de passe'
           id='passwordConfirm'
@@ -108,11 +111,11 @@ const AuthForm = ({ isLoginMode }) => {
 
       <input
         type='submit'
-        value={isLoginMode ? `Se Connecter` : `S'inscrire`}
+        value={loginMode ? `Se Connecter` : `S'inscrire`}
         className={styles.submit_btn + ' btn btn-primary-red'}
       />
 
-      {isLoginMode ? (
+      {loginMode ? (
         <p className={styles.switch_auth_text}>
           Pas encore de compte ?&ensp;
           <Link to='/register' className='btn-ghost'>
