@@ -22,7 +22,6 @@ exports.register = async (req, res) => {
 
 // Controller to connect a user by creating a token
 exports.login = async (req, res) => {
-  console.log(req.body);
   try {
     const user = await findUserByEmail(req.body.email);
     if (!user)
