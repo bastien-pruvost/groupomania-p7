@@ -13,10 +13,9 @@ h2 {
   text-align: center;
 }
 
-.group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
+.auth_error {
+  color: var(--red-dark);
+  background-color: var(--red-light);
 }
 
 .submit_btn {
