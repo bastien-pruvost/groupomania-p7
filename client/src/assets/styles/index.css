@@ -77,7 +77,7 @@
   --primary-200: #fe9680;
   --primary-300: #fe6c4d;
   --primary-400: #fe421a;
-  --primary-500: #fd2d01;
+  --primary-500: #e52901;
   --primary-600: #b22001;
   --primary-700: #7f1701;
   --primary-800: #4c0e00;
@@ -106,15 +106,13 @@
   /* Fonts  */
   --heading-font: 'Lato', sans-serif;
   --body-font: 'Lato', sans-serif;
-  --small-text: 0.875rem;
-  --extra-small-text: 0.7rem;
   --letter-spacing: 1px;
   --heading-color: var(--grey-700);
   --text-color: var(--grey-600);
 
   /* Wrappers */
   --wrapper: 1276px;
-  --wrapper-large: 1376px;
+  --wrapper-large: 1476px;
   --fixed-width: 600px;
 
   --wrapper-padding: 2rem;
@@ -134,6 +132,7 @@
   --shadow-3: rgba(33, 34, 43, 0.2) 0px 4px 16px;
 }
 
+/* Reset */
 *,
 ::after,
 ::before {
@@ -153,9 +152,23 @@ body {
   font-weight: 400;
   line-height: 1.5;
   color: var(--text-color);
-  /* background: var(--backgroundColor); */
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.img {
+  display: block;
+  object-fit: cover;
+}
+
+/* Fonts */
 p {
   max-width: 40rem;
 }
@@ -196,28 +209,9 @@ h5 {
   font-size: 1.25rem;
 }
 
-small,
-.text-small {
-  font-size: var(--small-text);
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-ul {
-  list-style-type: none;
-}
-
-.img {
-  display: block;
-  object-fit: cover;
-}
-
 /* Containers / Wrappers */
-
 .wrapper {
+  width: 100%;
   max-width: var(--wrapper);
   margin-left: auto;
   margin-right: auto;
@@ -225,19 +219,19 @@ ul {
   padding-right: var(--wrapper-padding);
 }
 
-/* buttons */
-
+/* Buttons */
 .btn {
-  cursor: pointer;
-  border-radius: var(--btn-border-radius);
-  letter-spacing: var(--letter-spacing);
-  padding: 0.5rem 1rem;
-  box-shadow: var(--shadow-1);
-  transition: var(--transition);
-  text-transform: capitalize;
   display: inline-block;
+  padding: 0.5rem 1.2rem;
   font-size: 1.2rem;
   font-weight: 600;
+  letter-spacing: var(--letter-spacing);
+  text-transform: capitalize;
+  text-align: center;
+  border-radius: var(--btn-border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-1);
 }
 
 .btn:hover {
@@ -251,12 +245,13 @@ ul {
 .btn-primary-red {
   color: var(--white);
   background: var(--primary-500);
-  border: transparent;
+  border: 2px solid var(--primary-500);
 }
 
 .btn-primary-red:hover {
   color: var(--white);
   background: var(--primary-600);
+  border: 2px solid var(--primary-600);
 }
 
 .btn-primary-red:active {
@@ -340,17 +335,12 @@ ul {
 .form-textarea {
   width: 100%;
   padding: 0.375rem 0.75rem;
-  border-radius: var(--border-radius);
-  background: var(--background-color);
+  border-radius: var(--btn-border-radius);
   border: 1px solid var(--grey-200);
 }
 
-.form-row {
-  margin-bottom: 1rem;
-}
-
 .form-textarea {
-  height: 7rem;
+  min-height: 7rem;
 }
 
 ::placeholder {
