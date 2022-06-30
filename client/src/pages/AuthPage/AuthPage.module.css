@@ -4,7 +4,7 @@
 }
 
 .container {
-  min-height: calc(90vh - var(--header-height));
+  min-height: calc(95vh - var(--header-height));
   display: flex;
   align-items: center;
   justify-content: center;

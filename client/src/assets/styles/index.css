@@ -88,7 +88,7 @@
   /* Greys */
   --grey-50: #fcfcfd;
   --grey-100: #f1f1f4;
-  --grey-200: #d4d5de;
+  --grey-200: #e0e1eb;
   --grey-300: #b7b9c8;
   --grey-400: #9a9db2;
   --grey-500: #7d819c;
@@ -147,11 +147,11 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  line-height: 1;
 }
 
 html {
   font-size: 100%;
-  line-height: 0.9;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -160,6 +160,7 @@ body {
   font-family: var(--body-font);
   font-size: 1.1rem;
   font-weight: 400;
+
   color: var(--text-color);
 }
 
@@ -189,7 +190,7 @@ h3,
 h4,
 h5 {
   margin: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   font-family: var(--heading-font);
   color: var(--heading-color);
   font-weight: 400;
@@ -232,7 +233,7 @@ h5 {
 /* Buttons */
 .btn {
   display: inline-block;
-  padding: 0.9rem 1.6rem;
+  padding: 0.8rem 1.6rem;
   font-size: 1.2rem;
   font-weight: 600;
   letter-spacing: var(--letter-spacing);
@@ -305,6 +306,9 @@ h5 {
 
 /* alerts */
 .alert {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
   padding: 1rem;
   margin-bottom: 1rem;
   font-weight: 600;
@@ -323,6 +327,12 @@ h5 {
   background: var(--green-light);
 }
 
+.alert-li {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+  /* margin: 0.5rem 0 0.5rem 1.5rem; */
+}
+
 /* form */
 
 .form {
@@ -336,24 +346,36 @@ h5 {
 }
 
 .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .form-label {
   display: block;
   padding-left: 0.2rem;
-  margin-bottom: 0.3rem;
-  text-transform: capitalize;
+  margin-bottom: 0.35rem;
   letter-spacing: var(--letter-spacing);
 }
 
 .form-input,
 .form-textarea {
   width: 100%;
-  margin-bottom: 0.1rem;
   padding: 0.75rem 1rem;
   border-radius: var(--btn-border-radius);
   border: 1px solid var(--grey-200);
+  outline: none;
+}
+
+.form-input:focus-visible {
+  border: 2px solid var(--grey-700);
+}
+
+.form-input.error,
+.form-textarea.error {
+  border: 1px solid var(--danger-text);
+}
+
+.form-input:focus-visible.error {
+  border: 2px solid var(--danger-text);
 }
 
 .form-textarea {
@@ -366,8 +388,10 @@ h5 {
 }
 
 .form-alert {
+  display: block;
   color: var(--danger-text);
   letter-spacing: 0.6px;
+  margin-top: 0.25rem;
   padding-left: 0.2rem;
 }
 

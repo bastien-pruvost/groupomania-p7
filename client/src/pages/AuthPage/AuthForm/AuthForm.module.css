@@ -1,6 +1,7 @@
 .AuthForm {
   display: flex;
   flex-direction: column;
+  width: 100%;
   max-width: 30rem;
   margin: 0.5rem auto 1rem;
   padding: 2rem;
@@ -19,9 +20,16 @@ h2 {
 }
 
 .submit_btn {
-  margin: 0 0 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .switch_auth_text {
   text-align: center;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 576px) {
+  .AuthForm {
+    padding: 1rem;
+  }
 }
