@@ -1,13 +1,11 @@
 import { Link } from 'react-router-dom';
 import styles from './LandingPage.module.css';
 import landingIllustration from 'assets/images/landing-illustration.svg';
-import Header from 'components/Header';
 import Wrapper from 'components/Wrapper';
 
 function LandingPage() {
   return (
     <div className={styles.LandingPage}>
-      <Header />
       <Wrapper>
         <main className={styles.hero}>
           <div className={styles.hero__text}>

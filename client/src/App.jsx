@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import { UserContext } from 'contexts/UserContext';
-import { handleError } from 'utils/errors.utils';
 import { getCurrentUserRequest } from 'services/auth.services';
+import { handleError } from 'utils/errors.utils';
+import Header from 'components/Header';
 import Routing from 'components/Routing';
 
 const App = () => {
@@ -33,7 +35,10 @@ const App = () => {
           setCurrentUserIsAdmin
         }}
       >
-        <Routing />
+        <BrowserRouter>
+          <Header />
+          <Routing />
+        </BrowserRouter>
       </UserContext.Provider>
     );
   }
