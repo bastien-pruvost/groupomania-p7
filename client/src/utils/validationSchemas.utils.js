@@ -1,5 +1,6 @@
 import validator from 'validator';
 
+// Validation schema with error messages for authentication form
 export const authValidation = (passwordRef) => {
   return {
     email: {
