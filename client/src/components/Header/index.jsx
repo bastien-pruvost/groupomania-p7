@@ -1,17 +1,36 @@
+import { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { UserContext } from 'contexts/UserContext';
 import styles from './Header.module.css';
-import Logo from 'components/Logo';
+import { signoutRequest } from 'services/auth.services';
 import Wrapper from 'components/Wrapper';
-import { Link } from 'react-router-dom';
+import Logo from 'components/Logo';
 
-const Header = ({ children }) => {
+const Header = () => {
+  const { currentUserId, setCurrentUserId } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const handleSignout = () => {
+    signoutRequest()
+      .then(() => {
+        setCurrentUserId(null);
+        navigate('/landing');
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <header className={styles.Header}>
       <Wrapper>
-        <Link to='/'>
-          <Logo />
-        </Link>
+        <div className={styles.flex_container}>
+          <Link to='/'>
+            <Logo />
+          </Link>
 
-        {children}
+          {!!currentUserId && (
+            <button onClick={handleSignout}>Disconnect</button>
+          )}
+        </div>
       </Wrapper>
     </header>
   );
