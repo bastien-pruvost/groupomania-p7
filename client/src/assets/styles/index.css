@@ -131,7 +131,7 @@
   /* Box shadows */
   --shadow-1: rgba(33, 34, 43, 0.2) 0px 1px 4px;
   --shadow-2: rgba(33, 34, 43, 0.25) 1px 2px 6px;
-  --shadow-3: rgba(33, 34, 43, 0.2) 0px 4px 16px;
+  --shadow-3: rgba(33, 34, 43, 0.1) 1px 2px 16px;
 }
 
 @media screen and (max-width: 576px) {
@@ -157,6 +157,7 @@ html {
 }
 
 body {
+  background-color: var(--background-color);
   font-family: var(--body-font);
   font-size: 1.1rem;
   font-weight: 400;
