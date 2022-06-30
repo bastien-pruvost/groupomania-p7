@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { findUserById } = require('../queries/users.queries');
+const { findUserRoleById } = require('../queries/users.queries');
 const { createJwt } = require('../utils/jwt.utils');
 const { jwtConfig } = require('../configs/jwt.config');
 
@@ -12,22 +12,22 @@ exports.ensureAuthenticated = async (req, res, next) => {
       return res.status(401).json({ message: `Utilisateur non connecté` });
     }
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await findUserById(decodedToken.userId);
+    const user = await findUserRoleById(decodedToken.userId);
     if (!user) {
       res.clearCookie('jwt');
       return res.status(401).json({ message: `Utilisateur non connecté` });
     }
-    req.user = user;
-    req.isAuthenticated = true;
+    req.user.id = user.id;
+    req.user.isAdmin = user.isAdmin;
     return next();
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
 };
 
-// Middleware to add login and logout feature on req object
+// Middleware to add signin and signout feature on req object
 exports.addAuthFeatures = (req, res, next) => {
-  req.login = (userId) => {
+  req.signin = (userId) => {
     const token = createJwt(userId);
     res.cookie('jwt', token, {
       // secure: true,
@@ -36,6 +36,6 @@ exports.addAuthFeatures = (req, res, next) => {
       maxAge: jwtConfig.maxAge
     });
   };
-  req.logout = () => res.clearCookie('jwt');
+  req.signout = () => res.clearCookie('jwt');
   next();
 };

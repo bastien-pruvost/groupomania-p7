@@ -2,7 +2,8 @@ const User = require('../models/user.model');
 
 exports.createUser = async (newUser) => User.create(newUser);
 
-exports.findUserById = (userId) => User.findByPk(userId);
+exports.findUserRoleById = (userId) =>
+  User.findByPk(userId, { attributes: ['id', 'isAdmin'] });
 
-exports.findUserByEmail = (userEmail) =>
+exports.findUserIdAndPasswordByEmail = (userEmail) =>
   User.findOne({ where: { email: userEmail }, attributes: ['id', 'password'] });

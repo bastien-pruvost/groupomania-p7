@@ -1,9 +1,12 @@
-const { createUser } = require('../queries/users.queries');
+const jwt = require('jsonwebtoken');
 const argon = require('../utils/argon.utils');
+const { createUser } = require('../queries/users.queries');
+const {
+  findUserIdAndPasswordByEmail,
+  findUserRoleById
+} = require('../queries/users.queries');
 
-const { findUserByEmail } = require('../queries/users.queries');
-
-exports.register = async (req, res) => {
+exports.signup = async (req, res) => {
   try {
     const { body } = req;
     const newUser = {
@@ -13,7 +16,7 @@ exports.register = async (req, res) => {
       firstname: body.firstname
     };
     const user = await createUser(newUser);
-    req.login(user.id);
+    req.signin(user.id);
     return res
       .status(201)
       .json({ message: 'Utilisateur créé', userId: user.id });
@@ -23,9 +26,9 @@ exports.register = async (req, res) => {
 };
 
 // Controller to connect a user by creating a token
-exports.login = async (req, res) => {
+exports.signin = async (req, res) => {
   try {
-    const user = await findUserByEmail(req.body.email);
+    const user = await findUserIdAndPasswordByEmail(req.body.email);
     // console.log(user);
     if (!user)
       return res
@@ -39,7 +42,7 @@ exports.login = async (req, res) => {
       return res
         .status(401)
         .json({ message: `Email ou mot de passe incorrect` });
-    req.login(user.id);
+    req.signin(user.id);
     return res
       .status(200)
       .json({ message: 'Utilisateur connecté', userId: user.id });
@@ -48,19 +51,36 @@ exports.login = async (req, res) => {
   }
 };
 
-exports.logout = async (req, res) => {
+exports.signout = async (req, res) => {
   try {
-    req.logout();
+    req.signout();
     return res.status(200).json({ message: 'Utilisateur déconnecté' });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
 };
 
-exports.jwtid = async (req, res) => {
+exports.verifyAuth = async (req, res) => {
   try {
-    return res.status(200).json({ userId: req.user.id });
+    const responseObject = { userId: null, userIsAdmin: false };
+    const token = req.cookies.jwt;
+    console.log(token);
+    if (!token) {
+      res.clearCookie('jwt');
+    } else {
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+      const user = await findUserRoleById(decodedToken.userId);
+      console.log(user);
+      if (!user) {
+        res.clearCookie('jwt');
+      } else {
+        responseObject.userId = user.id;
+        responseObject.userIsAdmin = user.isAdmin;
+      }
+    }
+    return res.status(200).json(responseObject);
   } catch (err) {
+    console.log(err);
     return res.status(500).json({ message: err.message });
   }
 };

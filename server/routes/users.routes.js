@@ -1,16 +1,16 @@
 const router = require('express').Router();
-const { registerValidator } = require('../middlewares/validators.middleware');
+const { signupValidator } = require('../middlewares/validators.middleware');
 const { ensureAuthenticated } = require('../middlewares/auth.middleware');
 const {
-  register,
-  login,
-  logout,
-  jwtid
+  signup,
+  signin,
+  signout,
+  verifyAuth
 } = require('../controllers/users.controller');
 
-router.post('/register', registerValidator, register);
-router.post('/login', login);
-router.get('/logout', logout);
-router.get('/jwtid', ensureAuthenticated, jwtid);
+router.post('/signup', signupValidator, signup);
+router.post('/signin', signin);
+router.get('/signout', signout);
+router.get('/verifyauth', verifyAuth);
 
 module.exports = router;
