@@ -19,13 +19,13 @@ function LandingPage() {
               réseau social d'entreprise.
             </p>
             <Link
-              to='/register'
+              to='/signup'
               className={styles.hero__btn + ' btn btn-primary-red'}
             >
               S'inscrire
             </Link>
             <Link
-              to='/login'
+              to='/signin'
               className={styles.hero__btn + ' btn btn-secondary-red'}
             >
               Se connecter

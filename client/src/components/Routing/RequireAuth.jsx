@@ -8,7 +8,7 @@ const RequireAuth = ({ children }) => {
   if (currentUserId) {
     return children ? children : <Outlet />;
   } else {
-    return <Navigate to='/login' replace />;
+    return <Navigate to='/signin' replace />;
   }
 };
 
