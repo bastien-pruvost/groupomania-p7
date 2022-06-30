@@ -1,131 +1,150 @@
 import styles from './AuthForm.module.css';
-import { useContext, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { api } from 'utils/axios.utils';
-import { handleError } from 'utils/errors.utils';
+import { useContext, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import { UserContext } from 'contexts/UserContext';
-import FormGroup from 'components/FormGroup';
+import { authValidation } from 'utils/validationSchemas.utils';
+import { signinRequest, signupRequest } from 'services/auth.services';
 
-const AuthForm = ({ loginMode }) => {
-  const { setCurrentUserId } = useContext(UserContext);
-  const [email, setEmail] = useState('');
-  const [lastname, setLastname] = useState('');
-  const [firstname, setFirstname] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
-  const [authErrorMessage, setAuthErrorMessage] = useState('');
-  const navigate = useNavigate();
+const AuthForm = ({ signinMode }) => {
+  const { setCurrentUserId, setCurrentUserIsAdmin } = useContext(UserContext);
+  const [responseErrorMsg, setResponseErrorMsg] = useState([]);
+  const {
+    formState: { errors },
+    handleSubmit,
+    register,
+    watch
+  } = useForm({ mode: 'onSubmit' });
+  const password = useRef({});
+  password.current = watch('password');
+  const validationSchema = signinMode ? true : authValidation(password.current);
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await api.post('/users/login', { email, password });
-      setCurrentUserId(response.data.userId);
-      navigate('/');
-    } catch (err) {
-      handleError(err);
-      setAuthErrorMessage(err.response.data.message);
-    }
-  };
-
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await api.post('/users/register', {
-        email,
-        lastname,
-        firstname,
-        password,
-        passwordConfirm
-      });
-      setCurrentUserId(response.data.userId);
-      navigate('/');
-    } catch (err) {
-      handleError(err);
-      setAuthErrorMessage(err.response.data.message);
+  const onSubmit = async (formData) => {
+    if (signinMode) {
+      signinRequest(formData)
+        .then((response) => {
+          setCurrentUserId(response.userId);
+          setCurrentUserIsAdmin(response.userIsAdmin);
+        })
+        .catch((err) => setResponseErrorMsg([err.message]));
+    } else {
+      signupRequest(formData)
+        .then((response) => {
+          setCurrentUserId(response.userId);
+          setCurrentUserIsAdmin(response.userIsAdmin);
+        })
+        .catch((err) => setResponseErrorMsg(err.message));
     }
   };
 
   return (
     <form
       className={styles.AuthForm}
-      onSubmit={loginMode ? handleLogin : handleRegister}
+      onSubmit={handleSubmit(onSubmit)}
       id='auth-form'
     >
-      <h2>{loginMode ? 'Connexion' : 'Inscription'}</h2>
+      <h2>{signinMode ? 'Connexion' : 'Inscription'}</h2>
 
-      <FormGroup
-        label='Email'
-        id='email'
-        type='text'
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        errorMsg='Erreur email'
-      />
-
-      {!loginMode && (
-        <FormGroup
-          label='Nom'
-          id='lastname'
+      <div className='form-group'>
+        <label htmlFor='email' className='form-label'>
+          Email
+        </label>
+        <input
+          className={`form-input ${errors.email ? 'error' : ''}`}
+          id='email'
           type='text'
-          value={lastname}
-          onChange={(e) => setLastname(e.target.value)}
-          errorMsg='Erreur nom'
+          {...register('email', { validate: validationSchema.email })}
         />
-      )}
+        <span className='form-alert'>{errors.email?.message}</span>
+      </div>
 
-      {!loginMode && (
-        <FormGroup
-          label='Prénom'
-          id='firstname'
-          type='text'
-          value={firstname}
-          onChange={(e) => setFirstname(e.target.value)}
-          errorMsg='Erreur prénom'
-        />
-      )}
-
-      <FormGroup
-        label='Mot de passe'
-        id='password'
-        type='password'
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        errorMsg='Erreur mot de passe'
-      />
-
-      {!loginMode && (
-        <FormGroup
-          label='Confirmation mot de passe'
-          id='passwordConfirm'
+      <div className='form-group'>
+        <label htmlFor='password' className='form-label'>
+          Mot de passe
+        </label>
+        <input
+          className={`form-input ${errors.password ? 'error' : ''}`}
+          id='password'
           type='password'
-          value={passwordConfirm}
-          onChange={(e) => setPasswordConfirm(e.target.value)}
-          errorMsg='Erreur confirmation mdp'
+          {...register('password', { validate: validationSchema.password })}
         />
+        <span className='form-alert'>{errors.password?.message}</span>
+      </div>
+
+      {!signinMode && (
+        <div className='form-group'>
+          <label htmlFor='passwordConfirm' className='form-label'>
+            Confirmation mot de passe
+          </label>
+          <input
+            className={`form-input ${errors.passwordConfirm ? 'error' : ''}`}
+            id='passwordConfirm'
+            type='password'
+            {...register('passwordConfirm', {
+              validate: validationSchema.passwordConfirm
+            })}
+          />
+          <span className='form-alert'>{errors.passwordConfirm?.message}</span>
+        </div>
       )}
 
-      {!!authErrorMessage && (
-        <span className='alert alert-danger'>{authErrorMessage}</span>
+      {!signinMode && (
+        <div className='form-group'>
+          <label htmlFor='lastname' className='form-label'>
+            Nom
+          </label>
+          <input
+            className={`form-input ${errors.lastname ? 'error' : ''}`}
+            id='lastname'
+            type='text'
+            {...register('lastname', { validate: validationSchema.lastname })}
+          />
+          <span className='form-alert'>{errors.lastname?.message}</span>
+        </div>
+      )}
+
+      {!signinMode && (
+        <div className='form-group'>
+          <label htmlFor='firstname' className='form-label'>
+            Prénom
+          </label>
+          <input
+            className={`form-input ${errors.firstname ? 'error' : ''}`}
+            id='firstname'
+            type='text'
+            {...register('firstname', { validate: validationSchema.firstname })}
+          />
+          <span className='form-alert'>{errors.firstname?.message}</span>
+        </div>
+      )}
+
+      {responseErrorMsg.length > 0 && (
+        <ul className='alert alert-danger'>
+          {responseErrorMsg.map((message, index) => (
+            <li className='alert-li' key={index}>
+              {message}
+            </li>
+          ))}
+        </ul>
       )}
 
       <input
         type='submit'
-        value={loginMode ? `Se Connecter` : `S'inscrire`}
-        className={styles.submit_btn + ' btn btn-primary-red'}
+        value={signinMode ? `Se Connecter` : `S'inscrire`}
+        className={`${styles.submit_btn} btn btn-primary-red`}
       />
 
-      {loginMode ? (
+      {signinMode ? (
         <p className={styles.switch_auth_text}>
           Pas encore de compte ?&ensp;
-          <Link to='/register' className='btn-ghost'>
+          <Link to='/signup' className='btn-ghost'>
             S'inscrire
           </Link>
         </p>
       ) : (
         <p className={styles.switch_auth_text}>
           Déjà inscrit ?&ensp;
-          <Link to='/login' className='btn-ghost'>
+          <Link to='/signin' className='btn-ghost'>
             Se connecter
           </Link>
         </p>
