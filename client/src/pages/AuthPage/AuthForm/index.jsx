@@ -8,6 +8,7 @@ import { signinRequest, signupRequest } from 'services/auth.services';
 
 const AuthForm = ({ signinMode }) => {
   const { setCurrentUserId, setCurrentUserIsAdmin } = useContext(UserContext);
+  const [isLoading, setLoading] = useState(false);
   const [responseErrorMsg, setResponseErrorMsg] = useState([]);
   const {
     formState: { errors },
@@ -20,20 +21,23 @@ const AuthForm = ({ signinMode }) => {
   const validationSchema = signinMode ? true : authValidation(password.current);
 
   const onSubmit = async (formData) => {
+    setLoading(true);
     if (signinMode) {
       signinRequest(formData)
         .then((response) => {
           setCurrentUserId(response.userId);
           setCurrentUserIsAdmin(response.userIsAdmin);
         })
-        .catch((err) => setResponseErrorMsg([err.message]));
+        .catch((err) => setResponseErrorMsg([err.message]))
+        .finally(() => setLoading(false));
     } else {
       signupRequest(formData)
         .then((response) => {
           setCurrentUserId(response.userId);
           setCurrentUserIsAdmin(response.userIsAdmin);
         })
-        .catch((err) => setResponseErrorMsg(err.message));
+        .catch((err) => setResponseErrorMsg(err.message))
+        .finally(() => setLoading(false));
     }
   };
 
@@ -112,11 +116,15 @@ const AuthForm = ({ signinMode }) => {
             className={`form-input ${errors.firstname ? 'error' : ''}`}
             id='firstname'
             type='text'
-            {...register('firstname', { validate: validationSchema.firstname })}
+            {...register('firstname', {
+              validate: validationSchema.firstname
+            })}
           />
           <span className='form-alert'>{errors.firstname?.message}</span>
         </div>
       )}
+
+      {isLoading && <h2>Loader</h2>}
 
       {responseErrorMsg.length > 0 && (
         <ul className='alert alert-danger'>

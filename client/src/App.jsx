@@ -2,29 +2,28 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { UserContext } from 'contexts/UserContext';
 import { getCurrentUserRequest } from 'services/auth.services';
-import { handleError } from 'utils/errors.utils';
 import Header from 'components/Header';
 import Routing from 'components/Routing';
 
 const App = () => {
   const [currentUserId, setCurrentUserId] = useState(null);
   const [currentUserIsAdmin, setCurrentUserIsAdmin] = useState(false);
-  const [isAuthLoading, setAuthLoading] = useState(true);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    setAuthLoading(true);
+    setLoading(true);
     getCurrentUserRequest()
       .then((response) => {
         console.log(response);
         setCurrentUserId(response.userId);
         setCurrentUserIsAdmin(response.userIsAdmin);
       })
-      .catch((err) => handleError(err))
-      .finally(() => setAuthLoading(false));
+      .catch((err) => console.log(err.message))
+      .finally(() => setLoading(false));
   }, []);
 
-  if (isAuthLoading) {
-    return <h1>Loading</h1>;
+  if (isLoading) {
+    return <h1>Loader</h1>;
   } else {
     return (
       <UserContext.Provider
