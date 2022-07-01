@@ -3,7 +3,7 @@ import { handleError } from 'utils/errors.utils';
 
 export const getCurrentUserRequest = async () => {
   try {
-    const response = await api.get('/users/verifyauth');
+    const response = await api.get('/users/getcurrentuser');
     return response.data;
   } catch (err) {
     handleError(err);
