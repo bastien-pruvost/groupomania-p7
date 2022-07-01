@@ -1,23 +1,23 @@
 const express = require('express');
-const path = require('path');
 const helmet = require('helmet');
-const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const path = require('path');
 const db = require('./configs/db.config');
-const usersRouter = require('./routes/users.routes');
 const { addAuthFeatures } = require('./middlewares/auth.middleware');
+const usersRouter = require('./routes/users.routes');
 
-// Initialize express
-const app = express();
+// Sync database
+require('./models/db-relations');
 
-// Connect to database
-// db.sync({ force: true });
-// db.sync({ alter: true })
-db.sync()
+db.sync({ alter: false, force: false })
   .then(console.log('Connexion a la base de données OK'))
   .catch((err) =>
     console.log(`Erreur de connexion a la base de données : ${err}`)
   );
+
+// Initialize express
+const app = express();
 
 // Set headers for all responses
 app.use((req, res, next) => {
