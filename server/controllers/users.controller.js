@@ -60,7 +60,7 @@ exports.signout = async (req, res) => {
   }
 };
 
-exports.verifyAuth = async (req, res) => {
+exports.getCurrentUser = async (req, res) => {
   try {
     const responseObject = { userId: null, userIsAdmin: false };
     const token = req.cookies.jwt;

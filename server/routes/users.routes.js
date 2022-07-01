@@ -5,12 +5,12 @@ const {
   signup,
   signin,
   signout,
-  verifyAuth
+  getCurrentUser
 } = require('../controllers/users.controller');
 
 router.post('/signup', signupValidator, signup);
 router.post('/signin', signin);
 router.get('/signout', signout);
-router.get('/verifyauth', verifyAuth);
+router.get('/getcurrentuser', getCurrentUser);
 
 module.exports = router;
