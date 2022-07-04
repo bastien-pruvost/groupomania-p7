@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const argon = require('../utils/argon.utils');
 const { createUser } = require('../queries/users.queries');
 const {
-  findUserIdAndPasswordByEmail,
+  findUserByEmail,
   findCurrentUserById
 } = require('../queries/users.queries');
 
@@ -17,10 +17,20 @@ exports.signup = async (req, res) => {
     };
     const user = await createUser(newUser);
     req.signin(user.id);
+    const responseUserObject = {
+      id: user.id,
+      isAdmin: user.isAdmin,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      profilePicUrl: user.profilePicUrl
+    };
     return res
       .status(201)
-      .json({ message: 'Utilisateur créé', userId: user.id });
+      .json({ message: 'Utilisateur créé', user: responseUserObject });
   } catch (err) {
+    if (err.errors[0]?.message === 'users_email must be unique') {
+      return res.status(400).json({ message: 'Cet email est déja utilisé' });
+    }
     return res.status(500).json({ message: err.message });
   }
 };
@@ -28,8 +38,7 @@ exports.signup = async (req, res) => {
 // Controller to connect a user by creating a token
 exports.signin = async (req, res) => {
   try {
-    const user = await findUserIdAndPasswordByEmail(req.body.email);
-    // console.log(user);
+    const user = await findUserByEmail(req.body.email);
     if (!user)
       return res
         .status(401)
@@ -43,9 +52,16 @@ exports.signin = async (req, res) => {
         .status(401)
         .json({ message: `Email ou mot de passe incorrect` });
     req.signin(user.id);
+    const responseUserObject = {
+      id: user.id,
+      isAdmin: user.isAdmin,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      profilePicUrl: user.profilePicUrl
+    };
     return res
       .status(200)
-      .json({ message: 'Utilisateur connecté', userId: user.id });
+      .json({ message: 'Utilisateur connecté', user: responseUserObject });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
@@ -62,7 +78,13 @@ exports.signout = async (req, res) => {
 
 exports.getCurrentUser = async (req, res) => {
   try {
-    let responseObject = { id: null, isAdmin: false };
+    let responseUserObject = {
+      id: null,
+      isAdmin: false,
+      firstname: '',
+      lastname: '',
+      profilePicUrl: 'defaultProfilePic.jpg'
+    };
     const token = req.cookies.jwt;
     if (!token) {
       res.clearCookie('jwt');
@@ -72,17 +94,17 @@ exports.getCurrentUser = async (req, res) => {
       if (!user) {
         res.clearCookie('jwt');
       } else {
-        responseObject = {
+        responseUserObject = {
           id: user.id,
           isAdmin: user.isAdmin,
-          lastname: user.lastname,
           firstname: user.firstname,
+          lastname: user.lastname,
           profilePicUrl: user.profilePicUrl
         };
       }
     }
-    console.log(responseObject);
-    return res.status(200).json(responseObject);
+    console.log(responseUserObject);
+    return res.status(200).json(responseUserObject);
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: err.message });

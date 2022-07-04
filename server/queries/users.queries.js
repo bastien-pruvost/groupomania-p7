@@ -7,5 +7,15 @@ exports.findCurrentUserById = (userId) =>
     attributes: ['id', 'isAdmin', 'lastname', 'firstname', 'profilePicUrl']
   });
 
-exports.findUserIdAndPasswordByEmail = (userEmail) =>
-  User.findOne({ where: { email: userEmail }, attributes: ['id', 'password'] });
+exports.findUserByEmail = (userEmail) =>
+  User.findOne({
+    where: { email: userEmail },
+    attributes: [
+      'id',
+      'password',
+      'isAdmin',
+      'lastname',
+      'firstname',
+      'profilePicUrl'
+    ]
+  });
