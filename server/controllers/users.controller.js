@@ -22,7 +22,7 @@ exports.signup = async (req, res) => {
       isAdmin: user.isAdmin,
       firstname: user.firstname,
       lastname: user.lastname,
-      profilePicUrl: user.profilePicUrl
+      profilePicPath: user.profilePicPath
     };
     return res
       .status(201)
@@ -35,7 +35,6 @@ exports.signup = async (req, res) => {
   }
 };
 
-// Controller to connect a user by creating a token
 exports.signin = async (req, res) => {
   try {
     const user = await findUserByEmail(req.body.email);
@@ -57,7 +56,7 @@ exports.signin = async (req, res) => {
       isAdmin: user.isAdmin,
       firstname: user.firstname,
       lastname: user.lastname,
-      profilePicUrl: user.profilePicUrl
+      profilePicPath: user.profilePicPath
     };
     return res
       .status(200)
@@ -83,7 +82,7 @@ exports.getCurrentUser = async (req, res) => {
       isAdmin: false,
       firstname: '',
       lastname: '',
-      profilePicUrl: 'default-profile-pic.jpg'
+      profilePicPath: 'default-profile-pic.jpg'
     };
     const token = req.cookies.jwt;
     if (!token) {
@@ -99,14 +98,12 @@ exports.getCurrentUser = async (req, res) => {
           isAdmin: user.isAdmin,
           firstname: user.firstname,
           lastname: user.lastname,
-          profilePicUrl: user.profilePicUrl
+          profilePicPath: user.profilePicPath
         };
       }
     }
-    console.log(responseUserObject);
     return res.status(200).json(responseUserObject);
   } catch (err) {
-    console.log(err);
     return res.status(500).json({ message: err.message });
   }
 };

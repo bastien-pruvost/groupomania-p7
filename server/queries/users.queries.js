@@ -4,7 +4,7 @@ exports.createUser = async (newUser) => User.create(newUser);
 
 exports.findCurrentUserById = (userId) =>
   User.findByPk(userId, {
-    attributes: ['id', 'isAdmin', 'lastname', 'firstname', 'profilePicUrl']
+    attributes: ['id', 'isAdmin', 'lastname', 'firstname', 'profilePicPath']
   });
 
 exports.findUserByEmail = (userEmail) =>
@@ -16,6 +16,6 @@ exports.findUserByEmail = (userEmail) =>
       'isAdmin',
       'lastname',
       'firstname',
-      'profilePicUrl'
+      'profilePicPath'
     ]
   });

@@ -6,6 +6,7 @@ const path = require('path');
 const db = require('./configs/db.config');
 const { addAuthFeatures } = require('./middlewares/auth.middleware');
 const usersRouter = require('./routes/users.routes');
+const postsRouter = require('./routes/posts.routes');
 
 // Sync database
 require('./models/db-relations');
@@ -46,5 +47,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(addAuthFeatures);
 
 app.use('/api/users', usersRouter);
+app.use('/api/posts', postsRouter);
 
 module.exports = app;

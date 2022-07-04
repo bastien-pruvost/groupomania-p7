@@ -26,12 +26,12 @@ const User = db.define(
       type: DataTypes.STRING(100),
       allowNull: false
     },
-    profilePicUrl: {
+    profilePicPath: {
       type: DataTypes.STRING(2083),
       defaultValue: 'default-profile-pic.jpg',
       allowNull: false
     },
-    coverPicUrl: {
+    coverPicPath: {
       type: DataTypes.STRING(2083),
       defaultValue: 'default-cover-pic.jpg',
       allowNull: false

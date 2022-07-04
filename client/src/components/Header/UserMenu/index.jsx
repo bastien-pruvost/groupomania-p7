@@ -35,7 +35,7 @@ const UserMenu = () => {
           isAdmin: false,
           firstname: '',
           lastname: '',
-          profilePicUrl: 'default-profile-pic.jpg'
+          profilePicPath: 'default-profile-pic.jpg'
         });
         navigate('/landing');
       })

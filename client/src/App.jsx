@@ -11,7 +11,7 @@ const App = () => {
     isAdmin: false,
     firstname: '',
     lastname: '',
-    profilePicUrl: 'default-profile-pic.jpg'
+    profilePicPath: 'default-profile-pic.jpg'
   });
   const [isLoading, setLoading] = useState(true);
 

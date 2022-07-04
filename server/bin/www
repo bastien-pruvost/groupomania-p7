@@ -1,5 +1,4 @@
 const http = require('http');
-// const debug = require('debug')('server:www');
 const app = require('../app');
 
 // Normalize a port into a number, string, or false.

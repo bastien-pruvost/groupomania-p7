@@ -11,7 +11,7 @@ const Post = db.define('post', {
   content: {
     type: DataTypes.TEXT
   },
-  imageUrl: {
+  imagePath: {
     type: DataTypes.TEXT
   }
 });
