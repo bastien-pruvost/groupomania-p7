@@ -15,8 +15,8 @@ const App = () => {
     getCurrentUserRequest()
       .then((response) => {
         console.log(response);
-        setCurrentUserId(response.userId);
-        setCurrentUserIsAdmin(response.userIsAdmin);
+        setCurrentUserId(response.id);
+        setCurrentUserIsAdmin(response.isAdmin);
       })
       .catch((err) => console.log(err.message))
       .finally(() => setLoading(false));
