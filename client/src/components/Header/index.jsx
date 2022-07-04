@@ -1,29 +1,13 @@
 import { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { UserContext } from 'contexts/UserContext';
 import styles from './Header.module.css';
-import { signoutRequest } from 'services/auth.services';
 import Wrapper from 'components/Wrapper';
 import Logo from 'components/Logo';
+import UserMenu from 'components/Header/UserMenu';
 
 const Header = () => {
-  const { currentUser, setCurrentUser } = useContext(UserContext);
-  const navigate = useNavigate();
-
-  const handleSignout = () => {
-    signoutRequest()
-      .then(() => {
-        setCurrentUser({
-          id: null,
-          isAdmin: false,
-          firstname: '',
-          lastname: '',
-          profilePicUrl: 'defaultProfilePic.jpg'
-        });
-        navigate('/landing');
-      })
-      .catch((err) => console.log(err));
-  };
+  const { currentUser } = useContext(UserContext);
 
   return (
     <header className={styles.Header}>
@@ -33,12 +17,11 @@ const Header = () => {
             <Logo />
           </Link>
 
-          {!!currentUser.id && (
-            <button onClick={handleSignout}>Disconnect</button>
-          )}
+          {!!currentUser.id && <UserMenu />}
         </div>
       </Wrapper>
     </header>
   );
 };
+
 export default Header;

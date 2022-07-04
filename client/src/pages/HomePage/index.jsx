@@ -1,9 +1,10 @@
+import { Outlet } from 'react-router-dom';
 import styles from './HomePage.module.css';
 
 const HomePage = () => {
   return (
     <div className={styles.HomePage}>
-      <h1>HomePage</h1>
+      <Outlet />
     </div>
   );
 };

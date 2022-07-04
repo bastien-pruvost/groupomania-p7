@@ -1,0 +1,54 @@
+.UserMenu {
+  position: relative;
+}
+
+.toggle_menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle_menu:hover {
+  color: var(--grey-400);
+}
+
+.toggle_menu:hover > .profile_pic {
+  filter: brightness(1.02);
+}
+
+.names {
+  display: block;
+  font-weight: 600;
+}
+
+.profile_pic {
+  height: 3rem;
+  border-radius: 50%;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  position: absolute;
+  top: 110%;
+  right: 0;
+  width: 100%;
+  min-width: 8rem;
+  padding: 1rem;
+  /* border: 1px solid var(--grey-200); */
+  border-radius: var(--btn-border-radius);
+  box-shadow: var(--shadow-2);
+}
+.menu > a:hover {
+  color: var(--grey-400);
+}
+
+@media screen and (max-width: 576px) {
+  .names {
+    display: none;
+  }
+}

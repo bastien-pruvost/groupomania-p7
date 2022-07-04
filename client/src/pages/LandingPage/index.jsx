@@ -13,7 +13,7 @@ function LandingPage() {
               Restez en <span>contact</span> avec vos collègues
             </h1>
             <p>
-              Entretenez des liens avec vos collaborateurs grace à votre nouveau
+              Entretenez des liens avec vos collaborateurs grâce à votre nouveau
               réseau social d'entreprise.
             </p>
             <Link
