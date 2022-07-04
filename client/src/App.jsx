@@ -6,8 +6,13 @@ import Header from 'components/Header';
 import Routing from 'components/Routing';
 
 const App = () => {
-  const [currentUserId, setCurrentUserId] = useState(null);
-  const [currentUserIsAdmin, setCurrentUserIsAdmin] = useState(false);
+  const [currentUser, setCurrentUser] = useState({
+    id: null,
+    isAdmin: false,
+    firstname: '',
+    lastname: '',
+    profilePicUrl: 'defaultProfilePic.jpg'
+  });
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -15,8 +20,7 @@ const App = () => {
     getCurrentUserRequest()
       .then((response) => {
         console.log(response);
-        setCurrentUserId(response.id);
-        setCurrentUserIsAdmin(response.isAdmin);
+        setCurrentUser(response);
       })
       .catch((err) => console.log(err.message))
       .finally(() => setLoading(false));
@@ -26,14 +30,7 @@ const App = () => {
     return <h1>Loader</h1>;
   } else {
     return (
-      <UserContext.Provider
-        value={{
-          currentUserId,
-          setCurrentUserId,
-          currentUserIsAdmin,
-          setCurrentUserIsAdmin
-        }}
-      >
+      <UserContext.Provider value={{ currentUser, setCurrentUser }}>
         <BrowserRouter>
           <Header />
           <Routing />

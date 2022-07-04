@@ -7,13 +7,19 @@ import Wrapper from 'components/Wrapper';
 import Logo from 'components/Logo';
 
 const Header = () => {
-  const { currentUserId, setCurrentUserId } = useContext(UserContext);
+  const { currentUser, setCurrentUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleSignout = () => {
     signoutRequest()
       .then(() => {
-        setCurrentUserId(null);
+        setCurrentUser({
+          id: null,
+          isAdmin: false,
+          firstname: '',
+          lastname: '',
+          profilePicUrl: 'defaultProfilePic.jpg'
+        });
         navigate('/landing');
       })
       .catch((err) => console.log(err));
@@ -27,7 +33,7 @@ const Header = () => {
             <Logo />
           </Link>
 
-          {!!currentUserId && (
+          {!!currentUser.id && (
             <button onClick={handleSignout}>Disconnect</button>
           )}
         </div>

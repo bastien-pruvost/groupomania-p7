@@ -1,5 +1,5 @@
 import styles from './AuthForm.module.css';
-import { useContext, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { UserContext } from 'contexts/UserContext';
@@ -7,7 +7,7 @@ import { authValidation } from 'utils/validationSchemas.utils';
 import { signinRequest, signupRequest } from 'services/auth.services';
 
 const AuthForm = ({ signinMode }) => {
-  const { setCurrentUserId, setCurrentUserIsAdmin } = useContext(UserContext);
+  const { setCurrentUser } = useContext(UserContext);
   const [isLoading, setLoading] = useState(false);
   const [responseErrorMsg, setResponseErrorMsg] = useState([]);
   const {
@@ -20,25 +20,24 @@ const AuthForm = ({ signinMode }) => {
   password.current = watch('password');
   const validationSchema = signinMode ? true : authValidation(password.current);
 
+  useEffect(() => {
+    setResponseErrorMsg([]);
+  }, [signinMode]);
+
   const onSubmit = async (formData) => {
+    setResponseErrorMsg([]);
     setLoading(true);
-    if (signinMode) {
-      signinRequest(formData)
-        .then((response) => {
-          setCurrentUserId(response.userId);
-          setCurrentUserIsAdmin(response.userIsAdmin);
-        })
-        .catch((err) => setResponseErrorMsg([err.message]))
-        .finally(() => setLoading(false));
-    } else {
-      signupRequest(formData)
-        .then((response) => {
-          setCurrentUserId(response.userId);
-          setCurrentUserIsAdmin(response.userIsAdmin);
-        })
-        .catch((err) => setResponseErrorMsg(err.message))
-        .finally(() => setLoading(false));
-    }
+    const authRequest = signinMode ? signinRequest : signupRequest;
+    authRequest(formData)
+      .then((response) => {
+        setCurrentUser(response.user);
+      })
+      .catch((err) => {
+        Array.isArray(err.message)
+          ? setResponseErrorMsg(err.message)
+          : setResponseErrorMsg([err.message]);
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
