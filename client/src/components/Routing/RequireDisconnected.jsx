@@ -2,14 +2,14 @@ import { useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { UserContext } from 'contexts/UserContext';
 
-const RequireAuth = ({ children }) => {
-  const { currentUserId } = useContext(UserContext);
+const RequireDisconnected = ({ children }) => {
+  const { currentUser } = useContext(UserContext);
 
-  if (currentUserId) {
+  if (!currentUser.id) {
     return children ? children : <Outlet />;
   } else {
-    return <Navigate to='/signin' replace />;
+    return <Navigate to='/' replace />;
   }
 };
 
-export default RequireAuth;
+export default RequireDisconnected;
