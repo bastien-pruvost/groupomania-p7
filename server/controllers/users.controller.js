@@ -83,7 +83,7 @@ exports.getCurrentUser = async (req, res) => {
       isAdmin: false,
       firstname: '',
       lastname: '',
-      profilePicUrl: 'defaultProfilePic.jpg'
+      profilePicUrl: 'default-profile-pic.jpg'
     };
     const token = req.cookies.jwt;
     if (!token) {
