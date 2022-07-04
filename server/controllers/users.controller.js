@@ -3,7 +3,7 @@ const argon = require('../utils/argon.utils');
 const { createUser } = require('../queries/users.queries');
 const {
   findUserIdAndPasswordByEmail,
-  findUserRoleById
+  findCurrentUserById
 } = require('../queries/users.queries');
 
 exports.signup = async (req, res) => {
@@ -62,22 +62,26 @@ exports.signout = async (req, res) => {
 
 exports.getCurrentUser = async (req, res) => {
   try {
-    const responseObject = { userId: null, userIsAdmin: false };
+    let responseObject = { id: null, isAdmin: false };
     const token = req.cookies.jwt;
-    console.log(token);
     if (!token) {
       res.clearCookie('jwt');
     } else {
       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-      const user = await findUserRoleById(decodedToken.userId);
-      console.log(user);
+      const user = await findCurrentUserById(decodedToken.userId);
       if (!user) {
         res.clearCookie('jwt');
       } else {
-        responseObject.userId = user.id;
-        responseObject.userIsAdmin = user.isAdmin;
+        responseObject = {
+          id: user.id,
+          isAdmin: user.isAdmin,
+          lastname: user.lastname,
+          firstname: user.firstname,
+          profilePicUrl: user.profilePicUrl
+        };
       }
     }
+    console.log(responseObject);
     return res.status(200).json(responseObject);
   } catch (err) {
     console.log(err);
