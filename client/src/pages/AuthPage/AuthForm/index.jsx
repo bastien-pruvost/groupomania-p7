@@ -1,21 +1,18 @@
 import styles from './AuthForm.module.css';
-import { useContext, useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { UserContext } from 'contexts/UserContext';
 import { authValidation } from 'utils/validationSchemas.utils';
-import { signinRequest, signupRequest } from 'services/auth.services';
+import { Link } from 'react-router-dom';
+import { useAuth } from 'hooks/useAuth';
 
 const AuthForm = ({ signinMode }) => {
-  const { setCurrentUser } = useContext(UserContext);
   const [isLoading, setLoading] = useState(false);
   const [responseErrorMsg, setResponseErrorMsg] = useState([]);
-  const {
-    formState: { errors },
-    handleSubmit,
-    register,
-    watch
-  } = useForm({ mode: 'onSubmit' });
+  const { signin, signup } = useAuth();
+  const { formState, watch, handleSubmit, register } = useForm({
+    mode: 'onSubmit'
+  });
+  const { errors } = formState;
   const password = useRef({});
   password.current = watch('password');
   const validationSchema = signinMode ? true : authValidation(password.current);
@@ -27,16 +24,9 @@ const AuthForm = ({ signinMode }) => {
   const onSubmit = async (formData) => {
     setResponseErrorMsg([]);
     setLoading(true);
-    const authRequest = signinMode ? signinRequest : signupRequest;
+    const authRequest = signinMode ? signin : signup;
     authRequest(formData)
-      .then((response) => {
-        setCurrentUser(response.user);
-      })
-      .catch((err) => {
-        Array.isArray(err.message)
-          ? setResponseErrorMsg(err.message)
-          : setResponseErrorMsg([err.message]);
-      })
+      .catch((err) => setResponseErrorMsg(err))
       .finally(() => setLoading(false));
   };
 

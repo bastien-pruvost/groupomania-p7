@@ -4,29 +4,31 @@ import { getCurrentUserRequest } from 'services/auth.services';
 export const UserContext = createContext();
 
 export const UserContextProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState({
+  const noUser = {
     id: null,
     isAdmin: false,
     firstname: '',
     lastname: '',
     profilePicPath: 'default-profile-pic.jpg'
-  });
-  const [isLoading, setLoading] = useState(true);
+  };
+
+  const [currentUser, setCurrentUser] = useState(noUser);
+  const [isAuthLoading, setAuthLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
+    setAuthLoading(true);
     getCurrentUserRequest()
       .then((response) => {
         console.log(response);
         setCurrentUser(response);
       })
       .catch((err) => console.log(err.message))
-      .finally(() => setLoading(false));
+      .finally(() => setAuthLoading(false));
   }, []);
 
-  const value = { currentUser, setCurrentUser };
+  const value = { currentUser, setCurrentUser, noUser };
 
-  if (isLoading) {
+  if (isAuthLoading) {
     return <h1>Loader</h1>;
   } else {
     return (

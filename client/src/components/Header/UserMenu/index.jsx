@@ -1,14 +1,12 @@
 import styles from './UserMenu.module.css';
-import { useContext, useState } from 'react';
-import { UserContext } from 'contexts/UserContext';
-import { signoutRequest } from 'services/auth.services';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from 'hooks/useAuth';
 import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 
 const UserMenu = () => {
-  const { currentUser, setCurrentUser } = useContext(UserContext);
+  const { currentUser, signout } = useAuth();
   const [isMenuOpen, setMenuOpen] = useState(false);
-  const navigate = useNavigate();
 
   const handleMenu = () => {
     if (!isMenuOpen) {
@@ -27,18 +25,7 @@ const UserMenu = () => {
   };
 
   const handleSignout = () => {
-    signoutRequest()
-      .then(() => {
-        setCurrentUser({
-          id: null,
-          isAdmin: false,
-          firstname: '',
-          lastname: '',
-          profilePicPath: 'default-profile-pic.jpg'
-        });
-        navigate('/landing');
-      })
-      .catch((err) => console.log(err));
+    signout().catch((err) => console.log(err));
   };
 
   return (
