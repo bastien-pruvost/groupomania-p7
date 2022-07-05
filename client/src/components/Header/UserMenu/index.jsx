@@ -1,5 +1,5 @@
 import styles from './UserMenu.module.css';
-import { useContext, useRef, useState, useEffect } from 'react';
+import { useContext, useState } from 'react';
 import { UserContext } from 'contexts/UserContext';
 import { signoutRequest } from 'services/auth.services';
 import { Link, useNavigate } from 'react-router-dom';
