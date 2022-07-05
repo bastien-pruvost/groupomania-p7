@@ -1,0 +1,30 @@
+.PostForm {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: 1rem;
+}
+
+.user_pic {
+  width: 2.5rem;
+  border-radius: 50%;
+}
+
+.bottom_row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.image_error {
+  padding-left: 0;
+  margin-top: 1rem;
+}
+
+.image_preview {
+  max-height: 25rem;
+  max-width: 100%;
+  margin: 1rem 0;
+  border-radius: var(--btn-border-radius);
+  object-fit: contain;
+}

@@ -113,8 +113,6 @@ const AuthForm = ({ signinMode }) => {
         </div>
       )}
 
-      {isLoading && <h2>Loader</h2>}
-
       {responseErrorMsg.length > 0 && (
         <ul className='alert alert-danger'>
           {responseErrorMsg.map((message, index) => (
@@ -125,11 +123,15 @@ const AuthForm = ({ signinMode }) => {
         </ul>
       )}
 
-      <input
-        type='submit'
-        value={signinMode ? `Se Connecter` : `S'inscrire`}
-        className={`${styles.submit_btn} btn btn-primary-red`}
-      />
+      {isLoading ? (
+        <h2>Loader</h2>
+      ) : (
+        <input
+          type='submit'
+          value={signinMode ? `Se Connecter` : `S'inscrire`}
+          className={`${styles.submit_btn} btn btn-primary-red`}
+        />
+      )}
 
       {signinMode ? (
         <p className={styles.switch_auth_text}>

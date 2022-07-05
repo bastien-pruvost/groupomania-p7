@@ -7,6 +7,7 @@ import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 const UserMenu = () => {
   const { currentUser, signout } = useAuth();
   const [isMenuOpen, setMenuOpen] = useState(false);
+  // const cloudinaryUrl = process.env.REACT_APP_CLOUDINARY_URL;
 
   const handleMenu = () => {
     if (!isMenuOpen) {
@@ -41,6 +42,7 @@ const UserMenu = () => {
         >{`${currentUser.firstname} ${currentUser.lastname}`}</span>
         <img
           className={styles.profile_pic}
+          // src={`${cloudinaryUrl}/${currentUser.profilePicPath}`}
           src={defaultProfilePic}
           alt='Photo de profil'
         />
