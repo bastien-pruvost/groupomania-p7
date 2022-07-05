@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import { UserContext } from 'contexts/UserContext';
 import { getCurrentUserRequest } from 'services/auth.services';
 import Header from 'components/Header';
@@ -31,10 +30,8 @@ const App = () => {
   } else {
     return (
       <UserContext.Provider value={{ currentUser, setCurrentUser }}>
-        <BrowserRouter>
-          <Header />
-          <Routing />
-        </BrowserRouter>
+        <Header />
+        <Routing />
       </UserContext.Provider>
     );
   }

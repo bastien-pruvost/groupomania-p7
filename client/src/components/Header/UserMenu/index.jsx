@@ -9,7 +9,6 @@ const UserMenu = () => {
   const { currentUser, setCurrentUser } = useContext(UserContext);
   const [isMenuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const menuRef = useRef();
 
   const handleMenu = () => {
     if (!isMenuOpen) {

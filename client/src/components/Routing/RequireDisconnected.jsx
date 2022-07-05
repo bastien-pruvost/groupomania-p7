@@ -7,9 +7,9 @@ const RequireDisconnected = ({ children }) => {
 
   if (!currentUser.id) {
     return children ? children : <Outlet />;
-  } else {
-    return <Navigate to='/' replace />;
   }
+
+  return <Navigate to='/' replace />;
 };
 
 export default RequireDisconnected;
