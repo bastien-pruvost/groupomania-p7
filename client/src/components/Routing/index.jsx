@@ -5,6 +5,8 @@ import LandingPage from 'pages/LandingPage';
 import AuthPage from 'pages/AuthPage';
 import HomePage from 'pages/HomePage';
 import ErrorPage from 'pages/ErrorPage';
+import FeedPage from 'pages/HomePage/FeedPage';
+import ProfilePage from 'pages/HomePage/ProfilePage';
 
 const Routing = () => {
   return (
@@ -17,8 +19,8 @@ const Routing = () => {
       <Route element={<RequireConnected />}>
         <Route path='/' element={<HomePage />}>
           <Route index element={<Navigate to='feed' />} />
-          <Route path='feed' element={<h1>Feed</h1>} />
-          <Route path='profile' element={<h1>Profil</h1>} />
+          <Route path='feed' element={<FeedPage />} />
+          <Route path='profile/:userId' element={<ProfilePage />} />
         </Route>
       </Route>
       <Route path='*' element={<ErrorPage />} />

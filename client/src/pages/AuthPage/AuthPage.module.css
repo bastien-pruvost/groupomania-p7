@@ -1,7 +1,3 @@
-.AuthPage {
-  min-height: 100vh;
-}
-
 .container {
   min-height: calc(95vh - var(--header-height));
   display: flex;

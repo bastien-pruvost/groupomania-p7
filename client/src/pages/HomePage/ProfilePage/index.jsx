@@ -2,7 +2,7 @@ import styles from './ProfilePage.module.css';
 
 const ProfilePage = () => {
   return (
-    <div>
+    <div className={styles.ProfilePage}>
       <h1>ProfilePage</h1>
     </div>
   );

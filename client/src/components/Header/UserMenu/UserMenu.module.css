@@ -34,12 +34,11 @@
   align-items: center;
   gap: 1rem;
   position: absolute;
-  top: 110%;
+  top: 130%;
   right: 0;
   width: 100%;
   min-width: 8rem;
   padding: 1rem;
-  /* border: 1px solid var(--grey-200); */
   border-radius: var(--btn-border-radius);
   box-shadow: var(--shadow-2);
 }

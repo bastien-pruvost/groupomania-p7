@@ -4,13 +4,11 @@ import AuthForm from 'pages/AuthPage/AuthForm';
 
 const AuthPage = ({ signinMode }) => {
   return (
-    <div className={styles.AuthPage}>
-      <Wrapper>
-        <div className={styles.container}>
-          <AuthForm signinMode={signinMode} />
-        </div>
-      </Wrapper>
-    </div>
+    <Wrapper>
+      <div className={styles.container}>
+        <AuthForm signinMode={signinMode} />
+      </div>
+    </Wrapper>
   );
 };
 export default AuthPage;
