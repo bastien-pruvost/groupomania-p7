@@ -13,9 +13,9 @@ require('./models/db-relations');
 
 db.sync({ alter: true, force: false })
   .then(console.log('Connexion a la base de données OK'))
-  .catch((err) =>
-    console.log(`Erreur de connexion a la base de données : ${err}`)
-  );
+  .catch((err) => {
+    console.log(`Erreur de connexion a la base de données : ${err}`);
+  });
 
 // Initialize express
 const app = express();
