@@ -108,7 +108,7 @@
   /* Fonts  */
   --heading-font: 'Lato', sans-serif;
   --body-font: 'Lato', sans-serif;
-  --letter-spacing: 1px;
+  --letter-spacing: 0.5px;
   --heading-color: var(--grey-700);
   --text-color: var(--grey-600);
 
@@ -235,8 +235,8 @@ h5 {
 /* Buttons */
 .btn {
   display: inline-block;
-  padding: 0.8rem 1.6rem;
-  font-size: 1.2rem;
+  padding: 0.7rem 1.6rem;
+  font-size: 1.1rem;
   font-weight: 600;
   letter-spacing: var(--letter-spacing);
   text-transform: capitalize;
@@ -270,6 +270,7 @@ h5 {
 .btn-primary-red:active {
   color: var(--white);
   background: var(--primary-400);
+  border: 2px solid var(--primary-400);
 }
 
 .btn-secondary-red {
@@ -286,6 +287,40 @@ h5 {
 .btn-secondary-red:active {
   color: var(--primary-400);
   border: 2px solid var(--primary-400);
+}
+
+.btn-primary-grey {
+  color: var(--white);
+  background: var(--grey-600);
+  border: 2px solid var(--grey-600);
+}
+
+.btn-primary-grey:hover {
+  color: var(--white);
+  background: var(--grey-700);
+  border: 2px solid var(--grey-700);
+}
+
+.btn-primary-grey:active {
+  color: var(--white);
+  background: var(--grey-400);
+  border: 2px solid var(--grey-400);
+}
+
+.btn-secondary-grey {
+  color: var(--grey-600);
+  background: transparent;
+  border: 2px solid var(--grey-600);
+}
+
+.btn-secondary-grey:hover {
+  color: var(--grey-700);
+  border: 2px solid var(--grey-700);
+}
+
+.btn-secondary-grey:active {
+  color: var(--grey-400);
+  border: 2px solid var(--grey-400);
 }
 
 .btn-ghost {
@@ -365,10 +400,19 @@ h5 {
   border-radius: var(--btn-border-radius);
   border: 1px solid var(--grey-200);
   outline: none;
+  resize: none;
 }
 
-.form-input:focus-visible {
-  border: 2px solid var(--grey-700);
+.form-textarea {
+  height: 3.15rem;
+  overflow: hidden;
+  line-height: 1.5;
+  letter-spacing: 0.2px;
+}
+
+.form-input:focus-visible,
+.form-textarea:focus-visible {
+  border: 1px solid var(--grey-500);
 }
 
 .form-input.error,
@@ -378,10 +422,6 @@ h5 {
 
 .form-input:focus-visible.error {
   border: 2px solid var(--danger-text);
-}
-
-.form-textarea {
-  min-height: 7rem;
 }
 
 ::placeholder {
@@ -395,6 +435,19 @@ h5 {
   letter-spacing: 0.6px;
   margin-top: 0.25rem;
   padding-left: 0.2rem;
+}
+
+.form-file-label {
+  cursor: pointer;
+}
+
+.form-file-label:hover {
+  color: var(--grey-900);
+  user-select: none;
+}
+
+.form-file-input {
+  display: none;
 }
 
 /* alert */
