@@ -1,6 +1,8 @@
 const User = require('./user.model');
 const Post = require('./post.model');
 const Comment = require('./comment.model');
+const UserLikePost = require('./user_like_post.model');
+const UserLikeComment = require('./user_like_comment.model');
 
 // Post -> userId (Post author)
 User.hasMany(Post, {
@@ -27,9 +29,17 @@ Post.hasMany(Comment, {
 Comment.belongsTo(Post);
 
 // User <- UserLikePost -> Post (Post liked by User)
-User.belongsToMany(Post, { through: 'user_like_post' });
-Post.belongsToMany(User, { through: 'user_like_post' });
+User.belongsToMany(Post, { through: UserLikePost });
+Post.belongsToMany(User, { through: UserLikePost });
+User.hasMany(UserLikePost);
+Post.hasMany(UserLikePost);
+UserLikePost.belongsTo(User);
+UserLikePost.belongsTo(Post);
 
 // User <- UserLikeComment -> Post (Comment liked by User)
-User.belongsToMany(Comment, { through: 'user_like_comment' });
-Comment.belongsToMany(User, { through: 'user_like_comment' });
+User.belongsToMany(Comment, { through: UserLikeComment });
+Comment.belongsToMany(User, { through: UserLikeComment });
+User.hasMany(UserLikeComment);
+Comment.hasMany(UserLikeComment);
+UserLikeComment.belongsTo(User);
+UserLikeComment.belongsTo(Comment);
