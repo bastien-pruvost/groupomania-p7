@@ -55,27 +55,28 @@ export const authValidation = (passwordRef) => {
 
 // Validation schema with error messages for authentication form
 export const postValidation = () => {
+  const acceptedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+
   return {
     content: {
-      isNotEmpty: (value) =>
-        !validator.isEmpty(value) || 'Vous devez renseigner un email',
-      isEmail: (value) =>
-        validator.isEmail(value) || `L'email n'est pas au bon format`
+      isLength: (value) =>
+        validator.isLength(value, { max: 3000 }) ||
+        'Le contenu du post ne doit pas depasser 3000 caractères'
     },
     image: {
-      isNotEmpty: (value) =>
-        !validator.isEmpty(value) || 'Vous devez renseigner un mot de passe',
-      isLength: (value) =>
-        validator.isLength(value, { min: 8, max: 1024 }) ||
-        'Le mot de passe doit contenir au minimum 8 caractères',
-      isStrong: (value) =>
-        validator.isStrongPassword(value, {
-          minLowercase: 1,
-          minUppercase: 1,
-          minNumbers: 1,
-          minSymbols: 1
-        }) ||
-        'Le mot de passe doit contenir au minimum une majuscule, une minuscule, un chiffre et un caractère spécial'
+      isImage: (value) => {
+        if (value.length > 0) {
+          return (
+            acceptedTypes.includes(value[0].type) ||
+            `L'image doit être au format JPEG, JPG, ou PNG`
+          );
+        }
+      },
+      isAcceptedSize: (value) => {
+        if (value.length > 0) {
+          return value[0].size < 1150000 || `L'image ne doit pas dépasser 1 Mo`;
+        }
+      }
     }
   };
 };
