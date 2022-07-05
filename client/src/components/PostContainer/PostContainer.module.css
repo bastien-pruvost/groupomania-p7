@@ -1,0 +1,9 @@
+.PostContainer {
+  width: 100%;
+  max-width: var(--post-max-width);
+  margin: 0 auto;
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  background-color: var(--grey-50);
+  box-shadow: var(--shadow-3);
+}

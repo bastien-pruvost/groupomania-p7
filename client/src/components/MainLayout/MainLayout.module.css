@@ -1,0 +1,6 @@
+.MainLayout {
+  min-height: calc(100vh - var(--header-height) - 2rem);
+  padding: 2rem;
+  background-color: var(--grey-100);
+  border-radius: var(--border-radius);
+}

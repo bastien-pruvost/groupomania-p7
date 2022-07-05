@@ -52,3 +52,30 @@ export const authValidation = (passwordRef) => {
     }
   };
 };
+
+// Validation schema with error messages for authentication form
+export const postValidation = () => {
+  return {
+    content: {
+      isNotEmpty: (value) =>
+        !validator.isEmpty(value) || 'Vous devez renseigner un email',
+      isEmail: (value) =>
+        validator.isEmail(value) || `L'email n'est pas au bon format`
+    },
+    image: {
+      isNotEmpty: (value) =>
+        !validator.isEmpty(value) || 'Vous devez renseigner un mot de passe',
+      isLength: (value) =>
+        validator.isLength(value, { min: 8, max: 1024 }) ||
+        'Le mot de passe doit contenir au minimum 8 caractères',
+      isStrong: (value) =>
+        validator.isStrongPassword(value, {
+          minLowercase: 1,
+          minUppercase: 1,
+          minNumbers: 1,
+          minSymbols: 1
+        }) ||
+        'Le mot de passe doit contenir au minimum une majuscule, une minuscule, un chiffre et un caractère spécial'
+    }
+  };
+};

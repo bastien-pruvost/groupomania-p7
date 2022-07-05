@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 import { useAuth } from 'hooks/useAuth';
 
 const AuthForm = ({ signinMode }) => {
+  const { signin, signup } = useAuth();
   const [isLoading, setLoading] = useState(false);
   const [responseErrorMsg, setResponseErrorMsg] = useState([]);
-  const { signin, signup } = useAuth();
   const { formState, watch, handleSubmit, register } = useForm({
     mode: 'onSubmit'
   });
@@ -34,7 +34,7 @@ const AuthForm = ({ signinMode }) => {
     <form
       className={styles.AuthForm}
       onSubmit={handleSubmit(onSubmit)}
-      id='auth-form'
+      // id='auth-form'
     >
       <h2>{signinMode ? 'Connexion' : 'Inscription'}</h2>
 
