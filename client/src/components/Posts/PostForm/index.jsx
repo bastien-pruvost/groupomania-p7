@@ -27,7 +27,7 @@ const PostForm = () => {
 
   const adjustTextareaHeight = (e) => {
     e.target.style.height = '1px';
-    e.target.style.height = 0.5 + e.target.scrollHeight + 'px';
+    e.target.style.height = e.target.scrollHeight + 'px';
   };
 
   const handlePreview = (e) => {
@@ -68,10 +68,10 @@ const PostForm = () => {
         </div>
 
         <textarea
-          id='content'
+          // id='content'
           placeholder={`Rediger un post...`}
           className={`form-textarea ${styles.content_textarea} ${
-            errors.content && 'error'
+            errors.content ? 'error' : ''
           }`}
           onInput={(e) => adjustTextareaHeight(e)}
           {...register('content', { validate: validationSchema.content })}
