@@ -1,4 +1,7 @@
-const { saveNewPost, findAllPosts } = require('../queries/posts.queries');
+const {
+  saveNewPost,
+  findAllPostsWithCommentsAndLikes
+} = require('../queries/posts.queries');
 const { deleteFile, uploadPostPic } = require('../utils/fileUpload.utils');
 
 exports.createPost = [
@@ -24,7 +27,7 @@ exports.createPost = [
 exports.getAllPosts = async (req, res) => {
   try {
     const { offset } = req.body;
-    const posts = await findAllPosts(offset);
+    const posts = await findAllPostsWithCommentsAndLikes(offset);
     return res.status(200).json({ posts });
   } catch (err) {
     console.log(err);

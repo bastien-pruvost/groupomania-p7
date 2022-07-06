@@ -8,7 +8,7 @@ const UserLikeComment = require('../models/user_like_comment.model');
 
 exports.saveNewPost = (post) => Post.create(post);
 
-exports.findAllPosts = (offset) => {
+exports.findAllPostsWithCommentsAndLikes = (offset) => {
   const posts = Post.findAll({
     order: [['createdAt', 'DESC']],
     attributes: ['id', 'content', 'imagePath', 'createdAt', 'updatedAt'],
