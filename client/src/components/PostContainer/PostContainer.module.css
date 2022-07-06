@@ -2,8 +2,14 @@
   width: 100%;
   max-width: var(--post-max-width);
   margin: 0 auto;
-  padding: 1.5rem;
+  padding: 1.25rem;
   border-radius: var(--border-radius);
   background-color: var(--grey-50);
   box-shadow: var(--shadow-3);
+}
+
+@media screen and (max-width: 576px) {
+  .PostContainer {
+    padding: 1rem;
+  }
 }

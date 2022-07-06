@@ -1,7 +1,14 @@
 .PostForm {
-  display: grid;
-  grid-template-columns: 2.5rem 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
+}
+
+.top_row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
 }
 
 .user_pic {
@@ -9,22 +16,40 @@
   border-radius: 50%;
 }
 
+.form_group {
+  margin: 0;
+}
+
+.content_textarea {
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
 .bottom_row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1rem;
 }
 
 .image_error {
   padding-left: 0;
-  margin-top: 1rem;
+  margin-top: 0.75rem;
 }
 
 .image_preview {
-  max-height: 25rem;
+  max-height: 23rem;
   max-width: 100%;
-  margin: 1rem 0;
+  height: fit-content;
+  width: fit-content;
   border-radius: var(--btn-border-radius);
   object-fit: contain;
+  margin: auto;
+}
+
+@media screen and (max-width: 576px) {
+  .bottom_row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
 }

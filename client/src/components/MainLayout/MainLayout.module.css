@@ -1,6 +1,13 @@
 .MainLayout {
   min-height: calc(100vh - var(--header-height) - 2rem);
-  padding: 2rem;
+  padding: 1.5rem;
   background-color: var(--grey-100);
   border-radius: var(--border-radius);
+}
+
+@media screen and (max-width: 576px) {
+  .MainLayout {
+    margin: 0 -1rem;
+    padding: 0.5rem;
+  }
 }

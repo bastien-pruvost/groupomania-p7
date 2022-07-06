@@ -384,6 +384,7 @@ h5 {
 
 .form-group {
   margin-bottom: 1.25rem;
+  width: 100%;
 }
 
 .form-label {
@@ -404,10 +405,10 @@ h5 {
 }
 
 .form-textarea {
-  height: 3.15rem;
+  height: 3.1rem;
   overflow: hidden;
-  line-height: 1.5;
-  letter-spacing: 0.2px;
+  line-height: 1.4;
+  letter-spacing: 0.15px;
 }
 
 .form-input:focus-visible,
@@ -475,21 +476,31 @@ h5 {
     font-size: 2.5rem;
     font-weight: 700;
   }
+
   h2 {
     font-size: 2rem;
   }
+
   h3 {
     font-size: 1.5rem;
   }
+
   h4 {
     font-size: 1.25rem;
   }
+
   h5 {
     font-size: 1rem;
   }
+
   small,
   .text-small {
     font-size: var(--small-text);
+  }
+
+  .wrapper {
+    padding-left: var(--wrapper-padding-md);
+    padding-right: var(--wrapper-padding-md);
   }
 }
 
@@ -521,17 +532,6 @@ h5 {
   }
 
   .wrapper {
-    max-width: var(--wrapper);
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: var(--wrapper-padding-sm);
-    padding-right: var(--wrapper-padding-sm);
-  }
-
-  .wrapper-large {
-    max-width: var(--wrapper-large);
-    margin-left: auto;
-    margin-right: auto;
     padding-left: var(--wrapper-padding-sm);
     padding-right: var(--wrapper-padding-sm);
   }
