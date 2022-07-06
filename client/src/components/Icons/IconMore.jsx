@@ -1,6 +1,6 @@
-import styles from './Icon.module.css';
+// import styles from './Icon.module.css';
 
-const Icon = ({ icon, size, color }) => {
+const IconMore = ({ size, color }) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -9,6 +9,7 @@ const Icon = ({ icon, size, color }) => {
       strokeLinecap='round'
       strokeLinejoin='round'
       stroke={color ? color : 'currentColor'}
+      fill='none'
       width={size}
       height={size}
     >
@@ -19,4 +20,4 @@ const Icon = ({ icon, size, color }) => {
   );
 };
 
-export default Icon;
+export default IconMore;
