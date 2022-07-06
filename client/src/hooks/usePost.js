@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { createPostRequest } from 'services/posts.services';
 
 export const usePost = () => {
-  const [postsList, setPostsList] = useState([]);
+  const [postList, setPostList] = useState([]);
 
   const createPost = async (formData) => {
     try {
@@ -12,5 +12,5 @@ export const usePost = () => {
     }
   };
 
-  return { createPost, postsList, setPostsList };
+  return { createPost, postList, setPostList };
 };
