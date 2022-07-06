@@ -105,7 +105,7 @@
   --green-light: #d1e7dd;
   --green-dark: #0f5132;
   --heart-like-color: #da7b83;
-  --heading-color: var(--grey-700);
+  --heading-color: var(--grey-600);
   --text-color: var(--grey-700);
   --background-color: var(--white);
 
@@ -407,7 +407,7 @@ h5 {
 }
 
 .form-textarea {
-  height: 3.1rem;
+  height: 3.095rem;
   overflow: hidden;
   line-height: 1.4;
   letter-spacing: 0.15px;

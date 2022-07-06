@@ -1,7 +1,7 @@
 .SinglePost {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .top_row {
@@ -25,6 +25,7 @@
 
 .name_text {
   text-transform: capitalize;
+  font-weight: 600;
 }
 
 .time_text {
@@ -38,4 +39,21 @@
   border-radius: var(--btn-border-radius);
   object-fit: cover;
   margin: auto;
+}
+
+.counts_row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.5rem;
+  padding-bottom: 1rem;
+  font-size: 1rem;
+  border-bottom: 1px solid var(--grey-200);
+}
+
+.interaction_row {
+  display: flex;
+  gap: 3rem;
+  padding: 1rem 0;
+  font-size: 1rem;
+  border-bottom: 1px solid var(--grey-200);
 }
