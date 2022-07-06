@@ -4,11 +4,11 @@ import Wrapper from 'components/Wrapper';
 
 const MainLayout = () => {
   return (
-    <Wrapper>
-      <div className={styles.MainLayout}>
+    <div className={styles.MainLayout}>
+      <Wrapper>
         <Outlet />
-      </div>
-    </Wrapper>
+      </Wrapper>
+    </div>
   );
 };
 
