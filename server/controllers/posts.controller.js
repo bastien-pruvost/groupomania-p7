@@ -11,7 +11,6 @@ exports.createPost = [
         imagePath: req.file ? file.filename : null,
         userId: user.id
       };
-      console.log(post);
       const newPost = await saveNewPost(post);
       return res
         .status(201)
