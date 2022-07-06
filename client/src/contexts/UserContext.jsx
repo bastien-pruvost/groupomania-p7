@@ -1,3 +1,4 @@
+import Loader from 'components/Loader';
 import { useState, useEffect, createContext } from 'react';
 import { getCurrentUserRequest } from 'services/auth.services';
 
@@ -29,7 +30,7 @@ export const UserContextProvider = ({ children }) => {
   const value = { currentUser, setCurrentUser, noUser };
 
   if (isAuthLoading) {
-    return <h1>Loader</h1>;
+    return <Loader />;
   } else {
     return (
       <UserContext.Provider value={value}>{children}</UserContext.Provider>

@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { authValidation } from 'utils/validationSchemas.utils';
 import { Link } from 'react-router-dom';
 import { useAuth } from 'hooks/useAuth';
+import Loader from 'components/Loader';
 
 const AuthForm = ({ signinMode }) => {
   const { signin, signup } = useAuth();
@@ -24,8 +25,8 @@ const AuthForm = ({ signinMode }) => {
   const onSubmit = async (formData) => {
     setResponseErrorMsg([]);
     setLoading(true);
-    const authRequest = signinMode ? signin : signup;
-    authRequest(formData)
+    const authMethod = signinMode ? signin : signup;
+    authMethod(formData)
       .catch((err) => setResponseErrorMsg(err))
       .finally(() => setLoading(false));
   };
@@ -124,7 +125,7 @@ const AuthForm = ({ signinMode }) => {
       )}
 
       {isLoading ? (
-        <h2>Loader</h2>
+        <Loader />
       ) : (
         <input
           type='submit'
