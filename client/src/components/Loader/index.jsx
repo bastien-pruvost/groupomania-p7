@@ -1,9 +1,9 @@
-import styles from './style.module.css';
+import styles from './Loader.module.css';
 
-const Loader = () => {
+const Loader = ({ grey }) => {
   return (
     <div className={styles.Loader}>
-      <span className={styles.spinner}></span>
+      <span className={`${styles.spinner} ${grey && styles.grey}`}></span>
     </div>
   );
 };
