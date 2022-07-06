@@ -1,16 +1,16 @@
 import { createRoot } from 'react-dom/client';
+// import { StrictMode } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
 import 'assets/styles/normalize.css';
 import 'assets/styles/index.css';
-import App from './App';
-import { StrictMode } from 'react';
-import { BrowserRouter } from 'react-router-dom';
 
 const root = createRoot(document.getElementById('root'));
 
 root.render(
-  <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </StrictMode>
+  // <StrictMode>
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+  // </StrictMode>
 );
