@@ -69,6 +69,7 @@ const PostForm = () => {
 
         <textarea
           id='content'
+          placeholder={`Rediger un post...`}
           className={`form-textarea ${styles.content_textarea} ${
             errors.content && 'error'
           }`}
