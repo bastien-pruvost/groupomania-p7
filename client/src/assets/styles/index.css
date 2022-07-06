@@ -115,7 +115,7 @@
   /* Wrappers */
   --wrapper: 1276px;
   --wrapper-large: 1476px;
-  --post-max-width: 600px;
+  --post-max-width: 35rem;
   --fixed-width: 600px;
 
   --wrapper-padding: 2rem;
@@ -132,7 +132,8 @@
   /* Box shadows */
   --shadow-1: rgba(33, 34, 43, 0.2) 0px 1px 4px;
   --shadow-2: rgba(33, 34, 43, 0.25) 1px 2px 6px;
-  --shadow-3: rgba(33, 34, 43, 0.1) 1px 2px 16px;
+  --shadow-3: rgba(33, 34, 43, 0.08) 1px 2px 10px;
+  --inner-shadow-1: inset rgba(33, 34, 43, 0.03) 1px 2px 10px;
 }
 
 @media screen and (max-width: 576px) {
