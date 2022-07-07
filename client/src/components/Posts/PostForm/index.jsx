@@ -70,20 +70,14 @@ const PostForm = () => {
         <textarea
           // id='content'
           placeholder={`Rediger un post...`}
-          className={`form-textarea ${styles.content_textarea} ${
-            errors.content ? 'error' : ''
-          }`}
+          className={`form-textarea ${styles.content_textarea} ${errors.content ? 'error' : ''}`}
           onInput={(e) => adjustTextareaHeight(e)}
           {...register('content', { validate: validationSchema.content })}
         />
 
-        {!!errors.content?.message && (
-          <span className='form-alert'>{errors.content.message}</span>
-        )}
+        {!!errors.content?.message && <span className='form-alert'>{errors.content.message}</span>}
 
-        {!!filePreview && (
-          <img className={styles.image_preview} src={filePreview} alt='' />
-        )}
+        {!!filePreview && <img className={styles.image_preview} src={filePreview} alt='' />}
 
         {responseErrorMsg.length > 0 && (
           <ul className='alert alert-danger'>
@@ -98,15 +92,11 @@ const PostForm = () => {
         <div className={styles.bottom_row}>
           <div>
             <label className='form-file-label' htmlFor='image'>
-              {!formState.dirtyFields.image
-                ? 'Ajouter une image'
-                : `Modifier l'image`}
+              {!formState.dirtyFields.image ? 'Ajouter une image' : `Modifier l'image`}
             </label>
 
             {!!errors.image?.message && (
-              <span className={`form-alert ${styles.image_error}`}>
-                {errors.image.message}
-              </span>
+              <span className={`form-alert ${styles.image_error}`}>{errors.image.message}</span>
             )}
           </div>
           <input

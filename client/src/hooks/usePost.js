@@ -1,8 +1,5 @@
 import { useState } from 'react';
-import {
-  createPostRequest,
-  getPaginatePostsRequest
-} from 'services/posts.services';
+import { createPostRequest, getPaginatePostsRequest } from 'services/posts.services';
 
 export const usePost = () => {
   const [postList, setPostList] = useState([]);

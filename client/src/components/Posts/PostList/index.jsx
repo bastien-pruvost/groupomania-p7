@@ -5,20 +5,12 @@ import { useEffect, useRef } from 'react';
 import { usePost } from 'hooks/usePost';
 
 const PostList = () => {
-  const {
-    postList,
-    handleInfiniteScroll,
-    getPaginatePosts,
-    page,
-    allPostsLoaded
-  } = usePost();
+  const { postList, handleInfiniteScroll, getPaginatePosts, page, allPostsLoaded } = usePost();
   const scroll = useRef(null);
 
   useEffect(() => {
     const scrollRef = scroll.current;
-    const infiniteScrollObserver = new IntersectionObserver(
-      handleInfiniteScroll
-    );
+    const infiniteScrollObserver = new IntersectionObserver(handleInfiniteScroll);
     setTimeout(() => {
       if (scrollRef) infiniteScrollObserver.observe(scrollRef);
     }, 1500);
@@ -38,9 +30,7 @@ const PostList = () => {
       ))}
 
       {allPostsLoaded ? (
-        <p className={styles.end_message}>
-          Il n'y a pas de posts plus anciens...
-        </p>
+        <p className={styles.end_message}>Il n'y a pas de posts plus anciens...</p>
       ) : (
         <Loader grey={true} />
       )}
