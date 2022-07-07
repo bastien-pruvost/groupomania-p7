@@ -12,7 +12,7 @@ const Post = db.define('post', {
     type: DataTypes.TEXT
   },
   imagePath: {
-    type: DataTypes.TEXT
+    type: DataTypes.STRING(2083)
   }
 });
 

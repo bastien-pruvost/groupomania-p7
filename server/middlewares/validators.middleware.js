@@ -3,14 +3,28 @@ const { validationResult, body } = require('express-validator');
 // Manages errors from different express-validators to return them to the user
 const checkValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    const message = [];
-    errors.errors.forEach((error) => {
-      message.push(error.msg);
-    });
-    return res.status(400).json({ message });
+  if (errors.isEmpty()) {
+    return next();
   }
-  return next();
+  const message = [];
+  errors.errors.forEach((error) => {
+    message.push(error.msg);
+  });
+  return res.status(400).json({ message });
+};
+
+exports.multerValidator = (req, file, cb) => {
+  const fileSize = parseInt(req.headers['content-length'], 10);
+  const acceptedMimetypes = ['image/png', 'image/jpg', 'image/jpeg'];
+  if (fileSize > 1150000) {
+    req.multerSizeError = true;
+    return cb(null, false);
+  }
+  if (!acceptedMimetypes.includes(file.mimetype)) {
+    req.multerTypeError = true;
+    return cb(null, false);
+  }
+  return cb(null, true);
 };
 
 // Check the format of inputs in the signup form

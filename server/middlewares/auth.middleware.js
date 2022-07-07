@@ -24,17 +24,17 @@ exports.ensureAuthenticated = async (req, res, next) => {
   }
 };
 
-// Middleware to add signin and signout feature on req object
+// Middleware to add signin and signout functions to req object
 exports.addAuthFeatures = (req, res, next) => {
+  req.signout = () => res.clearCookie('jwt');
   req.signin = (userId) => {
     const token = createJwt(userId);
     res.cookie('jwt', token, {
-      // secure: true,
       httpOnly: true,
       sameSite: 'strict',
       maxAge: jwtConfig.maxAge
+      // secure: true,
     });
   };
-  req.signout = () => res.clearCookie('jwt');
   next();
 };
