@@ -1,0 +1,6 @@
+.end_message {
+  margin: 1.5rem auto 0;
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--grey-600);
+}

@@ -9,3 +9,14 @@ export const createPostRequest = async (data) => {
     handleError(err);
   }
 };
+
+export const getPaginatePostsRequest = async (lastId, limit) => {
+  try {
+    const response = await api.get('/posts', {
+      params: { lastId, limit }
+    });
+    return response.data.posts;
+  } catch (err) {
+    handleError(err);
+  }
+};

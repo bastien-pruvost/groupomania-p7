@@ -30,9 +30,13 @@ export const useAuth = () => {
   };
 
   const signout = async () => {
-    await signoutRequest();
-    setCurrentUser(noUser);
-    navigate('/landing');
+    try {
+      await signoutRequest();
+      setCurrentUser(noUser);
+      navigate('/landing');
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return { signin, signup, signout, currentUser, noUser };

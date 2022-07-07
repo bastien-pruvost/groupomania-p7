@@ -1,8 +1,16 @@
 import { useState } from 'react';
-import { createPostRequest } from 'services/posts.services';
+import {
+  createPostRequest,
+  getPaginatePostsRequest
+} from 'services/posts.services';
 
 export const usePost = () => {
   const [postList, setPostList] = useState([]);
+  const [page, setPage] = useState(1);
+  const [lastId, setLastId] = useState(null);
+  const [allPostsLoaded, setAllPostsLoaded] = useState(false);
+
+  const limitPerPage = 8;
 
   const createPost = async (formData) => {
     try {
@@ -12,5 +20,34 @@ export const usePost = () => {
     }
   };
 
-  return { createPost, postList, setPostList };
+  const getPaginatePosts = async () => {
+    try {
+      const posts = await getPaginatePostsRequest(lastId, limitPerPage);
+      if (posts.length < limitPerPage) {
+        setAllPostsLoaded(true);
+      } else {
+        setLastId(posts[posts.length - 1].id);
+      }
+      setPostList((prevPosts) => [...prevPosts, ...posts]);
+      console.log(posts);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleInfiniteScroll = (entries) => {
+    const target = entries[0];
+    if (target.isIntersecting) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
+
+  return {
+    createPost,
+    postList,
+    handleInfiniteScroll,
+    getPaginatePosts,
+    page,
+    allPostsLoaded
+  };
 };

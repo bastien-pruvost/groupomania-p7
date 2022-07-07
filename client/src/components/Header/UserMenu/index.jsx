@@ -26,7 +26,7 @@ const UserMenu = () => {
   };
 
   const handleSignout = () => {
-    signout().catch((err) => console.log(err));
+    signout();
   };
 
   return (
