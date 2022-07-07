@@ -125,7 +125,7 @@
   --wrapper-padding-sm: 1rem;
 
   /* Other vars */
-  --header-height: 6rem;
+  --header-height: 5.5rem;
   --border-radius: 0.6rem;
   --btn-border-radius: 0.4rem;
   --transition: 0.15s ease-in-out all;
@@ -139,7 +139,7 @@
 
 @media screen and (max-width: 576px) {
   :root {
-    --header-height: 5.5rem;
+    --header-height: 5rem;
   }
 }
 
@@ -442,10 +442,12 @@ h5 {
 
 .form-file-label {
   cursor: pointer;
+  color: var(--grey-600);
+  transition: var(--transition);
 }
 
 .form-file-label:hover {
-  color: var(--grey-900);
+  color: var(--grey-400);
   user-select: none;
 }
 

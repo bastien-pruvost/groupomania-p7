@@ -39,7 +39,7 @@
   width: 100%;
   min-width: 10rem;
   padding: 1rem;
-  background-color: var(--grey-50);
+  background-color: var(--white);
   border-radius: var(--btn-border-radius);
   box-shadow: var(--shadow-2);
 }
