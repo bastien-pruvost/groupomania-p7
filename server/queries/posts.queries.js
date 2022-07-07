@@ -1,4 +1,4 @@
-const sequelize = require('sequelize');
+const { Op } = require('sequelize');
 const db = require('../configs/db.config');
 const Post = require('../models/post.model');
 const User = require('../models/user.model');
@@ -8,10 +8,12 @@ const UserLikeComment = require('../models/user_like_comment.model');
 
 exports.saveNewPost = (post) => Post.create(post);
 
-exports.findAllPostsWithCommentsAndLikes = (offset) => {
+exports.findAllPostsWithCommentsAndLikes = (lastId, limit) => {
+  const idOperator = lastId ? { [Op.lt]: lastId } : { [Op.gt]: 0 };
   const posts = Post.findAll({
     order: [['createdAt', 'DESC']],
     attributes: ['id', 'content', 'imagePath', 'createdAt', 'updatedAt'],
+    where: { id: idOperator },
     include: [
       {
         model: User,
@@ -49,8 +51,7 @@ exports.findAllPostsWithCommentsAndLikes = (offset) => {
         ]
       }
     ],
-    offset: Number.isNaN(offset) ? null : offset,
-    limit: 10,
+    limit,
     group: ['id']
   });
 

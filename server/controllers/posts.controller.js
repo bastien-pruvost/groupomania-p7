@@ -26,8 +26,10 @@ exports.createPost = [
 
 exports.getAllPosts = async (req, res) => {
   try {
-    const { offset } = req.body;
-    const posts = await findAllPostsWithCommentsAndLikes(offset);
+    const lastId = Number(req.query.lastId);
+    const limit = Number(req.query.limit);
+    console.log(req.query);
+    const posts = await findAllPostsWithCommentsAndLikes(lastId, limit);
     return res.status(200).json({ posts });
   } catch (err) {
     console.log(err);
