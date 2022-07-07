@@ -1,12 +1,13 @@
 .CommentForm {
   display: flex;
   align-items: flex-start;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .user_pic {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-top: 0.25rem;
   border-radius: 50%;
 }
 

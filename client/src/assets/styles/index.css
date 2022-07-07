@@ -162,7 +162,7 @@ html {
 body {
   background-color: var(--background-color);
   font-family: var(--body-font);
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 400;
 
   color: var(--text-color);
