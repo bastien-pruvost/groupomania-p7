@@ -9,9 +9,8 @@ exports.createPost = async (req, res) => {
       imagePath: req.file ? file.filename : null,
       userId: user.id
     };
-    console.log(post);
-    // const newPost = await saveNewPost(post);
-    return res.status(201).json({ message: 'Le post a été publié', post: 'newPost' });
+    const savedPost = await saveNewPost(post);
+    return res.status(201).json({ message: 'Le post a été publié', post: savedPost });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }

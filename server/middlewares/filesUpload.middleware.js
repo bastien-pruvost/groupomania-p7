@@ -48,7 +48,7 @@ exports.uploadImage = (storageString) => {
     multer({ storage, fileFilter: multerValidator }).single('image')(req, res, (err) => {
       if (err && err.code === 'LIMIT_UNEXPECTED_FILE')
         return res.status(400).json({
-          message: `L'image doit être envoyée dans un champ de formulaire nommé "image"`
+          message: `L'image doit être envoyée dans un champ de formulaire nommé 'image'`
         });
       if (err) return res.status(500).json({ message: err.message });
       return next();

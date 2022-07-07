@@ -71,5 +71,8 @@ exports.postValidator = [
     .withMessage(`L'image doit être au format JPEG, JPG, ou PNG`)
     .custom((value, { req }) => !req.multerSizeError)
     .withMessage(`L'image ne doit pas dépasser 1 Mo`),
+  body()
+    .custom((value, { req }) => req.body.content || req.file)
+    .withMessage(`Vous ne pouvez pas envoyer un post vide`),
   checkValidationErrors
 ];
