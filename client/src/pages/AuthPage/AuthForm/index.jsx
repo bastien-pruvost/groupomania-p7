@@ -1,7 +1,7 @@
 import styles from './AuthForm.module.css';
 import { useState, useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { authValidation } from 'utils/validationSchemas.utils';
+import { authValidator } from 'utils/validationSchemas.utils';
 import { Link } from 'react-router-dom';
 import { useAuth } from 'hooks/useAuth';
 import Loader from 'components/Loader';
@@ -16,7 +16,7 @@ const AuthForm = ({ signinMode }) => {
   const { errors } = formState;
   const password = useRef({});
   password.current = watch('password');
-  const validationSchema = signinMode ? true : authValidation(password.current);
+  const validationSchema = signinMode ? true : authValidator(password.current);
 
   useEffect(() => {
     setResponseErrorMsg([]);

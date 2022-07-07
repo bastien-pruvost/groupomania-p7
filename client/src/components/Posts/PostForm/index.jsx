@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { usePost } from 'hooks/usePost';
 import { UserContext } from 'contexts/UserContext';
-import { postValidation } from 'utils/validationSchemas.utils';
+import { postValidator } from 'utils/validationSchemas.utils';
 import PostContainer from 'components/Posts/PostContainer';
 import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 import Loader from 'components/Loader';
@@ -18,7 +18,7 @@ const PostForm = () => {
     mode: 'onSubmit'
   });
   const { errors } = formState;
-  const validationSchema = postValidation();
+  const validationSchema = postValidator();
   // const cloudinaryUrl = process.env.REACT_APP_CLOUDINARY_URL;
 
   useEffect(() => {

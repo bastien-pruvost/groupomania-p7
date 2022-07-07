@@ -1,7 +1,7 @@
 import validator from 'validator';
 
 // Validation schema with error messages for authentication form
-export const authValidation = (passwordRef) => {
+export const authValidator = (passwordRef) => {
   return {
     email: {
       isNotEmpty: (value) =>
@@ -54,14 +54,14 @@ export const authValidation = (passwordRef) => {
 };
 
 // Validation schema with error messages for authentication form
-export const postValidation = () => {
+export const postValidator = () => {
   const acceptedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
 
   return {
     content: {
       isLength: (value) =>
-        validator.isLength(value, { max: 3000 }) ||
-        'Le contenu du post ne doit pas depasser 3000 caractères'
+        validator.isLength(value, { max: 2000 }) ||
+        'Le contenu du post ne doit pas depasser 2000 caractères'
     },
     image: {
       isImage: (value) => {
