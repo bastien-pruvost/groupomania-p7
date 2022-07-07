@@ -11,7 +11,7 @@ exports.saveNewPost = (post) => Post.create(post);
 exports.findAllPostsWithCommentsAndLikes = (lastId, limit) => {
   const idOperator = lastId ? { [Op.lt]: lastId } : { [Op.gt]: 0 };
   const posts = Post.findAll({
-    order: [['createdAt', 'DESC']],
+    order: [['id', 'DESC']],
     attributes: ['id', 'content', 'imagePath', 'createdAt', 'updatedAt'],
     where: { id: idOperator },
     include: [
