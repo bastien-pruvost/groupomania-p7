@@ -99,6 +99,7 @@ const PostForm = () => {
               <span className={`form-alert ${styles.image_error}`}>{errors.image.message}</span>
             )}
           </div>
+          {isLoading && <Loader grey={true} />}
           <input
             type='file'
             accept='image/*'
@@ -108,15 +109,11 @@ const PostForm = () => {
             {...register('image', { validate: validationSchema.image })}
           />
 
-          {isLoading ? (
-            <Loader />
-          ) : (
-            <input
-              type='submit'
-              value='Publier'
-              className={`${styles.submit_btn} btn btn-primary-grey`}
-            />
-          )}
+          <input
+            type='submit'
+            value='Publier'
+            className={`${styles.submit_btn} btn btn-primary-grey`}
+          />
         </div>
       </form>
     </PostContainer>

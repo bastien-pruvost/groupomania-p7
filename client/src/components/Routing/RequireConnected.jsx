@@ -5,11 +5,7 @@ import { UserContext } from 'contexts/UserContext';
 const RequireConnected = ({ children }) => {
   const { currentUser } = useContext(UserContext);
 
-  if (currentUser.id) {
-    return children ? children : <Outlet />;
-  }
-
-  return <Navigate to='/landing' replace />;
+  return currentUser.id ? children ? children : <Outlet /> : <Navigate to='/landing' replace />;
 };
 
 export default RequireConnected;

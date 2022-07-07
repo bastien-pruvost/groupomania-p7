@@ -12,19 +12,13 @@ function LandingPage() {
             Restez en <span>contact</span> avec vos collègues
           </h1>
           <p>
-            Entretenez des liens avec vos collaborateurs grâce à votre nouveau
-            réseau social d'entreprise.
+            Entretenez des liens avec vos collaborateurs grâce à votre nouveau réseau social
+            d'entreprise.
           </p>
-          <Link
-            to='/signup'
-            className={styles.hero__btn + ' btn btn-primary-red'}
-          >
+          <Link to='/signup' className={styles.hero__btn + ' btn btn-primary-red'}>
             S'inscrire
           </Link>
-          <Link
-            to='/signin'
-            className={styles.hero__btn + ' btn btn-secondary-red'}
-          >
+          <Link to='/signin' className={styles.hero__btn + ' btn btn-secondary-red'}>
             Se connecter
           </Link>
         </div>

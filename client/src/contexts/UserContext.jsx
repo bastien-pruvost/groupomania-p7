@@ -32,8 +32,6 @@ export const UserContextProvider = ({ children }) => {
   if (isAuthLoading) {
     return <Loader />;
   } else {
-    return (
-      <UserContext.Provider value={value}>{children}</UserContext.Provider>
-    );
+    return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
   }
 };

@@ -54,9 +54,7 @@ const CommentForm = () => {
       <textarea
         // id='commentContent'
         placeholder={`Commenter...`}
-        className={`form-textarea ${styles.content_textarea} ${
-          errors.content ? 'error' : ''
-        }`}
+        className={`form-textarea ${styles.content_textarea} ${errors.content ? 'error' : ''}`}
         onInput={(e) => adjustTextareaHeight(e)}
         {...register('content', { validate: validationSchema.content })}
       />

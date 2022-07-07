@@ -4,14 +4,11 @@ import validator from 'validator';
 export const authValidator = (passwordRef) => {
   return {
     email: {
-      isNotEmpty: (value) =>
-        !validator.isEmpty(value) || 'Vous devez renseigner un email',
-      isEmail: (value) =>
-        validator.isEmail(value) || `L'email n'est pas au bon format`
+      isNotEmpty: (value) => !validator.isEmpty(value) || 'Vous devez renseigner un email',
+      isEmail: (value) => validator.isEmail(value) || `L'email n'est pas au bon format`
     },
     password: {
-      isNotEmpty: (value) =>
-        !validator.isEmpty(value) || 'Vous devez renseigner un mot de passe',
+      isNotEmpty: (value) => !validator.isEmpty(value) || 'Vous devez renseigner un mot de passe',
       isLength: (value) =>
         validator.isLength(value, { min: 8, max: 1024 }) ||
         'Le mot de passe doit contenir au minimum 8 caractères',
@@ -25,14 +22,11 @@ export const authValidator = (passwordRef) => {
         'Le mot de passe doit contenir au minimum une majuscule, une minuscule, un chiffre et un caractère spécial'
     },
     passwordConfirm: {
-      isNotEmpty: (value) =>
-        !validator.isEmpty(value) || 'Vous devez confirmer le mot de passe',
-      passwordMatch: (value) =>
-        value === passwordRef || 'Les mots de passe ne correspondent pas'
+      isNotEmpty: (value) => !validator.isEmpty(value) || 'Vous devez confirmer le mot de passe',
+      passwordMatch: (value) => value === passwordRef || 'Les mots de passe ne correspondent pas'
     },
     lastname: {
-      isNotEmpty: (value) =>
-        !validator.isEmpty(value) || 'Vous devez renseigner un nom',
+      isNotEmpty: (value) => !validator.isEmpty(value) || 'Vous devez renseigner un nom',
       isLength: (value) =>
         validator.isLength(value, { min: 2, max: 100 }) ||
         'Le nom doit contenir entre 2 et 100 caractères',
@@ -41,8 +35,7 @@ export const authValidator = (passwordRef) => {
         'Le nom ne doit pas contenir de caractères spéciaux ou de chiffres'
     },
     firstname: {
-      isNotEmpty: (value) =>
-        !validator.isEmpty(value) || 'Vous devez renseigner un prénom',
+      isNotEmpty: (value) => !validator.isEmpty(value) || 'Vous devez renseigner un prénom',
       isLength: (value) =>
         validator.isLength(value, { min: 2, max: 100 }) ||
         'Le prénom doit contenir entre 2 et 100 caractères',
@@ -67,8 +60,7 @@ export const postValidator = () => {
       isImage: (value) => {
         if (value.length > 0) {
           return (
-            acceptedTypes.includes(value[0].type) ||
-            `L'image doit être au format JPEG, JPG, ou PNG`
+            acceptedTypes.includes(value[0].type) || `L'image doit être au format JPEG, JPG, ou PNG`
           );
         }
       },

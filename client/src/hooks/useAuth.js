@@ -1,11 +1,7 @@
 import { useContext } from 'react';
 import { UserContext } from 'contexts/UserContext';
 import { useNavigate } from 'react-router-dom';
-import {
-  signinRequest,
-  signupRequest,
-  signoutRequest
-} from 'services/auth.services';
+import { signinRequest, signupRequest, signoutRequest } from 'services/auth.services';
 
 export const useAuth = () => {
   const { currentUser, setCurrentUser, noUser } = useContext(UserContext);

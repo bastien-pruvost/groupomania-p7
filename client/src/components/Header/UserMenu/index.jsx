@@ -31,15 +31,8 @@ const UserMenu = () => {
 
   return (
     <div className={styles.UserMenu} id='UserMenu'>
-      <div
-        tabIndex='0'
-        className={styles.toggle_menu}
-        onClick={handleMenu}
-        onKeyDown={handleMenu}
-      >
-        <span
-          className={styles.names}
-        >{`${currentUser.firstname} ${currentUser.lastname}`}</span>
+      <div tabIndex='0' className={styles.toggle_menu} onClick={handleMenu} onKeyDown={handleMenu}>
+        <span className={styles.names}>{`${currentUser.firstname} ${currentUser.lastname}`}</span>
         <img
           className={styles.profile_pic}
           // src={`${cloudinaryUrl}/${currentUser.profilePicPath}`}
