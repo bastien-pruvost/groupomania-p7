@@ -53,7 +53,7 @@ const CommentForm = () => {
       <img className={styles.user_pic} src={defaultProfilePic} alt='' />
       <textarea
         // id='commentContent'
-        placeholder={`Ecrire un commentaire...`}
+        placeholder={`Commenter...`}
         className={`form-textarea ${styles.content_textarea} ${
           errors.content ? 'error' : ''
         }`}

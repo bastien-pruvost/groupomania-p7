@@ -72,7 +72,7 @@ const SinglePost = ({ post }) => {
           </div>
         </div>
 
-        <Comments />
+        <Comments comments={comments} />
       </article>
     </PostContainer>
   );
