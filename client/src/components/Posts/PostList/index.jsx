@@ -34,7 +34,7 @@ const PostList = () => {
   return (
     <div className={styles.PostList}>
       {postList.map((post) => (
-        <SinglePost key={post.id} />
+        <SinglePost key={post.id} post={post} />
       ))}
 
       {allPostsLoaded ? (

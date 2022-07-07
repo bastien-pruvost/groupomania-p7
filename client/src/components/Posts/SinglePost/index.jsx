@@ -1,14 +1,36 @@
+import { formatTimeAgo } from 'utils/dates.utils';
+import styles from './SinglePost.module.css';
 import PostContainer from 'components/Posts/PostContainer';
+import Comments from 'components/Posts/Comments';
 import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 import randomPic from 'assets/images/random-pic.jpg';
-import styles from './SinglePost.module.css';
 import IconMore from 'components/Icons/IconMore';
 import IconLike from 'components/Icons/IconLike';
 import IconComment from 'components/Icons/IconComment';
-import Comments from 'components/Posts/Comments';
 
-const SinglePost = () => {
-  // const { id, content, imagePath, createdAt, likeCount, user } = post;
+const SinglePost = ({ post }) => {
+  const {
+    id,
+    user,
+    createdAt,
+    content,
+    imagePath,
+    user_like_posts: likes,
+    comments
+  } = post;
+
+  const timeAgo = formatTimeAgo(createdAt);
+
+  const imageUrl = imagePath
+    ? `${process.env.REACT_APP_CLOUDINARY_URL}/${imagePath}`
+    : null;
+
+  const numberOfLikes = `${likes.length} J'aime`;
+
+  const numberOfComments = `${comments.length} ${
+    comments.length > 1 ? 'commentaires' : 'commentaire'
+  }`;
+
   return (
     <PostContainer>
       <article className={styles.SinglePost}>
@@ -19,22 +41,24 @@ const SinglePost = () => {
             alt='Photo de profil'
           />
           <div className={styles.name_time_container}>
-            <span className={styles.name_text}>jacouille la fripouille</span>
-            <span className={styles.time_text}>Il y a 15h</span>
+            <span className={styles.name_text}>
+              {user.firstname} {user.lastname}
+            </span>
+            <span className={styles.time_text}>{timeAgo}</span>
           </div>
           <IconMore size='30' />
         </div>
 
-        <p className={styles.content_text}>
-          Magnifique la Valle Del Cocora en Colombie !
-        </p>
+        <p className={styles.content_text}>{content}</p>
 
-        <img className={styles.image} src={randomPic} alt='random' />
+        {!!imageUrl && (
+          <img className={styles.image} src={randomPic} alt='random' />
+        )}
 
         <div>
           <div className={styles.counts_row}>
-            <span>150 J'aime</span>
-            <span>3 commentaires</span>
+            <span>{numberOfLikes}</span>
+            <span>{numberOfComments}</span>
           </div>
           <div className={styles.interaction_row}>
             <div className={styles.interaction_group}>

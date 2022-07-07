@@ -1,11 +1,11 @@
 .PostContainer {
   width: 100%;
   max-width: var(--post-max-width);
-  margin: 0 auto 1rem;
+  margin: 0 auto 1.5rem;
   padding: 1.25rem;
   border-radius: var(--border-radius);
   background-color: var(--white);
-  box-shadow: var(--shadow-1);
+  box-shadow: var(--shadow-2);
 }
 
 @media screen and (max-width: 576px) {

@@ -9,7 +9,6 @@ export const usePost = () => {
   const [page, setPage] = useState(1);
   const [lastId, setLastId] = useState(null);
   const [allPostsLoaded, setAllPostsLoaded] = useState(false);
-
   const limitPerPage = 8;
 
   const createPost = async (formData) => {
