@@ -1,20 +1,20 @@
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 import styles from './Loader.module.css';
 
 const Loader = ({ grey }) => {
-  const [isShown, setShown] = useState(false);
+  // const [isShown, setShown] = useState(false);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setShown(true);
-    }, 500);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setShown(true);
+  //   }, 500);
+  // }, []);
 
-  return isShown ? (
+  return (
     <div className={styles.Loader}>
       <span className={`${styles.spinner} ${grey && styles.grey}`}></span>
     </div>
-  ) : null;
+  );
 };
 
 export default Loader;
