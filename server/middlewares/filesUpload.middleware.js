@@ -35,7 +35,8 @@ const coverPicStorage = new CloudinaryStorage({
 
 exports.deleteFile = (publicId) => {
   cloudinary.uploader.destroy(publicId, (error, result) => {
-    console.log(result, error);
+    if (result) console.log(result);
+    if (error) console.log(error);
   });
 };
 

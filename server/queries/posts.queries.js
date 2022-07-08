@@ -6,8 +6,6 @@ const Comment = require('../models/comment.model');
 const UserLikePost = require('../models/user_like_post.model');
 const UserLikeComment = require('../models/user_like_comment.model');
 
-exports.saveNewPost = (post) => Post.create(post);
-
 exports.findAllPostsWithCommentsAndLikes = (lastId, limit) => {
   const idOperator = lastId ? { [Op.lt]: lastId } : { [Op.gt]: 0 };
   return Post.findAll({
@@ -55,3 +53,13 @@ exports.findAllPostsWithCommentsAndLikes = (lastId, limit) => {
     group: ['id']
   });
 };
+
+exports.findPostById = (postId) =>
+  Post.findByPk(postId, {
+    attributes: ['id', 'userId', 'imagePath', 'content']
+  });
+
+exports.saveNewPost = (newPost) => Post.create(newPost);
+
+exports.saveUpdatedPost = (updatedPost, postId) =>
+  Post.update(updatedPost, { where: { id: postId } });
