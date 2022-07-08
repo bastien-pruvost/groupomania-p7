@@ -3,7 +3,7 @@ import { handleError } from 'utils/errors.utils';
 
 export const getCurrentUserRequest = async () => {
   try {
-    const response = await api.get('/users/getcurrentuser');
+    const response = await api.get('/auth/getcurrentuser');
     return response.data;
   } catch (err) {
     handleError(err);
@@ -12,7 +12,7 @@ export const getCurrentUserRequest = async () => {
 
 export const signinRequest = async (data) => {
   try {
-    const response = await api.post('/users/signin', data);
+    const response = await api.post('/auth/signin', data);
     return response.data;
   } catch (err) {
     handleError(err);
@@ -21,7 +21,7 @@ export const signinRequest = async (data) => {
 
 export const signoutRequest = async () => {
   try {
-    const response = await api.get('/users/signout');
+    const response = await api.get('/auth/signout');
     return response.data;
   } catch (err) {
     handleError(err);
@@ -30,7 +30,7 @@ export const signoutRequest = async () => {
 
 export const signupRequest = async (data) => {
   try {
-    const response = await api.post('/users/signup', data);
+    const response = await api.post('/auth/signup', data);
     return response.data;
   } catch (err) {
     handleError(err);
