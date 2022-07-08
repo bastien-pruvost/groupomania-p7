@@ -1,11 +1,13 @@
 import { useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Picker } from 'emoji-mart';
-
-// import styles from './EmojiPicker.module.css';
+import IconEmoji from 'components/Icons/IconEmoji';
+import styles from './EmojiPicker.module.css';
+import { useState } from 'react';
 
 const EmojiPicker = (props) => {
   const ref = useRef();
+  const [isShown, setShown] = useState(false);
 
   useEffect(() => {
     const fetchEmoji = async () => {
@@ -22,15 +24,29 @@ const EmojiPicker = (props) => {
         previewPosition: 'none',
         locale: 'fr',
         maxFrequentRows: 3,
-        perLine: 9,
+        perLine: 8,
         theme: 'light',
-        emojiSize: 20
+        emojiSize: 20,
+        emojiButtonSize: 34,
+        enableFrequentEmojiSort: true
       });
     };
     fetchEmoji();
-  }, []);
+  }, [isShown]);
 
-  return <div ref={ref}></div>;
+  const toggleClick = (e) => {
+    e.stopPropagation();
+    setShown(!isShown);
+  };
+
+  return (
+    <div className={styles.EmojiPicker}>
+      <div onClick={toggleClick}>
+        <IconEmoji size={24} />
+      </div>
+      {isShown && <div ref={ref} />}
+    </div>
+  );
 };
 
 export default EmojiPicker;
