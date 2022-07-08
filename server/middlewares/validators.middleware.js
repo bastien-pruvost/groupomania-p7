@@ -73,6 +73,6 @@ exports.postValidator = [
     .withMessage(`L'image ne doit pas dépasser 1 Mo`),
   body()
     .custom((value, { req }) => req.body.content || req.file)
-    .withMessage(`Vous ne pouvez pas envoyer un post vide`),
+    .withMessage(`Vous ne pouvez pas publier un post vide`),
   checkValidationErrors
 ];
