@@ -9,7 +9,7 @@ import IconLike from 'components/Icons/IconLike';
 import IconComment from 'components/Icons/IconComment';
 
 const SinglePost = ({ post }) => {
-  const { id, user, createdAt, content, imagePath, user_like_posts: likes, comments } = post;
+  const { user, createdAt, content, imagePath, user_like_posts: likes, comments } = post;
 
   const timeAgo = formatTimeAgo(createdAt);
 

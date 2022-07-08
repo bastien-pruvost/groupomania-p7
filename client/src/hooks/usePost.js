@@ -38,12 +38,21 @@ export const usePost = () => {
     }
   };
 
+  const refreshPostList = () => {
+    setLastId(null);
+    setAllPostsLoaded(false);
+    setPostList([]);
+    setPage(1);
+  };
+
   return {
     createPost,
     postList,
+    setPostList,
     handleInfiniteScroll,
     getPaginatePosts,
     page,
-    allPostsLoaded
+    allPostsLoaded,
+    refreshPostList
   };
 };

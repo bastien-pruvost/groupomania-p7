@@ -3,9 +3,17 @@ import Loader from 'components/Loader';
 import styles from './PostList.module.css';
 import { useEffect, useRef } from 'react';
 import { usePost } from 'hooks/usePost';
+import PostForm from 'components/Posts/PostForm';
 
 const PostList = () => {
-  const { postList, handleInfiniteScroll, getPaginatePosts, page, allPostsLoaded } = usePost();
+  const {
+    postList,
+    handleInfiniteScroll,
+    getPaginatePosts,
+    page,
+    allPostsLoaded,
+    refreshPostList
+  } = usePost();
   const scroll = useRef(null);
 
   useEffect(() => {
@@ -25,6 +33,8 @@ const PostList = () => {
 
   return (
     <div className={styles.PostList}>
+      <PostForm refreshPostList={refreshPostList} />
+
       {postList.map((post) => (
         <SinglePost key={post.id} post={post} />
       ))}

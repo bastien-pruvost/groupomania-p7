@@ -9,7 +9,7 @@ import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 import Loader from 'components/Loader';
 import EmojiPicker from 'components/EmojiPicker';
 
-const PostForm = () => {
+const PostForm = ({ refreshPostList }) => {
   const { createPost } = usePost();
   const { currentUser } = useContext(UserContext);
   const [isLoading, setLoading] = useState(false);
@@ -53,6 +53,7 @@ const PostForm = () => {
       .then(() => {
         reset({ content: '', image: [] });
         setFilePreview(null);
+        refreshPostList();
       })
       .catch((err) => setResponseErrorMsg(err))
       .finally(() => setLoading(false));
@@ -98,15 +99,19 @@ const PostForm = () => {
         )}
 
         <div className={styles.bottom_row}>
-          <div>
-            <label className='form-file-label' htmlFor='image'>
-              {!formState.dirtyFields.image ? 'Ajouter une image' : `Modifier l'image`}
-            </label>
+          <div className={styles.emoji_image_group}>
+            <EmojiPicker onEmojiSelect={emojiHandler} />
+            <div>
+              <label className='form-file-label' htmlFor='image'>
+                {!formState.dirtyFields.image ? 'Ajouter une image' : `Modifier l'image`}
+              </label>
 
-            {!!errors.image?.message && (
-              <span className={`form-alert ${styles.image_error}`}>{errors.image.message}</span>
-            )}
+              {!!errors.image?.message && (
+                <span className={`form-alert ${styles.image_error}`}>{errors.image.message}</span>
+              )}
+            </div>
           </div>
+
           {isLoading && <Loader grey={true} />}
           <input
             type='file'
@@ -124,7 +129,6 @@ const PostForm = () => {
           />
         </div>
       </form>
-      <EmojiPicker onEmojiSelect={emojiHandler} />
     </PostContainer>
   );
 };
