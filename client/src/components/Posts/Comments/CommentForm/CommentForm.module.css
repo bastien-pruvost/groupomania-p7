@@ -26,4 +26,10 @@
   background-color: transparent;
   border: none;
   color: var(--text-color);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.submit_btn:hover {
+  color: var(--grey-500);
 }

@@ -1,6 +1,6 @@
-import { UserContext } from 'contexts/UserContext';
-import { useComment } from 'hooks/useComments';
-import { useContext, useEffect, useState } from 'react';
+// import { UserContext } from 'contexts/UserContext';
+// import { useComment } from 'hooks/useComments';
+// import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 import styles from './CommentForm.module.css';
@@ -9,39 +9,32 @@ import IconSend from 'components/Icons/IconSend';
 const CommentForm = () => {
   // const { createComment } = useComment();
   // const { currentUser } = useContext(UserContext);
-  const [isLoading, setLoading] = useState(false);
-  const [responseErrorMsg, setResponseErrorMsg] = useState([]);
-  const [filePreview, setFilePreview] = useState(null);
+  // const [isLoading, setLoading] = useState(false);
+  // const [responseErrorMsg, setResponseErrorMsg] = useState([]);
   const { formState, handleSubmit, register, reset } = useForm({
     mode: 'onSubmit'
   });
   const { errors } = formState;
   const validationSchema = true;
 
-  useEffect(() => {
-    setResponseErrorMsg([]);
-  }, []);
+  // useEffect(() => {
+  //   setResponseErrorMsg([]);
+  // }, []);
 
   const adjustTextareaHeight = (e) => {
     e.target.style.height = '1px';
     e.target.style.height = 0.5 + e.target.scrollHeight + 'px';
   };
 
-  const handlePreview = (e) => {
-    if (e.target?.files?.[0]) {
-      setFilePreview(URL.createObjectURL(e.target.files[0]));
-    }
-  };
-
   const onSubmit = async (data) => {
-    setResponseErrorMsg([]);
-    setLoading(true);
+    // setResponseErrorMsg([]);
+    // setLoading(true);
     const formData = new FormData();
     formData.append('content', data.content);
     formData.append('image', data.image[0]);
     // createComment(formData)
     //   .then(() => {
-    //     reset({ content: '', image: [] });
+    reset({ content: '', image: [] });
     //     setFilePreview(null);
     //   })
     //   .catch((err) => setResponseErrorMsg(err))

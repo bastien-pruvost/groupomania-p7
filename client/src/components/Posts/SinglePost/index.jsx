@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { formatTimeAgo } from 'utils/dates.utils';
 import styles from './SinglePost.module.css';
 import PostContainer from 'components/Posts/PostContainer';
@@ -25,14 +26,20 @@ const SinglePost = ({ post }) => {
     <PostContainer>
       <article className={styles.SinglePost}>
         <div className={styles.top_row}>
-          <img className={styles.user_pic} src={defaultProfilePic} alt='Photo de profil' />
+          <Link to={`/profile/${user.id}`}>
+            <img className={styles.user_pic} src={defaultProfilePic} alt='Photo de profil' />
+          </Link>
           <div className={styles.name_time_container}>
             <span className={styles.name_text}>
-              {user.firstname} {user.lastname}
+              <Link to={`/profile/${user.id}`}>
+                {user.firstname} {user.lastname}
+              </Link>
             </span>
             <span className={styles.time_text}>{timeAgo}</span>
           </div>
-          <IconMore size='30' />
+          <button className={styles.more_button}>
+            <IconMore size='30' />
+          </button>
         </div>
 
         <p className={styles.content_text}>{content}</p>
@@ -45,14 +52,14 @@ const SinglePost = ({ post }) => {
             <span>{numberOfComments}</span>
           </div>
           <div className={styles.interaction_row}>
-            <div className={styles.interaction_group}>
+            <button className={styles.interaction_button}>
               <IconLike active={false} size='22' />
               <span>J'aime</span>
-            </div>
-            <div className={styles.interaction_group}>
+            </button>
+            <button className={styles.interaction_button}>
               <IconComment size='22' />
               <span>Commenter</span>
-            </div>
+            </button>
           </div>
         </div>
 

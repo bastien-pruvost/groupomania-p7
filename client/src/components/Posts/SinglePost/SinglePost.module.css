@@ -28,8 +28,23 @@
   font-weight: 600;
 }
 
+.name_text > a:hover {
+  color: var(--grey-500);
+}
+
 .time_text {
   font-size: 0.9rem;
+  color: var(--grey-500);
+}
+
+.more_button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.more_button:hover {
   color: var(--grey-500);
 }
 
@@ -55,6 +70,7 @@
   padding: 0 0.5rem 1rem;
   font-size: 0.95rem;
   color: var(--grey-500);
+  user-select: none;
 }
 
 .interaction_row {
@@ -66,8 +82,16 @@
   border-top: 1px solid var(--grey-200);
 }
 
-.interaction_group {
+.interaction_button {
   display: flex;
   align-items: center;
   gap: 0.3rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.interaction_button:hover {
+  color: var(--grey-500);
 }
