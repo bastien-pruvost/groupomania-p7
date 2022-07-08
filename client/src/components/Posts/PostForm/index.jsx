@@ -7,6 +7,7 @@ import { postValidator } from 'utils/validationSchemas.utils';
 import PostContainer from 'components/Posts/PostContainer';
 import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 import Loader from 'components/Loader';
+import EmojiPicker from 'components/EmojiPicker';
 
 const PostForm = () => {
   const { createPost } = usePost();
@@ -14,7 +15,7 @@ const PostForm = () => {
   const [isLoading, setLoading] = useState(false);
   const [responseErrorMsg, setResponseErrorMsg] = useState([]);
   const [filePreview, setFilePreview] = useState(null);
-  const { formState, handleSubmit, register, reset } = useForm({
+  const { formState, handleSubmit, register, reset, setValue, getValues, setFocus } = useForm({
     mode: 'onSubmit'
   });
   const { errors } = formState;
@@ -34,6 +35,12 @@ const PostForm = () => {
     if (e.target?.files?.[0]) {
       setFilePreview(URL.createObjectURL(e.target.files[0]));
     }
+  };
+
+  const emojiHandler = (emoji) => {
+    const value = getValues('content');
+    setValue('content', `${value}${emoji.native}`);
+    setFocus('content');
   };
 
   const onSubmit = async (data) => {
@@ -72,6 +79,7 @@ const PostForm = () => {
           placeholder={`Rediger un post...`}
           className={`form-textarea ${styles.content_textarea} ${errors.content ? 'error' : ''}`}
           onInput={(e) => adjustTextareaHeight(e)}
+          onFocus={(e) => adjustTextareaHeight(e)}
           {...register('content', { validate: validationSchema.content })}
         />
 
@@ -116,6 +124,7 @@ const PostForm = () => {
           />
         </div>
       </form>
+      <EmojiPicker onEmojiSelect={emojiHandler} />
     </PostContainer>
   );
 };
