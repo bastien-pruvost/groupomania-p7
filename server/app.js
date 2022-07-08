@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const db = require('./configs/db.config');
 const { addAuthFeatures } = require('./middlewares/auth.middleware');
-const usersRouter = require('./routes/users.routes');
+const authRouter = require('./routes/auth.routes');
 const postsRouter = require('./routes/posts.routes');
 
 // Sync database
@@ -43,7 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(addAuthFeatures);
 
-app.use('/api/users', usersRouter);
+app.use('/api/auth', authRouter);
 app.use('/api/posts', postsRouter);
 
 module.exports = app;
