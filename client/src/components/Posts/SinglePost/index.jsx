@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { formatTimeAgo } from 'utils/dates.utils';
 import styles from './SinglePost.module.css';
@@ -8,9 +9,29 @@ import randomPic from 'assets/images/random-pic.jpg';
 import IconMore from 'components/Icons/IconMore';
 import IconLike from 'components/Icons/IconLike';
 import IconComment from 'components/Icons/IconComment';
+import PostForm from 'components/Posts/PostForm';
 
 const SinglePost = ({ post }) => {
   const { user, createdAt, content, imagePath, user_like_posts: likes, comments } = post;
+  const [isMenuOpen, setMenuOpen] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  // const cloudinaryUrl = process.env.REACT_APP_CLOUDINARY_URL;
+
+  const handleMenu = () => {
+    if (!isMenuOpen) {
+      document.addEventListener('mousedown', closeMenuOnOutsideClick);
+    } else {
+      document.removeEventListener('mousedown', closeMenuOnOutsideClick);
+    }
+    setMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenuOnOutsideClick = (e) => {
+    if (!e.target.closest(`.more_menu_container`)) {
+      setMenuOpen(false);
+      document.removeEventListener('mousedown', closeMenuOnOutsideClick);
+    }
+  };
 
   const timeAgo = formatTimeAgo(createdAt);
 
@@ -22,7 +43,9 @@ const SinglePost = ({ post }) => {
     comments.length > 1 ? 'commentaires' : 'commentaire'
   }`;
 
-  return (
+  return editMode ? (
+    <PostForm editMode={true} content={content} imagePath={imagePath} setEditMode={setEditMode} />
+  ) : (
     <PostContainer>
       <article className={styles.SinglePost}>
         <div className={styles.top_row}>
@@ -37,9 +60,18 @@ const SinglePost = ({ post }) => {
             </span>
             <span className={styles.time_text}>{timeAgo}</span>
           </div>
-          <button className={styles.more_button}>
-            <IconMore size='30' />
-          </button>
+          <div className={styles.more_menu_container + ' more_menu_container'}>
+            <button className={styles.more_button} onClick={handleMenu} onKeyDown={handleMenu}>
+              <IconMore size='30' />
+            </button>
+
+            {!!isMenuOpen && (
+              <div className={styles.more_menu}>
+                <button onClick={() => setEditMode(true)}>Modifier le post</button>
+                <span>Supprimer le post</span>
+              </div>
+            )}
+          </div>
         </div>
 
         <p className={styles.content_text}>{content}</p>

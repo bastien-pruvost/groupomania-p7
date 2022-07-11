@@ -20,3 +20,12 @@ export const getPaginatePostsRequest = async (lastId, limit) => {
     handleError(err);
   }
 };
+
+export const updatePostRequest = async (postId, data) => {
+  try {
+    const response = await api.put(`/posts/${postId}`, data);
+    return response.data;
+  } catch (err) {
+    handleError(err);
+  }
+};

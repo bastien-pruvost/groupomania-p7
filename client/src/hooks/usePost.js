@@ -1,5 +1,9 @@
 import { useState } from 'react';
-import { createPostRequest, getPaginatePostsRequest } from 'services/posts.services';
+import {
+  createPostRequest,
+  getPaginatePostsRequest,
+  updatePostRequest
+} from 'services/posts.services';
 
 export const usePost = () => {
   const [postList, setPostList] = useState([]);
@@ -11,6 +15,14 @@ export const usePost = () => {
   const createPost = async (formData) => {
     try {
       await createPostRequest(formData);
+    } catch (err) {
+      throw Array.isArray(err.message) ? err.message : [err.message];
+    }
+  };
+
+  const updatePost = async (postId, formData) => {
+    try {
+      await updatePostRequest(postId, formData);
     } catch (err) {
       throw Array.isArray(err.message) ? err.message : [err.message];
     }
@@ -47,6 +59,7 @@ export const usePost = () => {
 
   return {
     createPost,
+    updatePost,
     postList,
     setPostList,
     handleInfiniteScroll,

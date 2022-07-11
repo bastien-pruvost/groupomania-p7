@@ -45,6 +45,20 @@
   margin-top: 0.75rem;
 }
 
+.image_preview_container {
+  position: relative;
+}
+
+.image_preview_container > svg {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px;
+  background-color: rgba(121, 121, 121, 0.4);
+  border-radius: 50%;
+  opacity: 90%;
+}
+
 .image_preview {
   width: 100%;
   max-height: 35rem;
