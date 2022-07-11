@@ -50,7 +50,7 @@ exports.addAuthFeatures = (req, res, next) => {
       // secure: true,
       httpOnly: true,
       sameSite: 'lax',
-      maxAge: jwtConfig.maxAge
+      maxAge: jwtConfig.maxAge * 1000
     });
   };
   req.signout = () => res.clearCookie('jwt');
