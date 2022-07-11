@@ -47,10 +47,10 @@ exports.addAuthFeatures = (req, res, next) => {
   req.signin = (userId) => {
     const token = createJwt(userId);
     res.cookie('jwt', token, {
-      httpOnly: true,
-      sameSite: 'strict',
-      maxAge: jwtConfig.maxAge
       // secure: true,
+      httpOnly: true,
+      sameSite: 'lax',
+      maxAge: jwtConfig.maxAge
     });
   };
   req.signout = () => res.clearCookie('jwt');
