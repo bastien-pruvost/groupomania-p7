@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import {
   createPostRequest,
+  deletePostRequest,
   getPaginatePostsRequest,
   updatePostRequest
 } from 'services/posts.services';
@@ -26,6 +27,14 @@ export const usePost = () => {
     try {
       const updatedPost = await updatePostRequest(postId, formData);
       return updatedPost;
+    } catch (err) {
+      throw Array.isArray(err.message) ? err.message : [err.message];
+    }
+  };
+
+  const deletePost = async (postId) => {
+    try {
+      await deletePostRequest(postId);
     } catch (err) {
       throw Array.isArray(err.message) ? err.message : [err.message];
     }
@@ -64,10 +73,11 @@ export const usePost = () => {
   return {
     createPost,
     updatePost,
+    deletePost,
     postList,
     setPostList,
-    handleInfiniteScroll,
     getPaginatePosts,
+    handleInfiniteScroll,
     page,
     allPostsLoaded,
     refreshPostList

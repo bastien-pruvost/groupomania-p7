@@ -8,10 +8,11 @@ import PostForm from 'components/Posts/PostForm';
 const PostList = () => {
   const {
     postList,
-    handleInfiniteScroll,
     getPaginatePosts,
+    handleInfiniteScroll,
     page,
     allPostsLoaded,
+    deletePost,
     refreshPostList
   } = usePost();
   const scroll = useRef(null);
@@ -36,7 +37,12 @@ const PostList = () => {
       <PostForm refreshPostList={refreshPostList} />
 
       {postList.map((post) => (
-        <SinglePost key={post.id} post={post} />
+        <SinglePost
+          key={post.id}
+          post={post}
+          deletePost={deletePost}
+          refreshPostList={refreshPostList}
+        />
       ))}
 
       {allPostsLoaded ? (

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { formatTimeAgo } from 'utils/dates.utils';
 import styles from './SinglePost.module.css';
@@ -10,8 +10,10 @@ import IconMore from 'components/Icons/IconMore';
 import IconLike from 'components/Icons/IconLike';
 import IconComment from 'components/Icons/IconComment';
 import PostForm from 'components/Posts/PostForm';
+import { UserContext } from 'contexts/UserContext';
 
-const SinglePost = ({ post }) => {
+const SinglePost = ({ post, deletePost, refreshPostList }) => {
+  const { currentUser } = useContext(UserContext);
   const [updatedPost, setUpdatedPost] = useState(null);
   const { user, createdAt, user_like_posts: likes, comments } = post;
   const { imagePath, content } = updatedPost || post;
@@ -26,6 +28,14 @@ const SinglePost = ({ post }) => {
       document.removeEventListener('mousedown', closeMenuOnOutsideClick);
     }
     setMenuOpen(!isMenuOpen);
+  };
+
+  const handleDelete = () => {
+    console.log(post.user.id);
+    console.log(currentUser.id);
+    deletePost(post.id)
+      .then(() => refreshPostList())
+      .catch((err) => console.log(err));
   };
 
   const closeMenuOnOutsideClick = (e) => {
@@ -69,18 +79,20 @@ const SinglePost = ({ post }) => {
             </span>
             <span className={styles.time_text}>{timeAgo}</span>
           </div>
-          <div className={styles.more_menu_container + ' more_menu_container'}>
-            <button className={styles.more_button} onClick={handleMenu} onKeyDown={handleMenu}>
-              <IconMore size='30' />
-            </button>
+          {post.user.id === currentUser.id && (
+            <div className={styles.more_menu_container + ' more_menu_container'}>
+              <button className={styles.more_button} onClick={handleMenu} onKeyDown={handleMenu}>
+                <IconMore size='30' />
+              </button>
 
-            {!!isMenuOpen && (
-              <div className={styles.more_menu}>
-                <button onClick={() => setEditMode(true)}>Modifier le post</button>
-                <span>Supprimer le post</span>
-              </div>
-            )}
-          </div>
+              {!!isMenuOpen && (
+                <div className={styles.more_menu}>
+                  <button onClick={() => setEditMode(true)}>Modifier le post</button>
+                  <button onClick={handleDelete}>Supprimer le post</button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         <p className={styles.content_text}>{content}</p>

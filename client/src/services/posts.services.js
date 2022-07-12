@@ -29,3 +29,12 @@ export const updatePostRequest = async (postId, data) => {
     handleError(err);
   }
 };
+
+export const deletePostRequest = async (postId) => {
+  try {
+    const response = await api.delete(`/posts/${postId}`);
+    console.log(response.data);
+  } catch (err) {
+    handleError(err);
+  }
+};
