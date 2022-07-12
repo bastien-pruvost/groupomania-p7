@@ -50,6 +50,8 @@ const PostForm = ({
     if (e.target?.files?.[0]) {
       setFilePreview(URL.createObjectURL(e.target.files[0]));
       setImageDeleted(false);
+    } else {
+      setFilePreview(null);
     }
   };
 

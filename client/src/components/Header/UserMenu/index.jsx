@@ -7,7 +7,7 @@ import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 const UserMenu = () => {
   const { currentUser, signout } = useAuth();
   const [isMenuOpen, setMenuOpen] = useState(false);
-  const imagesUrl = process.env.REACT_APP_IMAGES_URL;
+  // const imagesUrl = process.env.REACT_APP_IMAGES_URL;
 
   const handleMenu = () => {
     if (!isMenuOpen) {
