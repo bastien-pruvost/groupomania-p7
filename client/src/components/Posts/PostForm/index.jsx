@@ -10,12 +10,21 @@ import Loader from 'components/Loader';
 import EmojiPicker from 'components/EmojiPicker';
 import IconDelete from 'components/Icons/IconDelete';
 
-const PostForm = ({ refreshPostList, editMode, setEditMode, content, imagePath }) => {
+const PostForm = ({
+  editMode,
+  setEditMode,
+  content,
+  imagePath,
+  postId,
+  setUpdatedPost,
+  refreshPostList
+}) => {
   const { createPost, updatePost } = usePost();
   const { currentUser } = useContext(UserContext);
   const [isLoading, setLoading] = useState(false);
   const [responseErrorMsg, setResponseErrorMsg] = useState([]);
   const [filePreview, setFilePreview] = useState(null);
+  const [imageDeleted, setImageDeleted] = useState(false);
   const { formState, handleSubmit, register, reset, setValue, getValues, setFocus } = useForm({
     mode: 'onSubmit'
   });
@@ -37,10 +46,17 @@ const PostForm = ({ refreshPostList, editMode, setEditMode, content, imagePath }
     e.target.style.height = e.target.scrollHeight + 'px';
   };
 
-  const handlePreview = (e) => {
+  const handleFileInput = (e) => {
     if (e.target?.files?.[0]) {
       setFilePreview(URL.createObjectURL(e.target.files[0]));
+      setImageDeleted(false);
     }
+  };
+
+  const deleteImage = () => {
+    setImageDeleted(true);
+    setFilePreview(null);
+    setValue('image', []);
   };
 
   const emojiHandler = (emoji) => {
@@ -55,12 +71,18 @@ const PostForm = ({ refreshPostList, editMode, setEditMode, content, imagePath }
     const formData = new FormData();
     formData.append('content', data.content);
     formData.append('image', data.image[0]);
-    const request = editMode ? updatePost : createPost;
-    createPost(formData)
-      .then(() => {
+    editMode && formData.append('imageDeleted', imageDeleted);
+    const request = editMode ? updatePost(postId, formData) : createPost(formData);
+    request
+      .then((res) => {
         reset({ content: '', image: [] });
         setFilePreview(null);
-        refreshPostList();
+        if (editMode) {
+          setUpdatedPost(res);
+          setEditMode(false);
+        } else {
+          refreshPostList();
+        }
       })
       .catch((err) => setResponseErrorMsg(err))
       .finally(() => setLoading(false));
@@ -82,20 +104,25 @@ const PostForm = ({ refreshPostList, editMode, setEditMode, content, imagePath }
           </span>
         </div>
 
-        <textarea
-          placeholder={`Rediger un post...`}
-          className={`form-textarea ${styles.content_textarea} ${errors.content ? 'error' : ''}`}
-          onInput={(e) => adjustTextareaHeight(e)}
-          onFocus={(e) => adjustTextareaHeight(e)}
-          {...register('content', { validate: validationSchema.content })}
-        />
+        <div className={styles.textarea_emoji_container}>
+          <textarea
+            placeholder={`Rediger un post...`}
+            className={`form-textarea ${styles.content_textarea} ${errors.content ? 'error' : ''}`}
+            onInput={(e) => adjustTextareaHeight(e)}
+            onFocus={(e) => adjustTextareaHeight(e)}
+            {...register('content', { validate: validationSchema.content })}
+          />
+          <EmojiPicker onEmojiSelect={emojiHandler} />
+        </div>
 
         {!!errors.content?.message && <span className='form-alert'>{errors.content.message}</span>}
 
         {!!filePreview && (
           <div className={styles.image_preview_container}>
             <img className={styles.image_preview} src={filePreview} alt='' />
-            <IconDelete size={32} color='#ffffff' />
+            <button type='button' className={styles.delete_button} onClick={deleteImage}>
+              <IconDelete size={22} color='#ffffff' />
+            </button>
           </div>
         )}
 
@@ -110,26 +137,23 @@ const PostForm = ({ refreshPostList, editMode, setEditMode, content, imagePath }
         )}
 
         <div className={styles.bottom_row}>
-          <div className={styles.emoji_image_group}>
-            <EmojiPicker onEmojiSelect={emojiHandler} />
-            <div>
-              <label className='form-file-label' htmlFor='image'>
-                {!filePreview ? 'Ajouter une image' : `Modifier l'image`}
-              </label>
+          <div>
+            <label className='form-file-label' htmlFor={`image-${postId}`}>
+              {!filePreview ? 'Ajouter une image' : `Modifier l'image`}
+            </label>
 
-              {!!errors.image?.message && (
-                <span className={`form-alert ${styles.image_error}`}>{errors.image.message}</span>
-              )}
-            </div>
+            {!!errors.image?.message && (
+              <span className={`form-alert ${styles.image_error}`}>{errors.image.message}</span>
+            )}
           </div>
 
           {isLoading && <Loader grey={true} />}
           <input
             type='file'
             accept='image/*'
-            id='image'
+            id={`image-${postId}`}
             className='form-file-input'
-            onInput={handlePreview}
+            onInput={handleFileInput}
             {...register('image', { validate: validationSchema.image })}
           />
 

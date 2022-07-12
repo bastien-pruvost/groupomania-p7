@@ -21,6 +21,16 @@
   margin: 0;
 }
 
+.textarea_emoji_container {
+  position: relative;
+}
+
+.textarea_emoji_container .emoji_picker {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
 .content_textarea {
   flex-grow: 1;
   flex-shrink: 0;
@@ -29,13 +39,6 @@
 .bottom_row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-}
-
-.emoji_image_group {
-  display: flex;
-  justify-content: flex-start;
   align-items: center;
   gap: 1rem;
 }
@@ -50,14 +53,24 @@
   min-height: 3rem;
 }
 
-.image_preview_container > svg {
+.delete_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   bottom: 10px;
   left: 10px;
-  padding: 5px;
-  background-color: rgba(121, 121, 121, 0.4);
+  padding: 6px;
   border-radius: 50%;
+  border: none;
+  background-color: rgba(121, 121, 121, 0.4);
   opacity: 90%;
+  cursor: pointer;
+}
+
+.delete_button:hover {
+  background-color: rgba(121, 121, 121, 0.5);
+  opacity: 100%;
 }
 
 .image_preview {

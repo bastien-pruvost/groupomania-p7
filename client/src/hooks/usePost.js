@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import {
   createPostRequest,
   getPaginatePostsRequest,
@@ -8,9 +8,11 @@ import {
 export const usePost = () => {
   const [postList, setPostList] = useState([]);
   const [page, setPage] = useState(1);
+  const pageRef = useRef();
   const [lastId, setLastId] = useState(null);
   const [allPostsLoaded, setAllPostsLoaded] = useState(false);
   const limitPerPage = 8;
+  pageRef.current = page;
 
   const createPost = async (formData) => {
     try {
@@ -22,7 +24,8 @@ export const usePost = () => {
 
   const updatePost = async (postId, formData) => {
     try {
-      await updatePostRequest(postId, formData);
+      const updatedPost = await updatePostRequest(postId, formData);
+      return updatedPost;
     } catch (err) {
       throw Array.isArray(err.message) ? err.message : [err.message];
     }
@@ -36,8 +39,9 @@ export const usePost = () => {
       } else {
         setLastId(posts[posts.length - 1].id);
       }
-      setPostList((prevPosts) => [...prevPosts, ...posts]);
-      console.log(posts);
+      const newPosts = [...postList, ...posts];
+      setPostList(newPosts);
+      console.log(newPosts);
     } catch (err) {
       console.log(err);
     }
@@ -46,7 +50,7 @@ export const usePost = () => {
   const handleInfiniteScroll = (entries) => {
     const target = entries[0];
     if (target.isIntersecting) {
-      setPage((prevPage) => prevPage + 1);
+      setPage(pageRef.current + 1);
     }
   };
 

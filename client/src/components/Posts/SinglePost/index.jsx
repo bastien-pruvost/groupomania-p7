@@ -12,7 +12,9 @@ import IconComment from 'components/Icons/IconComment';
 import PostForm from 'components/Posts/PostForm';
 
 const SinglePost = ({ post }) => {
-  const { user, createdAt, content, imagePath, user_like_posts: likes, comments } = post;
+  const [updatedPost, setUpdatedPost] = useState(null);
+  const { user, createdAt, user_like_posts: likes, comments } = post;
+  const { imagePath, content } = updatedPost || post;
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
   // const cloudinaryUrl = process.env.REACT_APP_CLOUDINARY_URL;
@@ -44,7 +46,14 @@ const SinglePost = ({ post }) => {
   }`;
 
   return editMode ? (
-    <PostForm editMode={true} content={content} imagePath={imagePath} setEditMode={setEditMode} />
+    <PostForm
+      editMode={true}
+      setEditMode={setEditMode}
+      content={content}
+      imagePath={imagePath}
+      postId={post.id}
+      setUpdatedPost={setUpdatedPost}
+    />
   ) : (
     <PostContainer>
       <article className={styles.SinglePost}>

@@ -24,7 +24,7 @@ export const getPaginatePostsRequest = async (lastId, limit) => {
 export const updatePostRequest = async (postId, data) => {
   try {
     const response = await api.put(`/posts/${postId}`, data);
-    return response.data;
+    return response.data.post;
   } catch (err) {
     handleError(err);
   }
