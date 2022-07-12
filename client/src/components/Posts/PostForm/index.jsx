@@ -109,7 +109,9 @@ const PostForm = ({
         <div className={styles.textarea_emoji_container}>
           <textarea
             placeholder={`Rediger un post...`}
-            className={`form-textarea ${styles.content_textarea} ${errors.content ? 'error' : ''}`}
+            className={`form-textarea form-emoji-padding ${styles.content_textarea} ${
+              errors.content ? 'error' : ''
+            }`}
             onInput={(e) => adjustTextareaHeight(e)}
             onFocus={(e) => adjustTextareaHeight(e)}
             {...register('content', { validate: validationSchema.content })}

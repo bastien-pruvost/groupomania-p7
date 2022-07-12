@@ -433,6 +433,10 @@ h5 {
   color: var(--grey-400);
 }
 
+.form-emoji-padding {
+  padding-right: 2.5rem;
+}
+
 .form-alert {
   display: block;
   color: var(--danger-text);
@@ -445,6 +449,7 @@ h5 {
   cursor: pointer;
   color: var(--grey-600);
   transition: var(--transition);
+  user-select: none;
 }
 
 .form-file-label:hover {

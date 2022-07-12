@@ -1,9 +1,17 @@
 .EmojiPicker {
   position: absolute;
   right: 0;
-  bottom: 3px;
-  padding: 0.5rem;
+  bottom: 4px;
+  color: var(--grey-400);
+  cursor: pointer;
+}
+
+.EmojiPicker:hover {
   color: var(--grey-500);
+}
+
+.EmojiPicker svg {
+  padding: 0.5rem;
 }
 
 em-emoji-picker {

@@ -7,7 +7,23 @@ import { useState } from 'react';
 
 const EmojiPicker = (props) => {
   const ref = useRef();
-  const [isShown, setShown] = useState(false);
+  const [isOpen, setOpen] = useState(false);
+
+  const handleEmojiPicker = () => {
+    if (!isOpen) {
+      document.addEventListener('mousedown', closeOnOutsideClick);
+    } else {
+      document.removeEventListener('mousedown', closeOnOutsideClick);
+    }
+    setOpen(!isOpen);
+  };
+
+  const closeOnOutsideClick = (e) => {
+    if (!e.target.closest(`.emoji_picker`)) {
+      setOpen(false);
+      document.removeEventListener('mousedown', closeOnOutsideClick);
+    }
+  };
 
   useEffect(() => {
     const fetchEmoji = async () => {
@@ -31,19 +47,14 @@ const EmojiPicker = (props) => {
       });
     };
     fetchEmoji();
-  }, [isShown]);
-
-  const toggleClick = (e) => {
-    e.stopPropagation();
-    setShown(!isShown);
-  };
+  }, [isOpen]);
 
   return (
     <div className={styles.EmojiPicker + ' emoji_picker'}>
-      <div onClick={toggleClick}>
-        <IconEmoji size={24} />
+      <div onClick={handleEmojiPicker}>
+        <IconEmoji size={40} />
       </div>
-      {isShown && <div ref={ref} />}
+      {isOpen && <div ref={ref} />}
     </div>
   );
 };
