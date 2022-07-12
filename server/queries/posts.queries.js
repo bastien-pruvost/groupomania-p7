@@ -1,12 +1,11 @@
 const { Op } = require('sequelize');
-const db = require('../configs/db.config');
 const Post = require('../models/post.model');
 const User = require('../models/user.model');
 const Comment = require('../models/comment.model');
 const UserLikePost = require('../models/user_like_post.model');
 const UserLikeComment = require('../models/user_like_comment.model');
 
-exports.findAllPostsWithCommentsAndLikes = (lastId, limit) => {
+exports.findPaginatePostsWithCommentsAndLikes = (lastId, limit) => {
   const idOperator = lastId ? { [Op.lt]: lastId } : { [Op.gt]: 0 };
   return Post.findAll({
     order: [['id', 'DESC']],
@@ -61,5 +60,13 @@ exports.findPostById = (postId) =>
 
 exports.saveNewPost = (newPost) => Post.create(newPost);
 
-exports.saveUpdatedPost = (updatedPost, postId) =>
+exports.updatePostById = (updatedPost, postId) =>
   Post.update(updatedPost, { where: { id: postId } });
+
+exports.deletePostById = (postId) => {
+  Post.destroy({
+    where: {
+      id: postId
+    }
+  });
+};

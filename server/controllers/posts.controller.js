@@ -1,16 +1,17 @@
 const {
   saveNewPost,
-  findAllPostsWithCommentsAndLikes,
-  saveUpdatedPost,
-  findPostById
+  findPaginatePostsWithCommentsAndLikes,
+  findPostById,
+  updatePostById,
+  deletePostById
 } = require('../queries/posts.queries');
-const { deleteFile, uploadPostPic } = require('../middlewares/filesUpload.middleware');
+const { deleteFile } = require('../middlewares/filesUpload.middleware');
 
 exports.getAllPosts = async (req, res) => {
   try {
     const lastId = Number(req.query.lastId);
     const limit = Number(req.query.limit);
-    const posts = await findAllPostsWithCommentsAndLikes(lastId, limit);
+    const posts = await findPaginatePostsWithCommentsAndLikes(lastId, limit);
     return res.status(200).json({ posts });
   } catch (err) {
     return res.status(500).json({ message: err.message });
@@ -45,9 +46,19 @@ exports.updatePost = async (req, res) => {
     } else {
       updatedPost.imagePath = post.imagePath;
     }
-    await saveUpdatedPost(updatedPost, post.id);
+    await updatePostById(updatedPost, post.id);
     const savedPost = await findPostById(post.id);
-    return res.status(201).json({ message: 'Le post a été modifié', post: savedPost });
+    return res.status(200).json({ message: 'Le post a été modifié', post: savedPost });
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+};
+
+exports.deletePost = async (req, res) => {
+  try {
+    const postId = req.post.id;
+    deletePostById(postId);
+    return res.status(200).json({ message: 'Le post a été supprimé' });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
