@@ -39,7 +39,7 @@ const EmojiPicker = (props) => {
   };
 
   return (
-    <div className={styles.EmojiPicker}>
+    <div className={styles.EmojiPicker + ' emoji_picker'}>
       <div onClick={toggleClick}>
         <IconEmoji size={24} />
       </div>

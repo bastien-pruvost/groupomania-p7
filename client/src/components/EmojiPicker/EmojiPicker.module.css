@@ -1,25 +1,20 @@
 .EmojiPicker {
-  position: relative;
+  position: absolute;
+  right: 0;
+  bottom: 3px;
+  padding: 0.5rem;
+  color: var(--grey-500);
 }
 
 em-emoji-picker {
   position: absolute;
-  left: 0;
-  top: 150%;
+  right: 0;
+  top: 110%;
   box-shadow: var(--shadow-4);
 }
 
 @media screen and (max-width: 576px) {
   .EmojiPicker {
-    position: inherit;
-  }
-
-  em-emoji-picker {
-    position: absolute;
-    top: 49vh;
-    height: 50vh;
-    left: 50%;
-    transform: translateX(-50%);
-    box-shadow: var(--shadow-4);
+    display: none;
   }
 }
