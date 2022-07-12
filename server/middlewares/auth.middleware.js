@@ -30,7 +30,6 @@ exports.ensureUserIsPostOwner = async (req, res, next) => {
   try {
     const currentUserId = req.user.id;
     const postId = Number(req.params.id);
-    console.log('USER ID : ', currentUserId, 'POST ID : ', postId);
     const post = await findPostById(postId);
     if (!post) return res.status(404).json({ message: `Impossible de trouver le post` });
     if (currentUserId !== post.userId)
