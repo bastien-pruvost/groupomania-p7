@@ -1,4 +1,3 @@
-import PostForm from 'components/Posts/PostForm';
 import PostList from 'components/Posts/PostList';
 import styles from './FeedPage.module.css';
 
