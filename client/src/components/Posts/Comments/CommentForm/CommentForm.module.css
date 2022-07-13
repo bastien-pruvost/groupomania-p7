@@ -26,11 +26,11 @@
   height: 2.65rem;
   background-color: transparent;
   border: none;
-  color: var(--text-color);
+  color: var(--grey-500);
   cursor: pointer;
   transition: var(--transition);
 }
 
 .submit_btn:hover {
-  color: var(--grey-500);
+  color: var(--grey-800);
 }

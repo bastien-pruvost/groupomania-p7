@@ -6,12 +6,12 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
-  color: var(--grey-600);
+  color: var(--grey-400);
   transition: var(--transition);
 }
 
 .edit_button:hover {
-  color: var(--grey-800);
+  color: var(--grey-700);
 }
 
 .edit_menu {

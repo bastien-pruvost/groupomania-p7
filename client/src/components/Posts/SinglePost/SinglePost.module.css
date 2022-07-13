@@ -80,6 +80,7 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
+  color: var(--grey-700);
   transition: var(--transition);
 }
 
