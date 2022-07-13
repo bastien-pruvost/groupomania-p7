@@ -25,7 +25,7 @@ const SingleComment = ({ comment }) => {
             </Link>
             <span className={styles.time_text}>{timeAgo}</span>
           </div>
-          {comment.user.id !== currentUser.id && (
+          {comment.user.id === currentUser.id && (
             <EditMenu
               handleEdit={() => 'setEditMode(true)'}
               handleDelete={'handleDelete'}

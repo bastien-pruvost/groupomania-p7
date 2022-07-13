@@ -6,7 +6,6 @@ import PostContainer from 'components/Posts/PostContainer';
 import Comments from 'components/Posts/Comments';
 import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 import randomPic from 'assets/images/random-pic.jpg';
-import IconMore from 'components/Icons/IconMore';
 import IconLike from 'components/Icons/IconLike';
 import IconComment from 'components/Icons/IconComment';
 import PostForm from 'components/Posts/PostForm';
@@ -16,21 +15,17 @@ import EditMenu from 'components/EditMenu';
 const SinglePost = ({ post, deletePost, refreshPostList }) => {
   const { currentUser } = useContext(UserContext);
   const [updatedPost, setUpdatedPost] = useState(null);
-  const { user, createdAt, user_like_posts: likes, comments } = post;
-  const { imagePath, content } = updatedPost || post;
-  const [isMenuOpen, setMenuOpen] = useState(false);
+  const {
+    user,
+    createdAt,
+    user_like_posts: likes,
+    imagePath,
+    content,
+    comments
+  } = updatedPost || post;
   const [isCommentsOpen, setCommentsOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
   // const cloudinaryUrl = process.env.REACT_APP_CLOUDINARY_URL;
-
-  // const handleMenu = () => {
-  //   if (!isMenuOpen) {
-  //     document.addEventListener('mousedown', closeMenuOnOutsideClick);
-  //   } else {
-  //     document.removeEventListener('mousedown', closeMenuOnOutsideClick);
-  //   }
-  //   setMenuOpen(!isMenuOpen);
-  // };
 
   const handleDelete = () => {
     deletePost(post.id)
@@ -41,13 +36,6 @@ const SinglePost = ({ post, deletePost, refreshPostList }) => {
   const handleComments = () => {
     setCommentsOpen(true);
   };
-
-  // const closeMenuOnOutsideClick = (e) => {
-  //   if (!e.target.closest(`.more_menu_container`)) {
-  //     setMenuOpen(false);
-  //     document.removeEventListener('mousedown', closeMenuOnOutsideClick);
-  //   }
-  // };
 
   const timeAgo = formatTimeAgo(createdAt);
   const imageUrl = imagePath ? `${process.env.REACT_APP_CLOUDINARY_URL}/${imagePath}` : null;
@@ -76,6 +64,7 @@ const SinglePost = ({ post, deletePost, refreshPostList }) => {
           <Link to={`/profile/${user.id}`}>
             <img className={styles.user_pic} src={defaultProfilePic} alt='Photo de profil' />
           </Link>
+
           <div className={styles.name_time_container}>
             <Link className={styles.name_text} to={`/profile/${user.id}`}>
               {user.firstname} {user.lastname}
@@ -101,19 +90,22 @@ const SinglePost = ({ post, deletePost, refreshPostList }) => {
             <span>{numberOfLikes}</span>
             <span>{numberOfComments}</span>
           </div>
+
           <div className={styles.interaction_row}>
             <button className={styles.interaction_button}>
-              <IconLike active={false} size='22' />
+              <IconLike active={true} size='22' />
               <span>J'aime</span>
             </button>
-
             <button className={styles.interaction_button} onClick={handleComments}>
               <IconComment size='22' />
               <span>Commenter</span>
             </button>
           </div>
         </div>
-        {isCommentsOpen && <Comments comments={comments} />}
+
+        {isCommentsOpen && (
+          <Comments comments={comments} postId={post.id} setUpdatedPost={setUpdatedPost} />
+        )}
       </article>
     </PostContainer>
   );
