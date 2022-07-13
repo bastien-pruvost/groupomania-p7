@@ -3,6 +3,7 @@ const { findCurrentUserById } = require('../queries/users.queries');
 const { createJwt } = require('../utils/jwt.utils');
 const { jwtConfig } = require('../configs/jwt.config');
 const { findPostById } = require('../queries/posts.queries');
+const { findCommentById } = require('../queries/comments.queries');
 
 // Middleware to ensure that the user is properly connected and add the user to the request object if he is connected
 exports.ensureAuthenticated = async (req, res, next) => {
@@ -29,12 +30,25 @@ exports.ensureAuthenticated = async (req, res, next) => {
 exports.ensureUserIsOwner = async (req, res, next) => {
   try {
     const currentUserId = req.user.id;
-    const postId = Number(req.params.postId);
-    const post = await findPostById(postId);
-    if (!post) return res.status(404).json({ message: `Impossible de trouver ce post` });
-    if (currentUserId !== post.userId)
-      return res.status(403).json({ message: `Vous n'êtes pas l'auteur de ce post` });
-    req.post = post;
+    console.log(req.params);
+    if (req.params.postId) {
+      const postId = Number(req.params.postId);
+      const post = await findPostById(postId);
+      if (!post) return res.status(404).json({ message: `Impossible de trouver ce post` });
+      console.log(post);
+      if (currentUserId !== post.userId)
+        return res.status(403).json({ message: `Vous n'êtes pas l'auteur de ce post` });
+      req.post = post;
+    }
+    if (req.params.commentId) {
+      const commentId = Number(req.params.commentId);
+      const comment = await findCommentById(commentId);
+      if (!comment)
+        return res.status(404).json({ message: `Impossible de trouver ce commentaire` });
+      if (currentUserId !== comment.userId)
+        return res.status(403).json({ message: `Vous n'êtes pas l'auteur de ce commentaire` });
+      req.comment = comment;
+    }
     return next();
   } catch (err) {
     return res.status(500).json({ message: err.message });
