@@ -1,0 +1,58 @@
+.SingleComment {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.user_pic {
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-top: 0.5rem;
+  border-radius: 50%;
+  box-shadow: var(--shadow-1);
+}
+
+.right_column {
+  padding: 0.75rem;
+  flex: 1 1;
+  border-radius: var(--border-radius);
+  background-color: var(--grey-50);
+  box-shadow: var(--shadow-1);
+}
+
+.top_row {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.name_time_container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex: 1 1;
+}
+
+.name_text {
+  font-size: 1rem;
+  text-transform: capitalize;
+  font-weight: 600;
+  width: fit-content;
+}
+
+.name_text > a:hover {
+  color: var(--grey-500);
+}
+
+.time_text {
+  font-size: 0.8rem;
+  color: var(--grey-500);
+}
+
+.content_text {
+  margin-top: 0.6rem;
+  white-space: pre-line;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 500;
+}

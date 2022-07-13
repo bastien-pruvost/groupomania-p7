@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { formatTimeAgo } from 'utils/dates.utils';
 import styles from './SinglePost.module.css';
@@ -11,6 +11,7 @@ import IconLike from 'components/Icons/IconLike';
 import IconComment from 'components/Icons/IconComment';
 import PostForm from 'components/Posts/PostForm';
 import { UserContext } from 'contexts/UserContext';
+import EditMenu from 'components/EditMenu';
 
 const SinglePost = ({ post, deletePost, refreshPostList }) => {
   const { currentUser } = useContext(UserContext);
@@ -18,42 +19,46 @@ const SinglePost = ({ post, deletePost, refreshPostList }) => {
   const { user, createdAt, user_like_posts: likes, comments } = post;
   const { imagePath, content } = updatedPost || post;
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const [isCommentsOpen, setCommentsOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
   // const cloudinaryUrl = process.env.REACT_APP_CLOUDINARY_URL;
 
-  const handleMenu = () => {
-    if (!isMenuOpen) {
-      document.addEventListener('mousedown', closeMenuOnOutsideClick);
-    } else {
-      document.removeEventListener('mousedown', closeMenuOnOutsideClick);
-    }
-    setMenuOpen(!isMenuOpen);
-  };
+  // const handleMenu = () => {
+  //   if (!isMenuOpen) {
+  //     document.addEventListener('mousedown', closeMenuOnOutsideClick);
+  //   } else {
+  //     document.removeEventListener('mousedown', closeMenuOnOutsideClick);
+  //   }
+  //   setMenuOpen(!isMenuOpen);
+  // };
 
   const handleDelete = () => {
-    console.log(post.user.id);
-    console.log(currentUser.id);
     deletePost(post.id)
       .then(() => refreshPostList())
       .catch((err) => console.log(err));
   };
 
-  const closeMenuOnOutsideClick = (e) => {
-    if (!e.target.closest(`.more_menu_container`)) {
-      setMenuOpen(false);
-      document.removeEventListener('mousedown', closeMenuOnOutsideClick);
-    }
+  const handleComments = () => {
+    setCommentsOpen(true);
   };
 
+  // const closeMenuOnOutsideClick = (e) => {
+  //   if (!e.target.closest(`.more_menu_container`)) {
+  //     setMenuOpen(false);
+  //     document.removeEventListener('mousedown', closeMenuOnOutsideClick);
+  //   }
+  // };
+
   const timeAgo = formatTimeAgo(createdAt);
-
   const imageUrl = imagePath ? `${process.env.REACT_APP_CLOUDINARY_URL}/${imagePath}` : null;
-
   const numberOfLikes = `${likes.length} J'aime`;
-
   const numberOfComments = `${comments.length} ${
     comments.length > 1 ? 'commentaires' : 'commentaire'
   }`;
+
+  useEffect(() => {
+    if (comments.length > 0) setCommentsOpen(true);
+  }, []);
 
   return editMode ? (
     <PostForm
@@ -72,26 +77,18 @@ const SinglePost = ({ post, deletePost, refreshPostList }) => {
             <img className={styles.user_pic} src={defaultProfilePic} alt='Photo de profil' />
           </Link>
           <div className={styles.name_time_container}>
-            <span className={styles.name_text}>
-              <Link to={`/profile/${user.id}`}>
-                {user.firstname} {user.lastname}
-              </Link>
-            </span>
+            <Link className={styles.name_text} to={`/profile/${user.id}`}>
+              {user.firstname} {user.lastname}
+            </Link>
             <span className={styles.time_text}>{timeAgo}</span>
           </div>
-          {post.user.id === currentUser.id && (
-            <div className={styles.more_menu_container + ' more_menu_container'}>
-              <button className={styles.more_button} onClick={handleMenu} onKeyDown={handleMenu}>
-                <IconMore size='30' />
-              </button>
 
-              {!!isMenuOpen && (
-                <div className={styles.more_menu}>
-                  <button onClick={() => setEditMode(true)}>Modifier le post</button>
-                  <button onClick={handleDelete}>Supprimer le post</button>
-                </div>
-              )}
-            </div>
+          {post.user.id === currentUser.id && (
+            <EditMenu
+              handleEdit={() => setEditMode(true)}
+              handleDelete={handleDelete}
+              iconSize='30'
+            />
           )}
         </div>
 
@@ -109,14 +106,14 @@ const SinglePost = ({ post, deletePost, refreshPostList }) => {
               <IconLike active={false} size='22' />
               <span>J'aime</span>
             </button>
-            <button className={styles.interaction_button}>
+
+            <button className={styles.interaction_button} onClick={handleComments}>
               <IconComment size='22' />
               <span>Commenter</span>
             </button>
           </div>
         </div>
-
-        <Comments comments={comments} />
+        {isCommentsOpen && <Comments comments={comments} />}
       </article>
     </PostContainer>
   );
