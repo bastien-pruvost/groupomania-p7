@@ -55,7 +55,44 @@ exports.findPaginatePostsWithCommentsAndLikes = (lastId, limit) => {
 
 exports.findPostById = (postId) =>
   Post.findByPk(postId, {
-    attributes: ['id', 'userId', 'imagePath', 'content']
+    attributes: ['id', 'content', 'imagePath', 'createdAt', 'updatedAt', 'userId'],
+    include: [
+      {
+        model: User,
+        attributes: ['id', 'lastname', 'firstname', 'profilePicPath']
+      },
+      {
+        model: UserLikePost,
+        attributes: ['createdAt'],
+        include: [
+          {
+            model: User,
+            attributes: ['id', 'firstname', 'lastname', 'profilePicPath']
+          }
+        ]
+      },
+      {
+        model: Comment,
+        as: 'comments',
+        attributes: ['id', 'content', 'createdAt', 'updatedAt'],
+        include: [
+          {
+            model: User,
+            attributes: ['id', 'firstname', 'lastname', 'profilePicPath']
+          },
+          {
+            model: UserLikeComment,
+            attributes: ['createdAt'],
+            include: [
+              {
+                model: User,
+                attributes: ['id', 'firstname', 'lastname', 'profilePicPath']
+              }
+            ]
+          }
+        ]
+      }
+    ]
   });
 
 exports.saveNewPost = (newPost) => Post.create(newPost);
@@ -64,9 +101,5 @@ exports.updatePostById = (updatedPost, postId) =>
   Post.update(updatedPost, { where: { id: postId } });
 
 exports.deletePostById = (postId) => {
-  Post.destroy({
-    where: {
-      id: postId
-    }
-  });
+  Post.destroy({ where: { id: postId } });
 };
