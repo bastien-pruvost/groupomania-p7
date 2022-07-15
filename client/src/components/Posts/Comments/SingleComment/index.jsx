@@ -2,13 +2,14 @@ import styles from './SingleComment.module.css';
 import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 import { formatTimeAgo } from 'utils/dates.utils';
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { UserContext } from 'contexts/UserContext';
 import EditMenu from 'components/EditMenu';
 
 const SingleComment = ({ comment }) => {
   const { currentUser } = useContext(UserContext);
   const { user, content, createdAt, user_like_comments: likes } = comment;
+  const [editMode, setEditMode] = useState(false);
 
   const timeAgo = formatTimeAgo(createdAt);
 

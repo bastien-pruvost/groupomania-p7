@@ -48,9 +48,11 @@ const PostList = () => {
       {allPostsLoaded ? (
         <p className={styles.end_message}>Il n'y a pas de posts plus anciens...</p>
       ) : (
-        <Loader grey={true} />
+        <>
+          <div ref={scroll} />
+          <Loader grey={true} />
+        </>
       )}
-      <div ref={scroll} />
     </div>
   );
 };

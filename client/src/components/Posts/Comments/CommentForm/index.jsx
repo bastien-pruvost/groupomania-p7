@@ -11,7 +11,7 @@ const CommentForm = ({ postId, setUpdatedPost }) => {
   const { currentUser } = useContext(UserContext);
   const [isLoading, setLoading] = useState(false);
   const [responseErrorMsg, setResponseErrorMsg] = useState([]);
-  const { formState, handleSubmit, register, reset } = useForm({
+  const { formState, handleSubmit, register, reset, setFocus } = useForm({
     mode: 'onSubmit'
   });
   const { errors } = formState;
@@ -34,6 +34,7 @@ const CommentForm = ({ postId, setUpdatedPost }) => {
     createComment(data)
       .then((res) => {
         reset({ content: '' });
+        setTimeout(() => setFocus('content'), 0);
         setUpdatedPost(res.post);
       })
       .catch((err) => setResponseErrorMsg(err))
@@ -49,6 +50,7 @@ const CommentForm = ({ postId, setUpdatedPost }) => {
           placeholder={`Commenter...`}
           className={`form-textarea ${styles.content_textarea} ${errors.content ? 'error' : ''}`}
           onInput={(e) => adjustTextareaHeight(e)}
+          onFocus={(e) => adjustTextareaHeight(e)}
           {...register('content', { validate: validationSchema.content })}
         />
         <button type='submit' className={styles.submit_btn}>

@@ -24,6 +24,7 @@ const SinglePost = ({ post, deletePost, refreshPostList }) => {
     comments
   } = updatedPost || post;
   const [isCommentsOpen, setCommentsOpen] = useState(false);
+  const [userLikePost, setUserLikePost] = useState(false);
   const [editMode, setEditMode] = useState(false);
   // const cloudinaryUrl = process.env.REACT_APP_CLOUDINARY_URL;
 
@@ -37,16 +38,26 @@ const SinglePost = ({ post, deletePost, refreshPostList }) => {
     setCommentsOpen(true);
   };
 
+  const checkUserLike = () => {
+    likes.forEach((like) => {
+      if (like.user.id === currentUser.id) {
+        setUserLikePost(true);
+        return true;
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (comments.length > 0) setCommentsOpen(true);
+    checkUserLike();
+  }, []);
+
   const timeAgo = formatTimeAgo(createdAt);
   const imageUrl = imagePath ? `${process.env.REACT_APP_CLOUDINARY_URL}/${imagePath}` : null;
   const numberOfLikes = `${likes.length} J'aime`;
   const numberOfComments = `${comments.length} ${
     comments.length > 1 ? 'commentaires' : 'commentaire'
   }`;
-
-  useEffect(() => {
-    if (comments.length > 0) setCommentsOpen(true);
-  }, []);
 
   return editMode ? (
     <PostForm
@@ -93,7 +104,7 @@ const SinglePost = ({ post, deletePost, refreshPostList }) => {
 
           <div className={styles.interaction_row}>
             <button className={styles.interaction_button}>
-              <IconLike active={true} size='22' />
+              <IconLike active={userLikePost} size='22' />
               <span>J'aime</span>
             </button>
             <button className={styles.interaction_button} onClick={handleComments}>
