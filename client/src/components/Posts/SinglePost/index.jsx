@@ -5,30 +5,33 @@ import styles from './SinglePost.module.css';
 import PostContainer from 'components/Posts/PostContainer';
 import Comments from 'components/Posts/Comments';
 import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
-// import randomPic from 'assets/images/random-pic.jpg';
+import randomPic from 'assets/images/random-pic.jpg';
 import IconLike from 'components/Icons/IconLike';
 import IconComment from 'components/Icons/IconComment';
 import PostForm from 'components/Posts/PostForm';
 import { AuthContext } from 'contexts/AuthContext';
 import EditMenu from 'components/EditMenu';
+import { usePost } from 'hooks/usePost';
 
 const SinglePost = ({ post, deletePost, refreshPostList }) => {
   const { currentUser } = useContext(AuthContext);
+  const { likePost, dislikePost } = usePost();
   const [editMode, setEditMode] = useState(false);
-  const [updatedPost, setUpdatedPost] = useState(null);
+  const [postLikedByUser, setPostLikedByUser] = useState(false);
+  const [isCommentsOpen, setCommentsOpen] = useState(false);
+  const [postData, setPostData] = useState(post);
   const {
+    id: postId,
+    content,
+    imagePath,
     user,
     createdAt,
     user_like_posts: likes,
-    imagePath,
-    content,
     comments
-  } = updatedPost || post;
-  const [isCommentsOpen, setCommentsOpen] = useState(false);
-  const [userLikePost, setUserLikePost] = useState(false);
+  } = postData;
 
   const handleDelete = () => {
-    deletePost(post.id)
+    deletePost(postId)
       .then(() => refreshPostList())
       .catch((err) => console.log(err));
   };
@@ -37,19 +40,40 @@ const SinglePost = ({ post, deletePost, refreshPostList }) => {
     setCommentsOpen(true);
   };
 
-  const checkUserLike = () => {
+  const handleLike = () => {
+    likePost(postId)
+      .then((res) => {
+        setPostData(res.post);
+        console.log(res.post);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleDislike = () => {
+    dislikePost(postId)
+      .then((res) => {
+        setPostData(res.post);
+        console.log(res.post);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const checkPostLikedByUser = () => {
+    if (likes.length === 0) {
+      return setPostLikedByUser(false);
+    }
     likes.forEach((like) => {
       if (like.user.id === currentUser.id) {
-        setUserLikePost(true);
-        return true;
+        return setPostLikedByUser(true);
       }
     });
   };
 
   useEffect(() => {
     if (comments.length > 0) setCommentsOpen(true);
-    checkUserLike();
-  }, []);
+    checkPostLikedByUser();
+    console.log('Check');
+  }, [postData]);
 
   const imageUrl = imagePath ? `${process.env.REACT_APP_IMAGES_URL}/${imagePath}` : null;
   const timeAgo = formatTimeAgo(createdAt);
@@ -60,12 +84,11 @@ const SinglePost = ({ post, deletePost, refreshPostList }) => {
 
   return editMode ? (
     <PostForm
-      editMode={true}
-      setEditMode={setEditMode}
+      postId={postId}
       content={content}
       imagePath={imagePath}
-      postId={post.id}
-      setUpdatedPost={setUpdatedPost}
+      setEditMode={setEditMode}
+      setPostData={setPostData}
     />
   ) : (
     <PostContainer>
@@ -93,7 +116,8 @@ const SinglePost = ({ post, deletePost, refreshPostList }) => {
 
         <p className={styles.content_text}>{content}</p>
 
-        {!!imageUrl && <img className={styles.image} src={imageUrl} alt='random' />}
+        {/* {!!imageUrl && <img className={styles.image} src={imageUrl} alt='random' />} */}
+        {!!imageUrl && <img className={styles.image} src={randomPic} alt='random' />}
 
         <div>
           <div className={styles.counts_row}>
@@ -102,9 +126,12 @@ const SinglePost = ({ post, deletePost, refreshPostList }) => {
           </div>
 
           <div className={styles.interaction_row}>
-            <button className={styles.interaction_button}>
-              <IconLike active={userLikePost} size='22' />
-              <span className={userLikePost ? styles.like_btn_active : ''}>J'aime</span>
+            <button
+              className={styles.interaction_button}
+              onClick={postLikedByUser ? handleDislike : handleLike}
+            >
+              <IconLike active={postLikedByUser} size='22' />
+              <span className={postLikedByUser ? styles.like_btn_active : ''}>J'aime</span>
             </button>
             <button className={styles.interaction_button} onClick={handleComments}>
               <IconComment size='22' />
@@ -114,7 +141,7 @@ const SinglePost = ({ post, deletePost, refreshPostList }) => {
         </div>
 
         {isCommentsOpen && (
-          <Comments comments={comments} postId={post.id} setUpdatedPost={setUpdatedPost} />
+          <Comments comments={comments} postId={postId} setPostData={setPostData} />
         )}
       </article>
     </PostContainer>

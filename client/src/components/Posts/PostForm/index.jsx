@@ -10,31 +10,28 @@ import Loader from 'components/Loader';
 import EmojiPicker from 'components/EmojiPicker';
 import IconDelete from 'components/Icons/IconDelete';
 
-const PostForm = ({
-  editMode,
-  setEditMode,
-  content,
-  imagePath,
-  postId,
-  setUpdatedPost,
-  refreshPostList
-}) => {
-  const { createPost, updatePost } = usePost();
+const PostForm = ({ postId, content, imagePath, setEditMode, setPostData, refreshPostList }) => {
   const { currentUser } = useContext(AuthContext);
+  const { createPost, updatePost } = usePost();
   const [isLoading, setLoading] = useState(false);
   const [responseErrorMsg, setResponseErrorMsg] = useState([]);
   const [filePreview, setFilePreview] = useState(null);
   const [imageDeleted, setImageDeleted] = useState(false);
-  const { formState, handleSubmit, register, reset, setValue, getValues, setFocus } = useForm({
-    mode: 'onSubmit'
-  });
-  const { errors } = formState;
   const validationSchema = postValidator();
   const imagesUrl = process.env.REACT_APP_IMAGES_URL;
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    getValues,
+    setFocus,
+    reset,
+    formState: { errors }
+  } = useForm({ mode: 'onSubmit' });
 
   useEffect(() => {
     setResponseErrorMsg([]);
-    if (editMode) {
+    if (postId) {
       setValue('content', content);
       setFocus('content');
       imagePath && setFilePreview(`${imagesUrl}/${imagePath}`);
@@ -73,14 +70,14 @@ const PostForm = ({
     const formData = new FormData();
     formData.append('content', data.content);
     formData.append('image', data.image[0]);
-    editMode && formData.append('imageDeleted', imageDeleted);
-    const request = editMode ? updatePost(postId, formData) : createPost(formData);
+    postId && formData.append('imageDeleted', imageDeleted);
+    const request = postId ? updatePost(postId, formData) : createPost(formData);
     request
       .then((res) => {
         reset({ content: '', image: [] });
         setFilePreview(null);
-        if (editMode) {
-          setUpdatedPost(res);
+        if (postId) {
+          setPostData(res);
           setEditMode(false);
         } else {
           refreshPostList();
