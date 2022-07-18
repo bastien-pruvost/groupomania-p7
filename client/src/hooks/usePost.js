@@ -1,4 +1,10 @@
-import { createPostQuery, deletePostQuery, updatePostQuery } from 'services/posts.services';
+import {
+  createPostQuery,
+  deletePostQuery,
+  dislikePostQuery,
+  likePostQuery,
+  updatePostQuery
+} from 'services/posts.services';
 
 export const usePost = () => {
   const createPost = async (formData) => {
@@ -26,5 +32,23 @@ export const usePost = () => {
     }
   };
 
-  return { createPost, updatePost, deletePost };
+  const likePost = async (postId) => {
+    try {
+      const response = await likePostQuery(postId);
+      return response;
+    } catch (err) {
+      throw Array.isArray(err.message) ? err.message : [err.message];
+    }
+  };
+
+  const dislikePost = async (postId) => {
+    try {
+      const response = await dislikePostQuery(postId);
+      return response;
+    } catch (err) {
+      throw Array.isArray(err.message) ? err.message : [err.message];
+    }
+  };
+
+  return { createPost, updatePost, deletePost, likePost, dislikePost };
 };
