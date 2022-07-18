@@ -1,15 +1,38 @@
-import { useContext } from 'react';
-import { UserContext } from 'contexts/UserContext';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signinRequest, signupRequest, signoutRequest } from 'services/auth.services';
+import {
+  signinQuery,
+  signupQuery,
+  signoutQuery,
+  getCurrentUserQuery
+} from 'services/auth.services';
 
 export const useAuth = () => {
-  const { currentUser, setCurrentUser, noUser } = useContext(UserContext);
+  const noUser = {
+    id: null,
+    isAdmin: false,
+    firstname: '',
+    lastname: '',
+    profilePicPath: 'default-profile-pic.jpg'
+  };
+  const [currentUser, setCurrentUser] = useState(noUser);
+  const [isAuthLoading, setAuthLoading] = useState(true);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setAuthLoading(true);
+    getCurrentUserQuery()
+      .then((response) => {
+        console.log(response);
+        setCurrentUser(response);
+      })
+      .catch((err) => console.log(err.message))
+      .finally(() => setAuthLoading(false));
+  }, []);
 
   const signin = async (formData) => {
     try {
-      const response = await signinRequest(formData);
+      const response = await signinQuery(formData);
       setCurrentUser(response.user);
     } catch (err) {
       throw Array.isArray(err.message) ? err.message : [err.message];
@@ -18,7 +41,7 @@ export const useAuth = () => {
 
   const signup = async (formData) => {
     try {
-      const response = await signupRequest(formData);
+      const response = await signupQuery(formData);
       setCurrentUser(response.user);
     } catch (err) {
       throw Array.isArray(err.message) ? err.message : [err.message];
@@ -27,7 +50,7 @@ export const useAuth = () => {
 
   const signout = async () => {
     try {
-      await signoutRequest();
+      await signoutQuery();
       setCurrentUser(noUser);
       navigate('/landing');
     } catch (err) {
@@ -35,5 +58,5 @@ export const useAuth = () => {
     }
   };
 
-  return { signin, signup, signout, currentUser, noUser };
+  return { signin, signup, signout, currentUser, setCurrentUser, noUser, isAuthLoading };
 };

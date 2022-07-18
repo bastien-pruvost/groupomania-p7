@@ -3,11 +3,11 @@ import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 import { formatTimeAgo } from 'utils/dates.utils';
 import { Link } from 'react-router-dom';
 import { useContext, useState } from 'react';
-import { UserContext } from 'contexts/UserContext';
+import { AuthContext } from 'contexts/AuthContext';
 import EditMenu from 'components/EditMenu';
 
 const SingleComment = ({ comment }) => {
-  const { currentUser } = useContext(UserContext);
+  const { currentUser } = useContext(AuthContext);
   const { user, content, createdAt, user_like_comments: likes } = comment;
   const [editMode, setEditMode] = useState(false);
 

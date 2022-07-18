@@ -1,13 +1,13 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { UserContext } from 'contexts/UserContext';
+import { AuthContext } from 'contexts/AuthContext';
 import styles from './Header.module.css';
 import Wrapper from 'components/Wrapper';
 import Logo from 'components/Logo';
 import UserMenu from 'components/Header/UserMenu';
 
 const Header = () => {
-  const { currentUser } = useContext(UserContext);
+  const { currentUser } = useContext(AuthContext);
 
   return (
     <header className={styles.Header}>

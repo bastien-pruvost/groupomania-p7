@@ -1,11 +1,11 @@
 import styles from './UserMenu.module.css';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from 'hooks/useAuth';
+import { AuthContext } from 'contexts/AuthContext';
 import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 
 const UserMenu = () => {
-  const { currentUser, signout } = useAuth();
+  const { currentUser, signout } = useContext(AuthContext);
   const [isMenuOpen, setMenuOpen] = useState(false);
   // const imagesUrl = process.env.REACT_APP_IMAGES_URL;
 

@@ -1,13 +1,13 @@
-import { UserContextProvider } from 'contexts/UserContext';
+import { AuthContextProvider } from 'contexts/AuthContext';
 import Header from 'components/Header';
 import Routing from 'components/Routing';
 
 const App = () => {
   return (
-    <UserContextProvider>
+    <AuthContextProvider>
       <Header />
       <Routing />
-    </UserContextProvider>
+    </AuthContextProvider>
   );
 };
 

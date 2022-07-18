@@ -1,5 +1,5 @@
-import { UserContext } from 'contexts/UserContext';
-import { useComment } from 'hooks/useComments';
+import { AuthContext } from 'contexts/AuthContext';
+import { useComment } from 'hooks/useComment';
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
@@ -8,7 +8,7 @@ import IconSend from 'components/Icons/IconSend';
 
 const CommentForm = ({ postId, setUpdatedPost }) => {
   const { createComment } = useComment();
-  const { currentUser } = useContext(UserContext);
+  const { currentUser } = useContext(AuthContext);
   const [isLoading, setLoading] = useState(false);
   const [responseErrorMsg, setResponseErrorMsg] = useState([]);
   const { formState, handleSubmit, register, reset, setFocus } = useForm({

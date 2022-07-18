@@ -5,15 +5,16 @@ import styles from './SinglePost.module.css';
 import PostContainer from 'components/Posts/PostContainer';
 import Comments from 'components/Posts/Comments';
 import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
-import randomPic from 'assets/images/random-pic.jpg';
+// import randomPic from 'assets/images/random-pic.jpg';
 import IconLike from 'components/Icons/IconLike';
 import IconComment from 'components/Icons/IconComment';
 import PostForm from 'components/Posts/PostForm';
-import { UserContext } from 'contexts/UserContext';
+import { AuthContext } from 'contexts/AuthContext';
 import EditMenu from 'components/EditMenu';
 
 const SinglePost = ({ post, deletePost, refreshPostList }) => {
-  const { currentUser } = useContext(UserContext);
+  const { currentUser } = useContext(AuthContext);
+  const [editMode, setEditMode] = useState(false);
   const [updatedPost, setUpdatedPost] = useState(null);
   const {
     user,
@@ -25,8 +26,6 @@ const SinglePost = ({ post, deletePost, refreshPostList }) => {
   } = updatedPost || post;
   const [isCommentsOpen, setCommentsOpen] = useState(false);
   const [userLikePost, setUserLikePost] = useState(false);
-  const [editMode, setEditMode] = useState(false);
-  // const cloudinaryUrl = process.env.REACT_APP_CLOUDINARY_URL;
 
   const handleDelete = () => {
     deletePost(post.id)
@@ -52,8 +51,8 @@ const SinglePost = ({ post, deletePost, refreshPostList }) => {
     checkUserLike();
   }, []);
 
+  const imageUrl = imagePath ? `${process.env.REACT_APP_IMAGES_URL}/${imagePath}` : null;
   const timeAgo = formatTimeAgo(createdAt);
-  const imageUrl = imagePath ? `${process.env.REACT_APP_CLOUDINARY_URL}/${imagePath}` : null;
   const numberOfLikes = `${likes.length} J'aime`;
   const numberOfComments = `${comments.length} ${
     comments.length > 1 ? 'commentaires' : 'commentaire'
@@ -94,7 +93,7 @@ const SinglePost = ({ post, deletePost, refreshPostList }) => {
 
         <p className={styles.content_text}>{content}</p>
 
-        {!!imageUrl && <img className={styles.image} src={randomPic} alt='random' />}
+        {!!imageUrl && <img className={styles.image} src={imageUrl} alt='random' />}
 
         <div>
           <div className={styles.counts_row}>
@@ -105,7 +104,7 @@ const SinglePost = ({ post, deletePost, refreshPostList }) => {
           <div className={styles.interaction_row}>
             <button className={styles.interaction_button}>
               <IconLike active={userLikePost} size='22' />
-              <span>J'aime</span>
+              <span className={userLikePost ? styles.like_btn_active : ''}>J'aime</span>
             </button>
             <button className={styles.interaction_button} onClick={handleComments}>
               <IconComment size='22' />

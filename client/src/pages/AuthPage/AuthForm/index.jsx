@@ -1,13 +1,13 @@
 import styles from './AuthForm.module.css';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { authValidator } from 'utils/validationSchemas.utils';
 import { Link } from 'react-router-dom';
-import { useAuth } from 'hooks/useAuth';
 import Loader from 'components/Loader';
+import { AuthContext } from 'contexts/AuthContext';
 
 const AuthForm = ({ signinMode }) => {
-  const { signin, signup } = useAuth();
+  const { signin, signup } = useContext(AuthContext);
   const [isLoading, setLoading] = useState(false);
   const [responseErrorMsg, setResponseErrorMsg] = useState([]);
   const { formState, watch, handleSubmit, register } = useForm({

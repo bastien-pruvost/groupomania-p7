@@ -2,7 +2,7 @@ import styles from './PostForm.module.css';
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { usePost } from 'hooks/usePost';
-import { UserContext } from 'contexts/UserContext';
+import { AuthContext } from 'contexts/AuthContext';
 import { postValidator } from 'utils/validationSchemas.utils';
 import PostContainer from 'components/Posts/PostContainer';
 import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
@@ -20,7 +20,7 @@ const PostForm = ({
   refreshPostList
 }) => {
   const { createPost, updatePost } = usePost();
-  const { currentUser } = useContext(UserContext);
+  const { currentUser } = useContext(AuthContext);
   const [isLoading, setLoading] = useState(false);
   const [responseErrorMsg, setResponseErrorMsg] = useState([]);
   const [filePreview, setFilePreview] = useState(null);
@@ -112,7 +112,10 @@ const PostForm = ({
             className={`form-textarea form-emoji-padding ${styles.content_textarea} ${
               errors.content ? 'error' : ''
             }`}
-            onInput={(e) => adjustTextareaHeight(e)}
+            onInput={(e) => {
+              adjustTextareaHeight(e);
+              console.log(e.target.selectionStart);
+            }}
             onFocus={(e) => adjustTextareaHeight(e)}
             {...register('content', { validate: validationSchema.content })}
           />
