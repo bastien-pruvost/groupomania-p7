@@ -13,6 +13,6 @@ exports.findCommentById = (commentId) =>
 exports.saveNewComment = (newComment) => Comment.create(newComment);
 
 exports.updateCommentById = (updatedComment, commentId) =>
-  Post.update(updatedComment, { where: { id: commentId } });
+  Comment.update(updatedComment, { where: { id: commentId } });
 
-exports.deleteCommentById = (commentId) => Post.destroy({ where: { id: commentId } });
+exports.deleteCommentById = (commentId) => Comment.destroy({ where: { id: commentId } });

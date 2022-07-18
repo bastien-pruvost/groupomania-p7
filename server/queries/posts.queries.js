@@ -29,7 +29,7 @@ exports.findPaginatePostsWithCommentsAndLikes = (lastId, limit) => {
       {
         model: Comment,
         as: 'comments',
-        attributes: ['id', 'content', 'createdAt', 'updatedAt'],
+        attributes: ['id', 'content', 'createdAt', 'updatedAt', 'postId'],
         include: [
           {
             model: User,
@@ -74,7 +74,7 @@ exports.findPostById = (postId) =>
       {
         model: Comment,
         as: 'comments',
-        attributes: ['id', 'content', 'createdAt', 'updatedAt'],
+        attributes: ['id', 'content', 'createdAt', 'updatedAt', 'postId'],
         include: [
           {
             model: User,
