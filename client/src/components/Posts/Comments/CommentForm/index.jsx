@@ -6,12 +6,12 @@ import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 import styles from './CommentForm.module.css';
 import IconSend from 'components/Icons/IconSend';
 
-const CommentForm = ({ postId, setPostData }) => {
-  const { createComment } = useComment();
+const CommentForm = ({ content, commentId, postId, setPostData, setEditMode }) => {
+  const { createComment, updateComment, deleteComment } = useComment();
   const { currentUser } = useContext(AuthContext);
   const [isLoading, setLoading] = useState(false);
   const [responseErrorMsg, setResponseErrorMsg] = useState([]);
-  const { formState, handleSubmit, register, reset, setFocus } = useForm({
+  const { formState, handleSubmit, register, reset, setFocus, setValue } = useForm({
     mode: 'onSubmit'
   });
   const { errors } = formState;
@@ -19,6 +19,9 @@ const CommentForm = ({ postId, setPostData }) => {
 
   useEffect(() => {
     setResponseErrorMsg([]);
+    if (postId) {
+      setValue('content', content);
+    }
   }, []);
 
   const adjustTextareaHeight = (e) => {
@@ -29,11 +32,12 @@ const CommentForm = ({ postId, setPostData }) => {
   const onSubmit = async (data) => {
     setResponseErrorMsg([]);
     setLoading(true);
-    data.postId = postId;
-    createComment(data)
+    const submitMethod = postId ? updateComment(commentId, data) : createComment(data);
+    submitMethod
       .then((res) => {
         reset({ content: '' });
         setTimeout(() => setFocus('content'), 0);
+        commentId && setEditMode(false);
         setPostData(res.post);
       })
       .catch((err) => setResponseErrorMsg(err))

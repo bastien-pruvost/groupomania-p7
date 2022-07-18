@@ -71,8 +71,8 @@ const PostForm = ({ postId, content, imagePath, setEditMode, setPostData, refres
     formData.append('content', data.content);
     formData.append('image', data.image[0]);
     postId && formData.append('imageDeleted', imageDeleted);
-    const request = postId ? updatePost(postId, formData) : createPost(formData);
-    request
+    const submitMethod = postId ? updatePost(postId, formData) : createPost(formData);
+    submitMethod
       .then((res) => {
         reset({ content: '', image: [] });
         setFilePreview(null);

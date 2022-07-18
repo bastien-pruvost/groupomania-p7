@@ -9,3 +9,21 @@ export const createCommentQuery = async (data) => {
     handleError(err);
   }
 };
+
+export const updateCommentQuery = async (commentId, data) => {
+  try {
+    const response = await api.put(`/comments/${commentId}`, data);
+    return response.data;
+  } catch (err) {
+    handleError(err);
+  }
+};
+
+export const deleteCommentQuery = async (commentId) => {
+  try {
+    const response = await api.delete(`/comments/${commentId}`);
+    return response.data;
+  } catch (err) {
+    handleError(err);
+  }
+};
