@@ -12,6 +12,7 @@ import PostForm from 'components/Posts/PostForm';
 import { AuthContext } from 'contexts/AuthContext';
 import EditMenu from 'components/EditMenu';
 import { usePost } from 'hooks/usePost';
+import { limitTextLength } from 'utils/text.utils';
 
 const SinglePost = ({ post, deletePost, refreshPostList }) => {
   const { currentUser } = useContext(AuthContext);
@@ -29,15 +30,18 @@ const SinglePost = ({ post, deletePost, refreshPostList }) => {
     user_like_posts: likes,
     comments
   } = postData;
+  const numberOfParagraphs = content.split(/\r\n|\r|\n/).length;
+  const charactersLimit = 450;
+  const paragraphsLimit = 7;
+  const isContentTooLong =
+    content.length > charactersLimit + 200 || numberOfParagraphs > paragraphsLimit;
+  const [isContentLimited, setContentLimited] = useState(false);
+  const limitedContent = limitTextLength(content, charactersLimit);
 
   const handleDelete = () => {
     deletePost(postId)
       .then(() => refreshPostList())
       .catch((err) => console.log(err));
-  };
-
-  const handleComments = () => {
-    setCommentsOpen(true);
   };
 
   const handleLike = () => {
@@ -69,10 +73,15 @@ const SinglePost = ({ post, deletePost, refreshPostList }) => {
     });
   };
 
+  const handleComments = () => {
+    setCommentsOpen(true);
+  };
+
   useEffect(() => {
+    console.log(content.length);
     if (comments.length > 0) setCommentsOpen(true);
     checkPostLikedByUser();
-    console.log('Check');
+    if (isContentTooLong) setContentLimited(true);
   }, [postData]);
 
   const imageUrl = imagePath ? `${process.env.REACT_APP_IMAGES_URL}/${imagePath}` : null;
@@ -114,7 +123,14 @@ const SinglePost = ({ post, deletePost, refreshPostList }) => {
           )}
         </div>
 
-        <p className={styles.content_text}>{content}</p>
+        <p className={styles.content_text}>
+          {isContentLimited ? limitedContent : content}
+          {isContentTooLong && (
+            <button onClick={() => setContentLimited(!isContentLimited)}>
+              {isContentLimited ? 'Voir plus' : 'Voir moins'}
+            </button>
+          )}
+        </p>
 
         {/* {!!imageUrl && <img className={styles.image} src={imageUrl} alt='random' />} */}
         {!!imageUrl && <img className={styles.image} src={randomPic} alt='random' />}
