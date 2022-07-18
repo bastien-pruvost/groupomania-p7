@@ -4,6 +4,7 @@
   bottom: 4px;
   color: var(--grey-400);
   cursor: pointer;
+  z-index: 1000;
 }
 
 .EmojiPicker:hover {

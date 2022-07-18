@@ -35,7 +35,7 @@ const EmojiPicker = (props) => {
         ...props,
         data,
         ref,
-        autoFocus: true,
+        autoFocus: false,
         previewPosition: 'none',
         locale: 'fr',
         maxFrequentRows: 3,
