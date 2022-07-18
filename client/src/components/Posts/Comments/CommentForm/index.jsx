@@ -6,7 +6,7 @@ import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 import styles from './CommentForm.module.css';
 import IconSend from 'components/Icons/IconSend';
 
-const CommentForm = ({ postId, setUpdatedPost }) => {
+const CommentForm = ({ postId, setPostData }) => {
   const { createComment } = useComment();
   const { currentUser } = useContext(AuthContext);
   const [isLoading, setLoading] = useState(false);
@@ -23,19 +23,18 @@ const CommentForm = ({ postId, setUpdatedPost }) => {
 
   const adjustTextareaHeight = (e) => {
     e.target.style.height = '1px';
-    e.target.style.height = 0.5 + e.target.scrollHeight + 'px';
+    e.target.style.height = e.target.scrollHeight + 'px';
   };
 
   const onSubmit = async (data) => {
     setResponseErrorMsg([]);
     setLoading(true);
     data.postId = postId;
-    console.log(data);
     createComment(data)
       .then((res) => {
         reset({ content: '' });
         setTimeout(() => setFocus('content'), 0);
-        setUpdatedPost(res.post);
+        setPostData(res.post);
       })
       .catch((err) => setResponseErrorMsg(err))
       .finally(() => setLoading(false));
@@ -46,7 +45,6 @@ const CommentForm = ({ postId, setUpdatedPost }) => {
       <form className={styles.CommentForm} onSubmit={handleSubmit(onSubmit)}>
         <img className={styles.user_pic} src={defaultProfilePic} alt='' />
         <textarea
-          // id='commentContent'
           placeholder={`Commenter...`}
           className={`form-textarea ${styles.content_textarea} ${errors.content ? 'error' : ''}`}
           onInput={(e) => adjustTextareaHeight(e)}
@@ -57,6 +55,7 @@ const CommentForm = ({ postId, setUpdatedPost }) => {
           <IconSend size='32' />
         </button>
       </form>
+
       {responseErrorMsg.length > 0 && (
         <ul className='alert alert-danger'>
           {responseErrorMsg.map((message, index) => (
