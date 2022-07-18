@@ -87,3 +87,7 @@
 .interaction_button:hover {
   color: var(--grey-500);
 }
+
+.like_btn_active {
+  font-weight: 600;
+}
