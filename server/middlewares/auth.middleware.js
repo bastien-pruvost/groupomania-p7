@@ -30,7 +30,6 @@ exports.ensureAuthenticated = async (req, res, next) => {
 exports.ensureUserIsOwner = async (req, res, next) => {
   try {
     const currentUserId = req.user.id;
-    console.log(req.params);
     if (req.params.postId) {
       const postId = Number(req.params.postId);
       const post = await findPostById(postId);

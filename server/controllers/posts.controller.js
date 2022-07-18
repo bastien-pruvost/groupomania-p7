@@ -74,7 +74,8 @@ exports.likePost = async (req, res) => {
     const alreadyLiked = await findLike(userId, postId);
     if (alreadyLiked) return res.status(400).json({ message: 'Vous avez déja liké ce post' });
     await saveNewLike(userId, postId);
-    return res.status(200).json({ message: 'Le post a été liké' });
+    const updatedPost = await findPostById(postId);
+    return res.status(200).json({ message: 'Le post a été liké', post: updatedPost });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
@@ -85,7 +86,8 @@ exports.dislikePost = async (req, res) => {
     const { postId } = req.params;
     const userId = req.user.id;
     await deleteLike(userId, postId);
-    return res.status(200).json({ message: 'Le like a été supprimé' });
+    const updatedPost = await findPostById(postId);
+    return res.status(200).json({ message: 'Le like a été supprimé', post: updatedPost });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
