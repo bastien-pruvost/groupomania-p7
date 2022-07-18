@@ -5,15 +5,22 @@ import { Link } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { AuthContext } from 'contexts/AuthContext';
 import EditMenu from 'components/EditMenu';
+import CommentForm from 'components/Posts/Comments/CommentForm';
 
-const SingleComment = ({ comment }) => {
+const SingleComment = ({ comment, setPostData }) => {
   const { currentUser } = useContext(AuthContext);
-  const { user, content, createdAt, user_like_comments: likes } = comment;
+  const { postId, user, content, createdAt, user_like_comments: likes } = comment;
   const [editMode, setEditMode] = useState(false);
+
+  const handleDelete = () => {
+    console.log('delete');
+  };
 
   const timeAgo = formatTimeAgo(createdAt);
 
-  return (
+  return editMode ? (
+    <CommentForm setPostData={setPostData} postId={postId} setEditMode={setEditMode} />
+  ) : (
     <div className={styles.SingleComment}>
       <Link to={`/profile/${user.id}`}>
         <img src={defaultProfilePic} alt='' className={styles.user_pic} />
@@ -28,8 +35,8 @@ const SingleComment = ({ comment }) => {
           </div>
           {comment.user.id === currentUser.id && (
             <EditMenu
-              handleEdit={() => 'setEditMode(true)'}
-              handleDelete={'handleDelete'}
+              handleEdit={() => setEditMode(true)}
+              handleDelete={handleDelete}
               iconSize='24'
             />
           )}
