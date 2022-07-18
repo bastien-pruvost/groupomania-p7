@@ -3,7 +3,10 @@ const {
   findPaginatePostsWithCommentsAndLikes,
   findPostById,
   updatePostById,
-  deletePostById
+  deletePostById,
+  saveNewLike,
+  deleteLike,
+  findLike
 } = require('../queries/posts.queries');
 const { deleteFile } = require('../middlewares/filesUpload.middleware');
 
@@ -57,8 +60,32 @@ exports.updatePost = async (req, res) => {
 exports.deletePost = async (req, res) => {
   try {
     const postId = req.post.id;
-    deletePostById(postId);
+    await deletePostById(postId);
     return res.status(200).json({ message: 'Le post a été supprimé' });
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+};
+
+exports.likePost = async (req, res) => {
+  try {
+    const { postId } = req.params;
+    const userId = req.user.id;
+    const alreadyLiked = await findLike(userId, postId);
+    if (alreadyLiked) return res.status(400).json({ message: 'Vous avez déja liké ce post' });
+    await saveNewLike(userId, postId);
+    return res.status(200).json({ message: 'Le post a été liké' });
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+};
+
+exports.dislikePost = async (req, res) => {
+  try {
+    const { postId } = req.params;
+    const userId = req.user.id;
+    await deleteLike(userId, postId);
+    return res.status(200).json({ message: 'Le like a été supprimé' });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }

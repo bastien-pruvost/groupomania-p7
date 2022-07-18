@@ -35,7 +35,6 @@ exports.ensureUserIsOwner = async (req, res, next) => {
       const postId = Number(req.params.postId);
       const post = await findPostById(postId);
       if (!post) return res.status(404).json({ message: `Impossible de trouver ce post` });
-      console.log(post);
       if (currentUserId !== post.userId)
         return res.status(403).json({ message: `Vous n'êtes pas l'auteur de ce post` });
       req.post = post;

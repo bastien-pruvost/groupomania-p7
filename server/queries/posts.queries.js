@@ -100,6 +100,10 @@ exports.saveNewPost = (newPost) => Post.create(newPost);
 exports.updatePostById = (updatedPost, postId) =>
   Post.update(updatedPost, { where: { id: postId } });
 
-exports.deletePostById = (postId) => {
-  Post.destroy({ where: { id: postId } });
-};
+exports.deletePostById = (postId) => Post.destroy({ where: { id: postId } });
+
+exports.saveNewLike = (userId, postId) => UserLikePost.create({ userId, postId });
+
+exports.deleteLike = (userId, postId) => UserLikePost.destroy({ where: { userId, postId } });
+
+exports.findLike = (userId, postId) => UserLikePost.findOne({ where: { userId, postId } });
