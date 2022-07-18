@@ -1,7 +1,7 @@
 import { api } from 'utils/axios.utils';
 import { handleError } from 'utils/errors.utils';
 
-export const createCommentRequest = async (data) => {
+export const createCommentQuery = async (data) => {
   try {
     const response = await api.post('/comments', data);
     return response.data;

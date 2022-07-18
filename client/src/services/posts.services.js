@@ -1,7 +1,7 @@
 import { api } from 'utils/axios.utils';
 import { handleError } from 'utils/errors.utils';
 
-export const createPostRequest = async (data) => {
+export const createPostQuery = async (data) => {
   try {
     const response = await api.post('/posts', data);
     return response.data;
@@ -10,7 +10,7 @@ export const createPostRequest = async (data) => {
   }
 };
 
-export const getPaginatePostsRequest = async (lastId, limit) => {
+export const getPaginatePostsQuery = async (lastId, limit) => {
   try {
     const response = await api.get('/posts', {
       params: { lastId, limit }
@@ -21,7 +21,7 @@ export const getPaginatePostsRequest = async (lastId, limit) => {
   }
 };
 
-export const updatePostRequest = async (postId, data) => {
+export const updatePostQuery = async (postId, data) => {
   try {
     const response = await api.put(`/posts/${postId}`, data);
     return response.data.post;
@@ -30,7 +30,7 @@ export const updatePostRequest = async (postId, data) => {
   }
 };
 
-export const deletePostRequest = async (postId) => {
+export const deletePostQuery = async (postId) => {
   try {
     const response = await api.delete(`/posts/${postId}`);
     console.log(response.data);

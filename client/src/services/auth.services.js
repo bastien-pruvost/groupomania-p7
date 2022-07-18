@@ -1,7 +1,7 @@
 import { api } from 'utils/axios.utils';
 import { handleError } from 'utils/errors.utils';
 
-export const getCurrentUserRequest = async () => {
+export const getCurrentUserQuery = async () => {
   try {
     const response = await api.get('/auth/getcurrentuser');
     return response.data;
@@ -10,7 +10,7 @@ export const getCurrentUserRequest = async () => {
   }
 };
 
-export const signinRequest = async (data) => {
+export const signinQuery = async (data) => {
   try {
     const response = await api.post('/auth/signin', data);
     return response.data;
@@ -19,7 +19,7 @@ export const signinRequest = async (data) => {
   }
 };
 
-export const signoutRequest = async () => {
+export const signoutQuery = async () => {
   try {
     const response = await api.get('/auth/signout');
     return response.data;
@@ -28,7 +28,7 @@ export const signoutRequest = async () => {
   }
 };
 
-export const signupRequest = async (data) => {
+export const signupQuery = async (data) => {
   try {
     const response = await api.post('/auth/signup', data);
     return response.data;
