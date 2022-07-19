@@ -40,8 +40,10 @@
 }
 
 .content_text {
+  display: block;
   padding: 0 0.5rem;
   white-space: pre-line;
+  word-break: break-word;
   font-size: 1.05rem;
   line-height: 1.5;
 }

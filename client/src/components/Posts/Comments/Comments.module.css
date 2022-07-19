@@ -2,3 +2,9 @@
   padding-top: 1rem;
   border-top: 1px solid var(--grey-200);
 }
+
+.show_all_btn {
+  display: block;
+  margin-left: auto;
+  margin-bottom: 1rem;
+}
