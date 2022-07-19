@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { getPaginatePostsQuery } from 'services/posts.services';
 
-export const useInfiniteScroll = () => {
+const useInfiniteScroll = () => {
   const [postList, setPostList] = useState([]);
   const [lastId, setLastId] = useState(null);
   const [allPostsLoaded, setAllPostsLoaded] = useState(false);
@@ -59,3 +59,5 @@ export const useInfiniteScroll = () => {
 
   return { postList, refreshPostList, allPostsLoaded, scrollRef };
 };
+
+export default useInfiniteScroll;

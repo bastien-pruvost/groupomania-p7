@@ -6,7 +6,7 @@ import {
   updatePostQuery
 } from 'services/posts.services';
 
-export const usePost = () => {
+const usePost = () => {
   const createPost = async (formData) => {
     try {
       await createPostQuery(formData);
@@ -52,3 +52,5 @@ export const usePost = () => {
 
   return { createPost, updatePost, deletePost, likePost, dislikePost };
 };
+
+export default usePost;

@@ -5,7 +5,7 @@ import {
   updateCommentQuery
 } from 'services/comments.services';
 
-export const useComment = () => {
+const useComment = () => {
   const createComment = async (data) => {
     try {
       const response = await createCommentQuery(data);
@@ -35,3 +35,5 @@ export const useComment = () => {
 
   return { createComment, updateComment, deleteComment };
 };
+
+export default useComment;

@@ -7,7 +7,7 @@ import {
   getCurrentUserQuery
 } from 'services/auth.services';
 
-export const useAuth = () => {
+const useAuth = () => {
   const noUser = {
     id: null,
     isAdmin: false,
@@ -60,3 +60,5 @@ export const useAuth = () => {
 
   return { signin, signup, signout, currentUser, setCurrentUser, noUser, isAuthLoading };
 };
+
+export default useAuth;
