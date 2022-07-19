@@ -236,6 +236,10 @@ h5 {
 }
 
 /* Buttons */
+button {
+  user-select: none;
+}
+
 .btn {
   display: inline-block;
   padding: 0.7rem 1.6rem;
@@ -342,6 +346,20 @@ h5 {
 
 .btn-block {
   width: 100%;
+}
+
+.limit-text-btn {
+  margin-left: 0.5rem;
+  font-size: inherit;
+  color: var(--grey-400);
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.limit-text-btn:hover {
+  color: var(--grey-600);
+  text-decoration: underline;
 }
 
 /* alerts */
