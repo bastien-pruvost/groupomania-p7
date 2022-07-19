@@ -1,5 +1,5 @@
 import { AuthContext } from 'contexts/AuthContext';
-import { useComment } from 'hooks/useComment';
+import useComment from 'hooks/useComment';
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import defaultProfilePic from 'assets/images/default-profile-pic.jpg';

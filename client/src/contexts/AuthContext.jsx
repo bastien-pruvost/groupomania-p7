@@ -1,5 +1,5 @@
 import Loader from 'components/Loader';
-import { useAuth } from 'hooks/useAuth';
+import useAuth from 'hooks/useAuth';
 import { createContext } from 'react';
 
 export const AuthContext = createContext();

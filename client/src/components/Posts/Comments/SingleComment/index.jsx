@@ -6,13 +6,19 @@ import { useContext, useState } from 'react';
 import { AuthContext } from 'contexts/AuthContext';
 import EditMenu from 'components/EditMenu';
 import CommentForm from 'components/Posts/Comments/CommentForm';
-import { useComment } from 'hooks/useComment';
+import useComment from 'hooks/useComment';
+import useTextLimiter from 'hooks/useTextLimiter';
 
 const SingleComment = ({ comment, setPostData }) => {
   const { currentUser } = useContext(AuthContext);
   const { deleteComment } = useComment();
   const [editMode, setEditMode] = useState(false);
   const { id: commentId, postId, user, content, createdAt, user_like_comments: likes } = comment;
+  const { isContentLimited, textContent, handleLimitedText } = useTextLimiter({
+    text: content,
+    paragraphsLimit: 2,
+    charactersLimit: 100
+  });
 
   const handleDelete = () => {
     deleteComment(commentId)
@@ -51,7 +57,14 @@ const SingleComment = ({ comment, setPostData }) => {
             />
           )}
         </div>
-        <p className={styles.content_text}>{content}</p>
+        <p className={styles.content_text}>
+          {textContent}{' '}
+          {isContentLimited && (
+            <button className='limit-text-btn' onClick={handleLimitedText}>
+              Voir plus
+            </button>
+          )}
+        </p>
       </div>
     </div>
   );

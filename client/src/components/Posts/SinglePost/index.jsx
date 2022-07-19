@@ -11,8 +11,8 @@ import IconComment from 'components/Icons/IconComment';
 import PostForm from 'components/Posts/PostForm';
 import { AuthContext } from 'contexts/AuthContext';
 import EditMenu from 'components/EditMenu';
-import { usePost } from 'hooks/usePost';
-import { limitTextLength } from 'utils/text.utils';
+import usePost from 'hooks/usePost';
+import useTextLimiter from 'hooks/useTextLimiter';
 
 const SinglePost = ({ post, deletePost, refreshPostList }) => {
   const { currentUser } = useContext(AuthContext);
@@ -30,13 +30,11 @@ const SinglePost = ({ post, deletePost, refreshPostList }) => {
     user_like_posts: likes,
     comments
   } = postData;
-  const numberOfParagraphs = content.split(/\r\n|\r|\n/).length;
-  const charactersLimit = 450;
-  const paragraphsLimit = 7;
-  const isContentTooLong =
-    content.length > charactersLimit + 200 || numberOfParagraphs > paragraphsLimit;
-  const [isContentLimited, setContentLimited] = useState(false);
-  const limitedContent = limitTextLength(content, charactersLimit);
+  const { isContentLimited, textContent, handleLimitedText } = useTextLimiter({
+    text: content,
+    paragraphsLimit: 3,
+    charactersLimit: 400
+  });
 
   const handleDelete = () => {
     deletePost(postId)
@@ -48,7 +46,6 @@ const SinglePost = ({ post, deletePost, refreshPostList }) => {
     likePost(postId)
       .then((res) => {
         setPostData(res.post);
-        console.log(res.post);
       })
       .catch((err) => console.log(err));
   };
@@ -57,7 +54,6 @@ const SinglePost = ({ post, deletePost, refreshPostList }) => {
     dislikePost(postId)
       .then((res) => {
         setPostData(res.post);
-        console.log(res.post);
       })
       .catch((err) => console.log(err));
   };
@@ -78,10 +74,8 @@ const SinglePost = ({ post, deletePost, refreshPostList }) => {
   };
 
   useEffect(() => {
-    console.log(content.length);
     if (comments.length > 0) setCommentsOpen(true);
     checkPostLikedByUser();
-    if (isContentTooLong) setContentLimited(true);
   }, [postData]);
 
   const imageUrl = imagePath ? `${process.env.REACT_APP_IMAGES_URL}/${imagePath}` : null;
@@ -124,10 +118,10 @@ const SinglePost = ({ post, deletePost, refreshPostList }) => {
         </div>
 
         <p className={styles.content_text}>
-          {isContentLimited ? limitedContent : content}
-          {isContentTooLong && (
-            <button onClick={() => setContentLimited(!isContentLimited)}>
-              {isContentLimited ? 'Voir plus' : 'Voir moins'}
+          {textContent}
+          {isContentLimited && (
+            <button className='limit-text-btn' onClick={handleLimitedText}>
+              Voir plus
             </button>
           )}
         </p>

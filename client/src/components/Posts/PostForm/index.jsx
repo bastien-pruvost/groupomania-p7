@@ -1,7 +1,7 @@
 import styles from './PostForm.module.css';
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { usePost } from 'hooks/usePost';
+import usePost from 'hooks/usePost';
 import { AuthContext } from 'contexts/AuthContext';
 import { postValidator } from 'utils/validationSchemas.utils';
 import PostContainer from 'components/Posts/PostContainer';

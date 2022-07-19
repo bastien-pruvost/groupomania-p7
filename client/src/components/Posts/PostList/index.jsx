@@ -1,9 +1,9 @@
 import SinglePost from 'components/Posts/SinglePost';
 import Loader from 'components/Loader';
 import styles from './PostList.module.css';
-import { usePost } from 'hooks/usePost';
+import usePost from 'hooks/usePost';
 import PostForm from 'components/Posts/PostForm';
-import { useInfiniteScroll } from 'hooks/useInfiniteScroll';
+import useInfiniteScroll from 'hooks/useInfiniteScroll';
 
 const PostList = () => {
   const { postList, allPostsLoaded, refreshPostList, scrollRef } = useInfiniteScroll();
