@@ -1,17 +1,50 @@
-// const useTextLimiter = (text) => {
-//     const numberOfParagraphs = text.split(/\r\n|\r|\n/).length;
-//     const numberOfCharacters = text.length;
-//     const charactersLimit = 450;
-//     const paragraphsLimit = 7;
-//     const isContentTooLong =
-//       content.length > charactersLimit + 200 || numberOfParagraphs > paragraphsLimit;
-//     const [isContentLimited, setContentLimited] = useState(false);
-//     const limitedContent = limitTextLength(content, charactersLimit);
-// }
+import { useEffect, useState } from 'react';
 
-// export const limitTextLength = (string, limit) => {
-//   var dots = '...';
-//   const newString = string.substring(0, limit) + dots;
+const useTextLimiter = ({ text, paragraphsLimit, charactersLimit }) => {
+  const [isContentLimited, setContentLimited] = useState(false);
+  const [textContent, setTextContent] = useState(text);
+  const numberOfParagraphs = text.split(/\r/).length;
+  const numberOfCharacters = text.length;
 
-//   return newString;
-// };
+  const limitCharacters = () => {
+    const dots = '...';
+    const newString = text.substring(0, charactersLimit) + dots;
+    return newString;
+  };
+
+  const limitParagraphs = () => {
+    const newString = text.split(/\r/);
+    newString.length = paragraphsLimit;
+    newString.join('\r');
+    newString.push('...');
+    return newString;
+  };
+
+  const limitText = () => {
+    if (numberOfCharacters > charactersLimit + 80) {
+      setTextContent(limitCharacters());
+      setContentLimited(true);
+    } else if (numberOfParagraphs > paragraphsLimit + 1) {
+      setTextContent(limitParagraphs());
+      setContentLimited(true);
+    } else {
+      setTextContent(text);
+      setContentLimited(false);
+    }
+  };
+
+  const handleLimitedText = () => {
+    if (isContentLimited) {
+      setTextContent(text);
+      setContentLimited(false);
+    }
+  };
+
+  useEffect(() => {
+    limitText();
+  }, [text]);
+
+  return { isContentLimited, textContent, handleLimitedText };
+};
+
+export default useTextLimiter;
