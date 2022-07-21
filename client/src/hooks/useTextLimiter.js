@@ -24,7 +24,7 @@ const useTextLimiter = ({ text, paragraphsLimit, charactersLimit }) => {
     if (numberOfCharacters > charactersLimit + 80) {
       setTextContent(limitCharacters());
       setContentLimited(true);
-    } else if (numberOfParagraphs > paragraphsLimit + 1) {
+    } else if (numberOfParagraphs > paragraphsLimit + 2) {
       setTextContent(limitParagraphs());
       setContentLimited(true);
     } else {
