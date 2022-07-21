@@ -12,10 +12,13 @@
   object-position: center;
 }
 
-.description_grid {
+.description_flex {
   position: relative;
-  display: grid;
-  grid-template-columns: 1fr 2.5fr 1fr;
+  display: flex;
+  justify-content: flex-start;
+  row-gap: 2rem;
+  column-gap: 3rem;
+  flex-wrap: wrap;
   padding: 4rem 5% 2rem;
 }
 
@@ -44,17 +47,25 @@
 .profession {
   font-weight: 600;
   color: var(--grey-400);
-  margin-bottom: 2rem;
+}
+
+.info_container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
 }
 
 .info_item {
-  margin-bottom: 0.5rem;
-  color: var(--grey-600);
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem;
+  font-weight: 600;
+  vertical-align: middle;
+  color: var(--grey-500);
 }
 
 .bio_column {
-  padding: 0 1.25rem;
   max-width: var(--post-max-width);
-  margin: 0 auto;
-  color: var(--grey-600);
+  color: var(--grey-500);
+  flex: 1 1 30rem;
 }
