@@ -1,0 +1,60 @@
+.user_profile_container {
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-1);
+  background-color: var(--white);
+}
+
+.cover_pic {
+  width: 100%;
+  height: 35vh;
+  border-radius: var(--border-radius);
+  object-position: center;
+}
+
+.description_grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 2.5fr 1fr;
+  padding: 4rem 5% 2rem;
+}
+
+.infos_column {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile_pic {
+  position: absolute;
+  height: 10rem;
+  top: 0;
+  border-radius: 50%;
+  border: 5px solid white;
+  transform: translateY(-70%);
+}
+
+.name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: left;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0;
+}
+
+.profession {
+  font-weight: 600;
+  color: var(--grey-400);
+  margin-bottom: 2rem;
+}
+
+.info_item {
+  margin-bottom: 0.5rem;
+  color: var(--grey-600);
+}
+
+.bio_column {
+  padding: 0 1.25rem;
+  max-width: var(--post-max-width);
+  margin: 0 auto;
+  color: var(--grey-600);
+}
