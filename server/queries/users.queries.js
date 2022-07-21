@@ -12,3 +12,8 @@ exports.findUserByEmail = (userEmail) =>
     where: { email: userEmail },
     attributes: ['id', 'password', 'isAdmin', 'lastname', 'firstname', 'profilePicPath']
   });
+
+exports.findUserProfileById = (userId) =>
+  User.findByPk(userId, {
+    attributes: { exclude: ['password'] }
+  });
