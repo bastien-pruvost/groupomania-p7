@@ -1,8 +1,9 @@
 {
   "env": {
-    "browser": true,
+    // "browser": true,
     "commonjs": true,
-    "es2021": true
+    "es2021": true,
+    "node": true
   },
   "extends": ["eslint:recommended", "airbnb-base", "prettier"],
   "parserOptions": {
@@ -14,6 +15,6 @@
     "no-console": "off",
     "no-unused-vars": "off",
     "no-underscore-dangle": "off",
-    "allowShortCircuit": true
+    "no-unused-expressions": ["error", { "allowShortCircuit": true }]
   }
 }
