@@ -5,9 +5,7 @@ import IconMapPin from 'components/Icons/IconMapPin';
 import IconPhone from 'components/Icons/IconPhone';
 import IconLinkedin from 'components/Icons/IconLinkedin';
 import IconCalendar from 'components/Icons/IconCalendar';
-import { useEffect } from 'react';
 import useProfile from 'hooks/useProfile';
-import { Link } from 'react-router-dom';
 
 const ProfilePage = () => {
   const { userProfile } = useProfile();
