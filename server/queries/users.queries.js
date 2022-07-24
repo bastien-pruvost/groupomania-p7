@@ -17,3 +17,6 @@ exports.findUserProfileById = (userId) =>
   User.findByPk(userId, {
     attributes: { exclude: ['password'] }
   });
+
+exports.updateUserInfosById = (userId, updatedInfos) =>
+  User.update(updatedInfos, { where: { id: userId } });
