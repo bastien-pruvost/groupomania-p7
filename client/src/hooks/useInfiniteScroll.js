@@ -15,7 +15,6 @@ const useInfiniteScroll = () => {
   const getPaginatePosts = async () => {
     try {
       const posts = await getPaginatePostsQuery(lastId, limitPerPage);
-      console.log(posts);
       if (posts.length < limitPerPage) {
         setAllPostsLoaded(true);
       } else {

@@ -4,10 +4,11 @@ import { useEffect, useState } from 'react';
 import styles from './Comments.module.css';
 
 const Comments = ({ comments, postId, setPostData }) => {
-  const [showAllComments, setShowAllComments] = useState(false);
+  const [showAllComments, setShowAllComments] = useState(true);
+
   useEffect(() => {
-    if (comments.length <= 1) {
-      setShowAllComments(true);
+    if (comments.length > 1) {
+      setShowAllComments(false);
     }
   }, []);
 
@@ -18,16 +19,15 @@ const Comments = ({ comments, postId, setPostData }) => {
           <SingleComment key={comment.id} comment={comment} setPostData={setPostData} />
         ))
       ) : (
-        <SingleComment comment={comments[0]} setPostData={setPostData} />
-      )}
-
-      {!showAllComments && (
-        <button
-          className={`${styles.show_all_btn} limit-text-btn`}
-          onClick={() => setShowAllComments(true)}
-        >
-          Voir tous les commentaires
-        </button>
+        <>
+          <SingleComment comment={comments[0]} setPostData={setPostData} />
+          <button
+            className={`${styles.show_all_btn} limit-text-btn`}
+            onClick={() => setShowAllComments(true)}
+          >
+            Voir tous les commentaires
+          </button>
+        </>
       )}
 
       <CommentForm postId={postId} setPostData={setPostData} />

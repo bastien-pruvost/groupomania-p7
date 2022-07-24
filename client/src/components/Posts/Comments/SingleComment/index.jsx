@@ -58,7 +58,7 @@ const SingleComment = ({ comment, setPostData }) => {
           )}
         </div>
         <p className={styles.content_text}>
-          {textContent}{' '}
+          {textContent}
           {isContentLimited && (
             <button className='limit-text-btn' onClick={handleLimitedText}>
               Voir plus

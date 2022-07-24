@@ -7,7 +7,7 @@ import styles from './CommentForm.module.css';
 import IconSend from 'components/Icons/IconSend';
 
 const CommentForm = ({ content, commentId, postId, setPostData, setEditMode }) => {
-  const { createComment, updateComment, deleteComment } = useComment();
+  const { createComment, updateComment } = useComment();
   const { currentUser } = useContext(AuthContext);
   const [isLoading, setLoading] = useState(false);
   const [responseErrorMsg, setResponseErrorMsg] = useState([]);
@@ -19,7 +19,7 @@ const CommentForm = ({ content, commentId, postId, setPostData, setEditMode }) =
 
   useEffect(() => {
     setResponseErrorMsg([]);
-    if (postId) {
+    if (commentId) {
       setValue('content', content);
     }
   }, []);
@@ -32,11 +32,12 @@ const CommentForm = ({ content, commentId, postId, setPostData, setEditMode }) =
   const onSubmit = async (data) => {
     setResponseErrorMsg([]);
     setLoading(true);
-    const submitMethod = postId ? updateComment(commentId, data) : createComment(data);
+    data.postId = postId;
+    const submitMethod = commentId ? updateComment(commentId, data) : createComment(data);
     submitMethod
       .then((res) => {
         reset({ content: '' });
-        setTimeout(() => setFocus('content'), 0);
+        !commentId && setTimeout(() => setFocus('content'), 0);
         commentId && setEditMode(false);
         setPostData(res.post);
       })
