@@ -30,6 +30,7 @@ exports.ensureAuthenticated = async (req, res, next) => {
 exports.ensureUserIsOwner = async (req, res, next) => {
   try {
     const currentUserId = req.user.id;
+    if (req.user.isAdmin) return next();
     if (req.params.postId) {
       const postId = Number(req.params.postId);
       const post = await findPostById(postId);
@@ -46,6 +47,11 @@ exports.ensureUserIsOwner = async (req, res, next) => {
       if (currentUserId !== comment.userId)
         return res.status(403).json({ message: `Vous n'êtes pas l'auteur de ce commentaire` });
       req.comment = comment;
+    }
+    if (req.params.userId) {
+      const profileUserId = Number(req.params.userId);
+      if (currentUserId !== profileUserId)
+        return res.status(403).json({ message: `Vous n'êtes pas autorisé à modifier ce profil` });
     }
     return next();
   } catch (err) {
