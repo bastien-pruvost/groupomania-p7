@@ -349,7 +349,7 @@ button {
 }
 
 .limit-text-btn {
-  margin-left: 0.5rem;
+  padding-left: 0.5rem;
   font-size: inherit;
   color: var(--grey-400);
   border: none;

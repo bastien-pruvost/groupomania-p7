@@ -1,8 +1,13 @@
 .Header {
+  position: sticky;
+  top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: var(--header-height);
+  background-color: var(--white);
+  z-index: 10000;
+  box-shadow: var(--shadow-3);
 }
 
 .flex_container {

@@ -3,6 +3,7 @@
   overflow: hidden;
   box-shadow: var(--shadow-1);
   background-color: var(--white);
+  margin-bottom: 1.5rem;
 }
 
 .cover_pic {
