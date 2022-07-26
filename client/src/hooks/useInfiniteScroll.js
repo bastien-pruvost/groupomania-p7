@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import { getPaginatePostsQuery } from 'services/posts.services';
+import { getPaginatePostsQuery, getUserPaginatePostsQuery } from 'services/posts.services';
 
-const useInfiniteScroll = () => {
-  const [postList, setPostList] = useState([]);
-  const [lastId, setLastId] = useState(null);
+const useInfiniteScroll = (userId) => {
+  const [postsData, setPostsData] = useState([]);
+  const [lastPostId, setLastPostId] = useState(null);
   const [allPostsLoaded, setAllPostsLoaded] = useState(false);
   const [page, setPage] = useState(1);
   const scrollRef = useRef(null);
@@ -12,16 +12,19 @@ const useInfiniteScroll = () => {
 
   const limitPerPage = 8;
 
-  const getPaginatePosts = async () => {
+  const getPaginatePosts = async (id) => {
     try {
-      const posts = await getPaginatePostsQuery(lastId, limitPerPage);
-      if (posts.length < limitPerPage) {
+      const posts = id
+        ? await getUserPaginatePostsQuery(lastPostId, limitPerPage, id)
+        : await getPaginatePostsQuery(lastPostId, limitPerPage);
+      console.log(posts);
+      if (posts.length === 0) {
         setAllPostsLoaded(true);
       } else {
-        setLastId(posts[posts.length - 1].id);
+        setLastPostId(posts[posts.length - 1].id);
       }
-      const newPosts = [...postList, ...posts];
-      setPostList(newPosts);
+      const newPosts = [...postsData, ...posts];
+      setPostsData(newPosts);
     } catch (err) {
       console.log(err);
     }
@@ -34,10 +37,10 @@ const useInfiniteScroll = () => {
     }
   };
 
-  const refreshPostList = () => {
-    setLastId(null);
+  const refreshPostsData = () => {
+    setLastPostId(null);
     setAllPostsLoaded(false);
-    setPostList([]);
+    setPostsData([]);
     setPage(1);
   };
 
@@ -53,10 +56,21 @@ const useInfiniteScroll = () => {
   }, []);
 
   useEffect(() => {
-    if (!allPostsLoaded) getPaginatePosts();
+    if (!allPostsLoaded && userId) {
+      getPaginatePosts(userId);
+      console.log('1');
+    }
+    if (!allPostsLoaded && !userId) {
+      getPaginatePosts();
+      console.log('2');
+    }
   }, [page]);
 
-  return { postList, refreshPostList, allPostsLoaded, scrollRef };
+  useEffect(() => {
+    refreshPostsData();
+  }, [userId]);
+
+  return { postsData, refreshPostsData, allPostsLoaded, scrollRef };
 };
 
 export default useInfiniteScroll;

@@ -10,7 +10,7 @@ import Loader from 'components/Loader';
 import EmojiPicker from 'components/EmojiPicker';
 import IconDelete from 'components/Icons/IconDelete';
 
-const PostForm = ({ postId, content, imagePath, setEditMode, setPostData, refreshPostList }) => {
+const PostForm = ({ postId, content, imagePath, setEditMode, setPostData, refreshPostsData }) => {
   const { currentUser } = useContext(AuthContext);
   const { createPost, updatePost } = usePost();
   const [isLoading, setLoading] = useState(false);
@@ -80,7 +80,7 @@ const PostForm = ({ postId, content, imagePath, setEditMode, setPostData, refres
           setPostData(res);
           setEditMode(false);
         } else {
-          refreshPostList();
+          refreshPostsData();
         }
       })
       .catch((err) => setResponseErrorMsg(err))

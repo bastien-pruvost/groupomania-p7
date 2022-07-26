@@ -14,7 +14,7 @@ import EditMenu from 'components/EditMenu';
 import usePost from 'hooks/usePost';
 import useTextLimiter from 'hooks/useTextLimiter';
 
-const SinglePost = ({ post, deletePost, refreshPostList }) => {
+const SinglePost = ({ post, deletePost, refreshPostsData }) => {
   const { currentUser } = useContext(AuthContext);
   const { likePost, dislikePost } = usePost();
   const [editMode, setEditMode] = useState(false);
@@ -38,7 +38,7 @@ const SinglePost = ({ post, deletePost, refreshPostList }) => {
 
   const handleDelete = () => {
     deletePost(postId)
-      .then(() => refreshPostList())
+      .then(() => refreshPostsData())
       .catch((err) => console.log(err));
   };
 

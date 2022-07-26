@@ -1,11 +1,21 @@
+import PostForm from 'components/Posts/PostForm';
 import PostList from 'components/Posts/PostList';
-import styles from './FeedPage.module.css';
+import useInfiniteScroll from 'hooks/useInfiniteScroll';
+// import styles from './FeedPage.module.css';
 
 const FeedPage = () => {
+  const { postsData, allPostsLoaded, refreshPostsData, scrollRef } = useInfiniteScroll();
+
   return (
-    <div className={styles.FeedPage}>
-      <PostList />
-    </div>
+    <>
+      <PostForm refreshPostsData={refreshPostsData} />
+      <PostList
+        postsData={postsData}
+        allPostsLoaded={allPostsLoaded}
+        scrollRef={scrollRef}
+        refreshPostsData={refreshPostsData}
+      />
+    </>
   );
 };
 

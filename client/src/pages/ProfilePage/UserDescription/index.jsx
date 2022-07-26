@@ -5,15 +5,13 @@ import IconMapPin from 'components/Icons/IconMapPin';
 import IconPhone from 'components/Icons/IconPhone';
 import IconLinkedin from 'components/Icons/IconLinkedin';
 import IconCalendar from 'components/Icons/IconCalendar';
-import useProfile from 'hooks/useProfile';
 
-const UserDescription = () => {
-  const { userProfile } = useProfile();
+const UserDescription = ({ userProfile }) => {
   const {
     firstname,
     lastname,
-    profilePicPath,
-    coverPicPath,
+    // profilePicPath,
+    // coverPicPath,
     profession,
     birthDate,
     city,

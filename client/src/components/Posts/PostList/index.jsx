@@ -2,23 +2,18 @@ import SinglePost from 'components/Posts/SinglePost';
 import Loader from 'components/Loader';
 import styles from './PostList.module.css';
 import usePost from 'hooks/usePost';
-import PostForm from 'components/Posts/PostForm';
-import useInfiniteScroll from 'hooks/useInfiniteScroll';
 
-const PostList = () => {
-  const { postList, allPostsLoaded, refreshPostList, scrollRef } = useInfiniteScroll();
+const PostList = ({ postsData, allPostsLoaded, refreshPostsData, scrollRef }) => {
   const { deletePost } = usePost();
 
   return (
     <div className={styles.PostList}>
-      <PostForm refreshPostList={refreshPostList} />
-
-      {postList.map((post) => (
+      {postsData.map((post) => (
         <SinglePost
           key={post.id}
           post={post}
           deletePost={deletePost}
-          refreshPostList={refreshPostList}
+          refreshPostsData={refreshPostsData}
         />
       ))}
 
