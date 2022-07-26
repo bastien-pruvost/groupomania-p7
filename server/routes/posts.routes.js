@@ -8,10 +8,12 @@ const {
   updatePost,
   deletePost,
   likePost,
-  dislikePost
+  dislikePost,
+  getUserPosts
 } = require('../controllers/posts.controller');
 
 router.get('/', ensureAuthenticated, getAllPosts);
+router.get('/user/:userId', ensureAuthenticated, getUserPosts);
 router.post('/', ensureAuthenticated, uploadImage('post'), postValidator, createPost);
 router.put(
   '/:postId',

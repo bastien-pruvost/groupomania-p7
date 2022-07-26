@@ -1,12 +1,13 @@
 const {
   saveNewPost,
-  findPaginatePostsWithCommentsAndLikes,
+  findPaginatePosts,
   findPostById,
   updatePostById,
   deletePostById,
   saveNewLike,
   deleteLike,
-  findLike
+  findLike,
+  findUserPaginatePosts
 } = require('../queries/posts.queries');
 const { deleteFile } = require('../middlewares/filesUpload.middleware');
 
@@ -14,7 +15,18 @@ exports.getAllPosts = async (req, res) => {
   try {
     const lastId = Number(req.query.lastId);
     const limit = Number(req.query.limit);
-    const posts = await findPaginatePostsWithCommentsAndLikes(lastId, limit);
+    const posts = await findPaginatePosts(lastId, limit);
+    return res.status(200).json({ posts });
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+};
+exports.getUserPosts = async (req, res) => {
+  try {
+    const lastId = Number(req.query.lastId);
+    const limit = Number(req.query.limit);
+    const userId = Number(req.params.userId);
+    const posts = await findUserPaginatePosts(lastId, limit, userId);
     return res.status(200).json({ posts });
   } catch (err) {
     return res.status(500).json({ message: err.message });
