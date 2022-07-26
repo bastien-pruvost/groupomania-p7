@@ -19,6 +19,15 @@ export const getPaginatePostsQuery = async (lastId, limit) => {
   }
 };
 
+export const getUserPaginatePostsQuery = async (lastId, limit, userId) => {
+  try {
+    const response = await api.get(`/posts/user/${userId}`, { params: { lastId, limit } });
+    return response.data.posts;
+  } catch (err) {
+    handleError(err);
+  }
+};
+
 export const updatePostQuery = async (postId, data) => {
   try {
     const response = await api.put(`/posts/${postId}`, data);
