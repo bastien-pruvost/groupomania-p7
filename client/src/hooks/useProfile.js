@@ -21,7 +21,7 @@ const useProfile = () => {
     getUserProfile(userId)
       .then((profile) => setUserProfile(profile))
       .catch((err) => console.log(err));
-  }, []);
+  }, [userId]);
 
   return { userProfile };
 };

@@ -111,7 +111,6 @@ const PostForm = ({ postId, content, imagePath, setEditMode, setPostData, refres
             }`}
             onInput={(e) => {
               adjustTextareaHeight(e);
-              console.log(e.target.selectionStart);
             }}
             onFocus={(e) => adjustTextareaHeight(e)}
             {...register('content', { validate: validationSchema.content })}
