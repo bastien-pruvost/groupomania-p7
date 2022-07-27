@@ -1,4 +1,4 @@
-.UserDescription {
+.UserProfile {
   border-radius: var(--border-radius);
   overflow: hidden;
   box-shadow: var(--shadow-1);
@@ -21,6 +21,12 @@
   column-gap: 3rem;
   flex-wrap: wrap;
   padding: 4rem 5% 2rem;
+}
+
+.description_flex > svg {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
 }
 
 .infos_column {

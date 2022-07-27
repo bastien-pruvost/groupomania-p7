@@ -1,12 +1,13 @@
-import styles from './UserDescription.module.css';
+import styles from './UserProfile.module.css';
 import randomPic from 'assets/images/random-pic.jpg';
 import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 import IconMapPin from 'components/Icons/IconMapPin';
 import IconPhone from 'components/Icons/IconPhone';
 import IconLinkedin from 'components/Icons/IconLinkedin';
 import IconCalendar from 'components/Icons/IconCalendar';
+import IconEdit from 'components/Icons/IconEdit';
 
-const UserDescription = ({ userProfile }) => {
+const UserProfile = ({ userProfile }) => {
   const {
     firstname,
     lastname,
@@ -21,7 +22,7 @@ const UserDescription = ({ userProfile }) => {
   } = userProfile;
 
   return (
-    <div className={styles.UserDescription}>
+    <div className={styles.UserProfile}>
       <img className={styles.cover_pic} src={randomPic} alt='Photo de couverture' />
       <div className={styles.description_flex}>
         <div className={styles.infos_column}>
@@ -59,9 +60,10 @@ const UserDescription = ({ userProfile }) => {
         </div>
 
         {bio && <p className={styles.bio_column}>{bio}</p>}
+        <IconEdit size='20' />
       </div>
     </div>
   );
 };
 
-export default UserDescription;
+export default UserProfile;
