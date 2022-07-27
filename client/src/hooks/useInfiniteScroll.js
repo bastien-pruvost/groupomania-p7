@@ -17,7 +17,6 @@ const useInfiniteScroll = (userId) => {
       const posts = id
         ? await getUserPaginatePostsQuery(lastPostId, limitPerPage, id)
         : await getPaginatePostsQuery(lastPostId, limitPerPage);
-      console.log(posts);
       if (posts.length === 0) {
         setAllPostsLoaded(true);
       } else {
@@ -58,11 +57,9 @@ const useInfiniteScroll = (userId) => {
   useEffect(() => {
     if (!allPostsLoaded && userId) {
       getPaginatePosts(userId);
-      console.log('1');
     }
     if (!allPostsLoaded && !userId) {
       getPaginatePosts();
-      console.log('2');
     }
   }, [page]);
 

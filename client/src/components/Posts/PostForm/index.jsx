@@ -109,9 +109,7 @@ const PostForm = ({ postId, content, imagePath, setEditMode, setPostData, refres
             className={`form-textarea form-emoji-padding ${styles.content_textarea} ${
               errors.content ? 'error' : ''
             }`}
-            onInput={(e) => {
-              adjustTextareaHeight(e);
-            }}
+            onInput={(e) => adjustTextareaHeight(e)}
             onFocus={(e) => adjustTextareaHeight(e)}
             {...register('content', { validate: validationSchema.content })}
           />

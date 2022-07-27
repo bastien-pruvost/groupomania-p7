@@ -23,7 +23,6 @@ const useAuth = () => {
     setAuthLoading(true);
     getCurrentUserQuery()
       .then((response) => {
-        console.log(response);
         setCurrentUser(response);
       })
       .catch((err) => console.log(err.message))
