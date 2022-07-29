@@ -18,7 +18,7 @@ const PostList = ({ postsData, allPostsLoaded, refreshPostsData, scrollRef }) =>
       ))}
 
       {allPostsLoaded ? (
-        <p className={styles.end_message}>Il n'y a pas de posts plus anciens...</p>
+        <p className={styles.endMessage}>Il n'y a pas de posts plus anciens...</p>
       ) : (
         <>
           <div ref={scrollRef} />

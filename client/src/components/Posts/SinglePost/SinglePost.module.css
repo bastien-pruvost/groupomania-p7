@@ -4,42 +4,42 @@
   gap: 1rem;
 }
 
-.top_row {
+.topRow {
   display: flex;
   align-items: center;
   gap: 1rem;
   width: 100%;
 }
 
-.user_pic {
+.userPic {
   width: 3rem;
   border-radius: 50%;
   box-shadow: var(--shadow-1);
 }
 
-.name_time_container {
+.nameTimeContainer {
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
   flex-grow: 1;
 }
 
-.name_text {
+.nameText {
   text-transform: capitalize;
   font-weight: 600;
   width: fit-content;
 }
 
-.name_text > a:hover {
+.nameText > a:hover {
   color: var(--grey-500);
 }
 
-.time_text {
+.timeText {
   font-size: 0.9rem;
   color: var(--grey-500);
 }
 
-.content_text {
+.contentText {
   display: block;
   padding: 0 0.5rem;
   white-space: pre-line;
@@ -56,7 +56,7 @@
   margin: auto;
 }
 
-.counts_row {
+.countsRow {
   display: flex;
   justify-content: flex-end;
   gap: 1.5rem;
@@ -66,7 +66,7 @@
   user-select: none;
 }
 
-.interaction_row {
+.interactionRow {
   display: flex;
   justify-content: space-around;
   gap: 1.5rem;
@@ -75,7 +75,7 @@
   border-top: 1px solid var(--grey-200);
 }
 
-.interaction_button {
+.interactionButton {
   display: flex;
   align-items: center;
   gap: 0.3rem;
@@ -86,10 +86,10 @@
   transition: var(--transition);
 }
 
-.interaction_button:hover {
+.interactionButton:hover {
   color: var(--grey-500);
 }
 
-.like_btn_active {
+.likeBtnActive {
   font-weight: 600;
 }

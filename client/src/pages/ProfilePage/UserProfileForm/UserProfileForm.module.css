@@ -6,41 +6,42 @@
   margin-bottom: 1.5rem;
 }
 
-.cover_pic {
+.coverPic {
   width: 100%;
   height: 35vh;
   border-radius: var(--border-radius);
   object-position: center;
 }
 
-.description_flex {
+.infosContainer {
   position: relative;
-  display: flex;
-  justify-content: flex-start;
-  row-gap: 2rem;
-  column-gap: 3rem;
-  flex-wrap: wrap;
   padding: 4rem 5% 2rem;
 }
 
-.description_flex > svg {
+.infosContainer > svg {
   position: absolute;
   top: 1.5rem;
   right: 1.5rem;
 }
 
-.infos_column {
+.infosRow {
   display: flex;
-  flex-direction: column;
+  justify-content: flex-start;
+  row-gap: 2rem;
+  column-gap: 3rem;
+  flex-wrap: wrap;
 }
 
-.profile_pic {
+.profilePicLabel {
   position: absolute;
-  height: 10rem;
   top: 0;
+  transform: translateY(-70%);
+}
+
+.profilePic {
+  height: 10rem;
   border-radius: 50%;
   border: 5px solid white;
-  transform: translateY(-70%);
 }
 
 .profession {
@@ -48,14 +49,14 @@
   color: var(--grey-400);
 }
 
-.info_container {
+.infosColumn {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
   color: var(--grey-500);
 }
 
-.info_item {
+.infoItem {
   display: flex;
   align-items: center;
   gap: 0.6rem;
@@ -63,16 +64,16 @@
   vertical-align: middle;
 }
 
-.infos_textarea {
+.infosTextarea {
   max-width: var(--post-max-width);
   color: var(--grey-600);
   flex: 1 1 30rem;
 }
 
-.infos_input {
+.infosInput {
   color: var(--grey-600);
 }
 
-.save_btn {
+.saveBtn {
   margin-left: auto;
 }

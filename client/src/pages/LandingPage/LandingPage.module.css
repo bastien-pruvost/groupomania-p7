@@ -8,44 +8,44 @@
   margin: 1rem auto;
 }
 
-.hero__img {
+.heroImg {
   flex: 1 1 23rem;
   width: 40%;
   max-width: 36rem;
 }
 
-.hero__text {
+.heroText {
   flex: 1 1 24rem;
   max-width: 36rem;
 }
 
-.hero__text > h1 > span {
+.heroText > h1 > span {
   color: var(--primary-500);
 }
 
-.hero__text > p {
+.heroText > p {
   font-size: 1.5rem;
   margin-bottom: 2rem;
 }
 
-.hero__btn {
+.heroBtn {
   min-width: 165px;
   margin-right: 1rem;
   margin-bottom: 1rem;
 }
 
 @media screen and (max-width: 992px) {
-  .hero__text > p {
+  .heroText > p {
     font-size: 1.3rem;
   }
 }
 
 @media screen and (max-width: 576px) {
-  .hero__text > p {
+  .heroText > p {
     font-size: 1.2rem;
   }
 
-  .hero__btn {
+  .heroBtn {
     width: 100%;
   }
 }

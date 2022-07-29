@@ -39,15 +39,15 @@ const SingleComment = ({ comment, setPostData }) => {
   ) : (
     <div className={styles.SingleComment}>
       <Link to={`/profile/${user.id}`}>
-        <img src={defaultProfilePic} alt='' className={styles.user_pic} />
+        <img src={defaultProfilePic} alt='' className={styles.userPic} />
       </Link>
-      <div className={styles.right_column}>
-        <div className={styles.top_row}>
-          <div className={styles.name_time_container}>
-            <Link className={styles.name_text} to={`/profile/${user.id}`}>
+      <div className={styles.rightColumn}>
+        <div className={styles.topRow}>
+          <div className={styles.nameTimeContainer}>
+            <Link className={styles.nameText} to={`/profile/${user.id}`}>
               {user.firstname} {user.lastname}
             </Link>
-            <span className={styles.time_text}>{timeAgo}</span>
+            <span className={styles.timeText}>{timeAgo}</span>
           </div>
           {comment.user.id === currentUser.id && (
             <EditMenu
@@ -57,7 +57,7 @@ const SingleComment = ({ comment, setPostData }) => {
             />
           )}
         </div>
-        <p className={styles.content_text}>
+        <p className={styles.contentText}>
           {textContent}
           {isContentLimited && (
             <button className='limit-text-btn' onClick={handleLimitedText}>

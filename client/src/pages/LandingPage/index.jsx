@@ -7,7 +7,7 @@ function LandingPage() {
   return (
     <Wrapper>
       <main className={styles.hero}>
-        <div className={styles.hero__text}>
+        <div className={styles.heroText}>
           <h1>
             Restez en <span>contact</span> avec vos collègues
           </h1>
@@ -15,15 +15,15 @@ function LandingPage() {
             Entretenez des liens avec vos collaborateurs grâce à votre nouveau réseau social
             d'entreprise.
           </p>
-          <Link to='/signup' className={styles.hero__btn + ' btn btn-primary-red'}>
+          <Link to='/signup' className={styles.heroBtn + ' btn btn-primary-red'}>
             S'inscrire
           </Link>
-          <Link to='/signin' className={styles.hero__btn + ' btn btn-secondary-red'}>
+          <Link to='/signin' className={styles.heroBtn + ' btn btn-secondary-red'}>
             Se connecter
           </Link>
         </div>
         <img
-          className={styles.hero__img}
+          className={styles.heroImg}
           src={landingIllustration}
           alt='Groupe de personnes qui tiennent des posts de reseaux sociaux dans leurs mains'
         />

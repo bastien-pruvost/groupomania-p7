@@ -130,19 +130,19 @@ const AuthForm = ({ signinMode }) => {
         <input
           type='submit'
           value={signinMode ? `Se Connecter` : `S'inscrire`}
-          className={`${styles.submit_btn} btn btn-primary-red`}
+          className={`${styles.submitBtn} btn btn-primary-red`}
         />
       )}
 
       {signinMode ? (
-        <p className={styles.switch_auth_text}>
+        <p className={styles.switchAuthText}>
           Pas encore de compte ?&ensp;
           <Link to='/signup' className='btn-ghost'>
             S'inscrire
           </Link>
         </p>
       ) : (
-        <p className={styles.switch_auth_text}>
+        <p className={styles.switchAuthText}>
           Déjà inscrit ?&ensp;
           <Link to='/signin' className='btn-ghost'>
             Se connecter

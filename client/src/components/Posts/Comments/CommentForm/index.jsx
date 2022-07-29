@@ -48,15 +48,15 @@ const CommentForm = ({ content, commentId, postId, setPostData, setEditMode }) =
   return (
     <>
       <form className={styles.CommentForm} onSubmit={handleSubmit(onSubmit)}>
-        <img className={styles.user_pic} src={defaultProfilePic} alt='' />
+        <img className={styles.userPic} src={defaultProfilePic} alt='' />
         <textarea
           placeholder={`Commenter...`}
-          className={`form-textarea ${styles.content_textarea} ${errors.content ? 'error' : ''}`}
+          className={`form-textarea ${styles.contentTextarea} ${errors.content ? 'error' : ''}`}
           onInput={(e) => adjustTextareaHeight(e)}
           onFocus={(e) => adjustTextareaHeight(e)}
           {...register('content', { validate: validationSchema.content })}
         />
-        <button type='submit' className={styles.submit_btn}>
+        <button type='submit' className={styles.submitBtn}>
           <IconSend size='32' />
         </button>
       </form>

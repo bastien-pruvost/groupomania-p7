@@ -15,20 +15,20 @@ const EditMenu = ({ handleEdit, handleDelete, iconSize }) => {
   };
 
   const closeMenuOnOutsideClick = (e) => {
-    if (!e.target.closest(`.more_menu_container`)) {
+    if (!e.target.closest(`.moreMenuContainer`)) {
       setMenuOpen(false);
       document.removeEventListener('mousedown', closeMenuOnOutsideClick);
     }
   };
 
   return (
-    <div className={styles.EditMenu + ' more_menu_container'}>
-      <button className={styles.edit_button} onClick={handleMenu} onKeyDown={handleMenu}>
+    <div className={styles.EditMenu + ' moreMenuContainer'}>
+      <button className={styles.editButton} onClick={handleMenu} onKeyDown={handleMenu}>
         <IconMore size={iconSize} />
       </button>
 
       {!!isMenuOpen && (
-        <div className={styles.edit_menu}>
+        <div className={styles.editMenu}>
           <button onClick={handleEdit}>Modifier</button>
           <button onClick={handleDelete}>Supprimer</button>
         </div>

@@ -19,7 +19,7 @@ const EmojiPicker = (props) => {
   };
 
   const closeOnOutsideClick = (e) => {
-    if (!e.target.closest(`.emoji_picker`)) {
+    if (!e.target.closest(`.emojiPicker`)) {
       setOpen(false);
       document.removeEventListener('mousedown', closeOnOutsideClick);
     }
@@ -50,7 +50,7 @@ const EmojiPicker = (props) => {
   }, [isOpen]);
 
   return (
-    <div className={styles.EmojiPicker + ' emoji_picker'}>
+    <div className={styles.EmojiPicker + ' emojiPicker'}>
       <div onClick={handleEmojiPicker}>
         <IconEmoji size={40} />
       </div>

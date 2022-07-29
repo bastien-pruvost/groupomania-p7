@@ -12,7 +12,7 @@ const Header = () => {
   return (
     <header className={styles.Header}>
       <Wrapper>
-        <div className={styles.flex_container}>
+        <div className={styles.flexContainer}>
           <Link to='/'>
             <Logo />
           </Link>

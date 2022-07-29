@@ -4,7 +4,7 @@
   gap: 1rem;
 }
 
-.top_row {
+.topRow {
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -12,48 +12,48 @@
   font-weight: 600;
 }
 
-.user_pic {
+.userPic {
   width: 2.5rem;
   border-radius: 50%;
 }
 
-.form_group {
+.formGroup {
   margin: 0;
 }
 
-.textarea_emoji_container {
+.textareaEmojiContainer {
   position: relative;
 }
 
-.textarea_emoji_container .emoji_picker {
+.textareaEmojiContainer .emojiPicker {
   position: absolute;
   top: 0;
   right: 0;
 }
 
-.content_textarea {
+.contentTextarea {
   flex-grow: 1;
   flex-shrink: 0;
 }
 
-.bottom_row {
+.bottomRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
 }
 
-.image_error {
+.imageError {
   padding-left: 0;
   margin-top: 0.75rem;
 }
 
-.image_preview_container {
+.imagePreviewContainer {
   position: relative;
   min-height: 3rem;
 }
 
-.delete_button {
+.deleteButton {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -68,12 +68,12 @@
   cursor: pointer;
 }
 
-.delete_button:hover {
+.deleteButton:hover {
   background-color: rgba(121, 121, 121, 0.5);
   opacity: 100%;
 }
 
-.image_preview {
+.imagePreview {
   width: 100%;
   max-height: 35rem;
   border-radius: var(--btn-border-radius);
@@ -82,7 +82,7 @@
 }
 
 @media screen and (max-width: 576px) {
-  .bottom_row {
+  .bottomRow {
     flex-direction: column;
     align-items: stretch;
     gap: 1rem;

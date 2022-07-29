@@ -96,16 +96,16 @@ const SinglePost = ({ post, deletePost, refreshPostsData }) => {
   ) : (
     <PostContainer>
       <article className={styles.SinglePost}>
-        <div className={styles.top_row}>
+        <div className={styles.topRow}>
           <Link to={`/profile/${user.id}`}>
-            <img className={styles.user_pic} src={defaultProfilePic} alt='Photo de profil' />
+            <img className={styles.userPic} src={defaultProfilePic} alt='Photo de profil' />
           </Link>
 
-          <div className={styles.name_time_container}>
-            <Link className={styles.name_text} to={`/profile/${user.id}`}>
+          <div className={styles.nameTimeContainer}>
+            <Link className={styles.nameText} to={`/profile/${user.id}`}>
               {user.firstname} {user.lastname}
             </Link>
-            <span className={styles.time_text}>{timeAgo}</span>
+            <span className={styles.timeText}>{timeAgo}</span>
           </div>
 
           {post.user.id === currentUser.id && (
@@ -117,7 +117,7 @@ const SinglePost = ({ post, deletePost, refreshPostsData }) => {
           )}
         </div>
 
-        <p className={styles.content_text}>
+        <p className={styles.contentText}>
           {textContent}
           {isContentLimited && (
             <button className='limit-text-btn' onClick={handleLimitedText}>
@@ -130,20 +130,20 @@ const SinglePost = ({ post, deletePost, refreshPostsData }) => {
         {!!imageUrl && <img className={styles.image} src={randomPic} alt='random' />}
 
         <div>
-          <div className={styles.counts_row}>
+          <div className={styles.countsRow}>
             <span>{numberOfLikes}</span>
             <span>{numberOfComments}</span>
           </div>
 
-          <div className={styles.interaction_row}>
+          <div className={styles.interactionRow}>
             <button
-              className={styles.interaction_button}
+              className={styles.interactionButton}
               onClick={postLikedByUser ? handleDislike : handleLike}
             >
               <IconLike active={postLikedByUser} size='22' />
-              <span className={postLikedByUser ? styles.like_btn_active : ''}>J'aime</span>
+              <span className={postLikedByUser ? styles.likeBtnActive : ''}>J'aime</span>
             </button>
-            <button className={styles.interaction_button} onClick={handleComments}>
+            <button className={styles.interactionButton} onClick={handleComments}>
               <IconComment size='22' />
               <span>Commenter</span>
             </button>

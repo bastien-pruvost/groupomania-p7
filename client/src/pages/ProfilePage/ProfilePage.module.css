@@ -1,18 +1,18 @@
-.user_profile_container {
+.userProfileContainer {
   border-radius: var(--border-radius);
   overflow: hidden;
   box-shadow: var(--shadow-1);
   background-color: var(--white);
 }
 
-.cover_pic {
+.coverPic {
   width: 100%;
   height: 35vh;
   border-radius: var(--border-radius);
   object-position: center;
 }
 
-.description_flex {
+.descriptionFlex {
   position: relative;
   display: flex;
   justify-content: flex-start;
@@ -22,12 +22,12 @@
   padding: 4rem 5% 2rem;
 }
 
-.infos_column {
+.infosColumn {
   display: flex;
   flex-direction: column;
 }
 
-.profile_pic {
+.profilePic {
   position: absolute;
   height: 10rem;
   top: 0;
@@ -49,13 +49,13 @@
   color: var(--grey-400);
 }
 
-.info_container {
+.infoContainer {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
 }
 
-.info_item {
+.infoItem {
   display: flex;
   align-items: flex-end;
   gap: 0.6rem;
@@ -64,7 +64,7 @@
   color: var(--grey-500);
 }
 
-.bio_column {
+.bioColumn {
   max-width: var(--post-max-width);
   color: var(--grey-500);
   flex: 1 1 30rem;

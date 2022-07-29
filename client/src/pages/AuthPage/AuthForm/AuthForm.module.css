@@ -14,12 +14,12 @@ h2 {
   text-align: center;
 }
 
-.auth_error {
+.authError {
   color: var(--red-dark);
   background-color: var(--red-light);
 }
 
-.switch_auth_text {
+.switchAuthText {
   text-align: center;
   font-weight: 600;
   margin-top: 1.5rem;

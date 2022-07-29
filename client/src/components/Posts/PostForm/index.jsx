@@ -90,12 +90,12 @@ const PostForm = ({ postId, content, imagePath, setEditMode, setPostData, refres
   return (
     <PostContainer>
       <form className={styles.PostForm} onSubmit={handleSubmit(onSubmit)}>
-        <div className={styles.top_row}>
+        <div className={styles.topRow}>
           <img
             // src={`${cloudinaryUrl}/${currentUser.profilePicPath}`}
             src={defaultProfilePic}
             alt=''
-            className={styles.user_pic}
+            className={styles.userPic}
           />
 
           <span>
@@ -103,10 +103,10 @@ const PostForm = ({ postId, content, imagePath, setEditMode, setPostData, refres
           </span>
         </div>
 
-        <div className={styles.textarea_emoji_container}>
+        <div className={styles.textareaEmojiContainer}>
           <textarea
             placeholder={`Rediger un post...`}
-            className={`form-textarea form-emoji-padding ${styles.content_textarea} ${
+            className={`form-textarea form-emoji-padding ${styles.contentTextarea} ${
               errors.content ? 'error' : ''
             }`}
             onInput={(e) => adjustTextareaHeight(e)}
@@ -119,9 +119,9 @@ const PostForm = ({ postId, content, imagePath, setEditMode, setPostData, refres
         {!!errors.content?.message && <span className='form-alert'>{errors.content.message}</span>}
 
         {!!filePreview && (
-          <div className={styles.image_preview_container}>
-            <img className={styles.image_preview} src={filePreview} alt='' />
-            <button type='button' className={styles.delete_button} onClick={deleteImage}>
+          <div className={styles.imagePreviewContainer}>
+            <img className={styles.imagePreview} src={filePreview} alt='' />
+            <button type='button' className={styles.deleteButton} onClick={deleteImage}>
               <IconDelete size={22} color='#ffffff' />
             </button>
           </div>
@@ -137,14 +137,14 @@ const PostForm = ({ postId, content, imagePath, setEditMode, setPostData, refres
           </ul>
         )}
 
-        <div className={styles.bottom_row}>
+        <div className={styles.bottomRow}>
           <div>
             <label className='form-file-label' htmlFor={`image-${postId}`}>
               {!filePreview ? 'Ajouter une image' : `Modifier l'image`}
             </label>
 
             {!!errors.image?.message && (
-              <span className={`form-alert ${styles.image_error}`}>{errors.image.message}</span>
+              <span className={`form-alert ${styles.imageError}`}>{errors.image.message}</span>
             )}
           </div>
 
@@ -161,7 +161,7 @@ const PostForm = ({ postId, content, imagePath, setEditMode, setPostData, refres
           <input
             type='submit'
             value='Publier'
-            className={`${styles.submit_btn} btn btn-primary-grey`}
+            className={`${styles.submitBtn} btn btn-primary-grey`}
           />
         </div>
       </form>

@@ -2,7 +2,7 @@
   position: relative;
 }
 
-.edit_button {
+.editButton {
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -10,11 +10,11 @@
   transition: var(--transition);
 }
 
-.edit_button:hover {
+.editButton:hover {
   color: var(--grey-700);
 }
 
-.edit_menu {
+.editMenu {
   display: flex;
   flex-direction: column;
   align-items: center;

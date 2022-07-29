@@ -2,7 +2,7 @@
   position: relative;
 }
 
-.toggle_menu {
+.toggleMenu {
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -10,11 +10,11 @@
   user-select: none;
 }
 
-.toggle_menu:hover {
+.toggleMenu:hover {
   color: var(--grey-400);
 }
 
-.toggle_menu:hover > .profile_pic {
+.toggleMenu:hover > .profilePic {
   filter: brightness(1.02);
 }
 
@@ -23,7 +23,7 @@
   font-weight: 600;
 }
 
-.profile_pic {
+.profilePic {
   height: 3rem;
   border-radius: 50%;
 }

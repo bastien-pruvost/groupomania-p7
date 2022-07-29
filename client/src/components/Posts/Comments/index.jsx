@@ -22,7 +22,7 @@ const Comments = ({ comments, postId, setPostData }) => {
         <>
           <SingleComment comment={comments[0]} setPostData={setPostData} />
           <button
-            className={`${styles.show_all_btn} limit-text-btn`}
+            className={`${styles.showAllBtn} limit-text-btn`}
             onClick={() => setShowAllComments(true)}
           >
             Voir tous les commentaires
