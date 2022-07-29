@@ -158,11 +158,7 @@ const PostForm = ({ postId, content, imagePath, setEditMode, setPostData, refres
             {...register('image', { validate: validationSchema.image })}
           />
 
-          <input
-            type='submit'
-            value='Publier'
-            className={`${styles.submitBtn} btn btn-primary-grey`}
-          />
+          <input type='submit' value='Publier' className='btn btn-primary-grey' />
         </div>
       </form>
     </PostContainer>

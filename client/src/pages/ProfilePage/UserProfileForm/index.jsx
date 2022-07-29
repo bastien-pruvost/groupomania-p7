@@ -138,7 +138,7 @@ const UserProfileForm = ({ userProfile }) => {
           </div>
 
           <textarea
-            className={`form-textarea ${styles.infosTextrea} ${errors.bio ? 'error' : ''}`}
+            className={`form-textarea ${styles.infosTextarea} ${errors.bio ? 'error' : ''}`}
             placeholder='Votre description'
             onInput={(e) => adjustTextareaHeight(e)}
             onFocus={(e) => adjustTextareaHeight(e)}
@@ -146,12 +146,13 @@ const UserProfileForm = ({ userProfile }) => {
           ></textarea>
         </div>
         <div className={styles.submitRow}>
-          <IconInfo size='24' />
-          <p className={styles.submitWarning}>
-            Ces informations seront visibles par l'ensemble des utilisateurs.
-            <br />
-            Les seuls informations obligatoires sont le nom et le prénom.
-          </p>
+          <div className={styles.submitWarning}>
+            <IconInfo size='24' />
+            <p>
+              Ne renseignez que les informations que vous souhaitez partager aux autres
+              utilisateurs.
+            </p>
+          </div>
           <button className={`btn btn-primary-grey ${styles.saveBtn}`}>Enregistrer</button>
         </div>
         <IconEdit size='20' />
