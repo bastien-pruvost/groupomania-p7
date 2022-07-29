@@ -52,6 +52,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+  color: var(--grey-500);
 }
 
 .info_item {
@@ -60,11 +61,18 @@
   gap: 0.6rem;
   font-weight: 600;
   vertical-align: middle;
-  color: var(--grey-500);
 }
 
 .infos_textarea {
   max-width: var(--post-max-width);
-  color: var(--grey-500);
+  color: var(--grey-600);
   flex: 1 1 30rem;
+}
+
+.infos_input {
+  color: var(--grey-600);
+}
+
+.save_btn {
+  margin-left: auto;
 }
