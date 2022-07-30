@@ -10,12 +10,20 @@ import Loader from 'components/Loader';
 import EmojiPicker from 'components/EmojiPicker';
 import IconDelete from 'components/Icons/IconDelete';
 
-const PostForm = ({ postId, content, imagePath, setEditMode, setPostData, refreshPostsData }) => {
+const PostForm = ({
+  postId,
+  content,
+  imagePath,
+  editMode,
+  setEditMode,
+  setPostData,
+  refreshPostsData
+}) => {
   const { currentUser } = useContext(AuthContext);
   const { createPost, updatePost } = usePost();
   const [isLoading, setLoading] = useState(false);
   const [responseErrorMsg, setResponseErrorMsg] = useState([]);
-  const [filePreview, setFilePreview] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const [imageDeleted, setImageDeleted] = useState(false);
   const validationSchema = postValidator();
   const imagesUrl = process.env.REACT_APP_IMAGES_URL;
@@ -31,10 +39,10 @@ const PostForm = ({ postId, content, imagePath, setEditMode, setPostData, refres
 
   useEffect(() => {
     setResponseErrorMsg([]);
-    if (postId) {
+    if (editMode) {
       setValue('content', content);
       setFocus('content');
-      imagePath && setFilePreview(`${imagesUrl}/${imagePath}`);
+      imagePath && setImagePreview(`${imagesUrl}/${imagePath}`);
     }
   }, []);
 
@@ -45,17 +53,18 @@ const PostForm = ({ postId, content, imagePath, setEditMode, setPostData, refres
 
   const handleFileInput = (e) => {
     if (e.target?.files?.[0]) {
-      setFilePreview(URL.createObjectURL(e.target.files[0]));
       setImageDeleted(false);
     } else {
-      setFilePreview(null);
+      e.target.files = getValues('image');
     }
+    setImagePreview(URL.createObjectURL(e.target.files[0]));
   };
 
   const deleteImage = () => {
     setImageDeleted(true);
-    setFilePreview(null);
+    setImagePreview(null);
     setValue('image', []);
+    setFocus('content');
   };
 
   const emojiHandler = (emoji) => {
@@ -70,13 +79,13 @@ const PostForm = ({ postId, content, imagePath, setEditMode, setPostData, refres
     const formData = new FormData();
     formData.append('content', data.content);
     formData.append('image', data.image[0]);
-    postId && formData.append('imageDeleted', imageDeleted);
-    const submitMethod = postId ? updatePost(postId, formData) : createPost(formData);
+    editMode && formData.append('imageDeleted', imageDeleted);
+    const submitMethod = editMode ? updatePost(postId, formData) : createPost(formData);
     submitMethod
       .then((res) => {
         reset({ content: '', image: [] });
-        setFilePreview(null);
-        if (postId) {
+        setImagePreview(null);
+        if (editMode) {
           setPostData(res);
           setEditMode(false);
         } else {
@@ -118,9 +127,9 @@ const PostForm = ({ postId, content, imagePath, setEditMode, setPostData, refres
 
         {!!errors.content?.message && <span className='form-alert'>{errors.content.message}</span>}
 
-        {!!filePreview && (
+        {!!imagePreview && (
           <div className={styles.imagePreviewContainer}>
-            <img className={styles.imagePreview} src={filePreview} alt='' />
+            <img className={styles.imagePreview} src={imagePreview} alt='' />
             <button type='button' className={styles.deleteButton} onClick={deleteImage}>
               <IconDelete size={22} color='#ffffff' />
             </button>
@@ -140,7 +149,7 @@ const PostForm = ({ postId, content, imagePath, setEditMode, setPostData, refres
         <div className={styles.bottomRow}>
           <div>
             <label className='form-file-label' htmlFor={`image-${postId}`}>
-              {!filePreview ? 'Ajouter une image' : `Modifier l'image`}
+              {!imagePreview ? 'Ajouter une image' : `Modifier l'image`}
             </label>
 
             {!!errors.image?.message && (

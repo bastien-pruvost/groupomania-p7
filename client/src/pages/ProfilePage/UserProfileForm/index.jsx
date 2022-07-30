@@ -46,6 +46,24 @@ const UserProfileForm = ({ userProfile }) => {
     e.target.style.height = e.target.scrollHeight + 'px';
   };
 
+  const handleCoverPicInput = (e) => {
+    if (e.target?.files?.[0]) {
+      setCoverPicPreview(URL.createObjectURL(e.target.files[0]));
+      setCoverPicDeleted(false);
+    } else {
+      setCoverPicPreview(null);
+    }
+  };
+
+  const handleProfilePicInput = (e) => {
+    if (e.target?.files?.[0]) {
+      setProfilePicPreview(URL.createObjectURL(e.target.files[0]));
+      setProfilePicDeleted(false);
+    } else {
+      setProfilePicPreview(null);
+    }
+  };
+
   useEffect(() => {
     setResponseErrorMsg([]);
     profilePicPath && setProfilePicPreview(`${imagesUrl}/${profilePicPath}`);
@@ -67,14 +85,28 @@ const UserProfileForm = ({ userProfile }) => {
       <label htmlFor='coverPicInput'>
         <img className={styles.coverPic} src={defaultCoverPic} alt='Photo de couverture' />
       </label>
-      <input className='form-file-input' id='coverPicInput' type='file' />
+      <input
+        type='file'
+        className='form-file-input'
+        accept='image/*'
+        id='coverPicInput'
+        onInput={handleCoverPicInput}
+        {...register('coverPic', { validate: validationSchema.coverPic })}
+      />
       <div className={styles.infosContainer}>
         <div className={styles.infosRow}>
           <div className={styles.infosColumn}>
             <label className={styles.profilePicLabel} htmlFor='profilePicInput'>
               <img className={styles.profilePic} src={defaultProfilePic} alt='' />
             </label>
-            <input className='form-file-input' id='profilePicInput' type='file' />
+            <input
+              type='file'
+              accept='image/*'
+              id='profilePicInput'
+              className='form-file-input'
+              onInput={handleProfilePicInput}
+              {...register('profilePic', { validate: validationSchema.profilePic })}
+            />
             <input
               className={`form-input ${styles.infosInput} ${errors.lastname ? 'error' : ''}`}
               type='text'
