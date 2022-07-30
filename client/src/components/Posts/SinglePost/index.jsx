@@ -90,6 +90,7 @@ const SinglePost = ({ post, deletePost, refreshPostsData }) => {
       postId={postId}
       content={content}
       imagePath={imagePath}
+      editMode={editMode}
       setEditMode={setEditMode}
       setPostData={setPostData}
     />

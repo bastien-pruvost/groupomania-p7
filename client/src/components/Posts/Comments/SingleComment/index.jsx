@@ -33,8 +33,9 @@ const SingleComment = ({ comment, setPostData }) => {
       commentId={commentId}
       content={content}
       postId={postId}
-      setPostData={setPostData}
+      editMode={editMode}
       setEditMode={setEditMode}
+      setPostData={setPostData}
     />
   ) : (
     <div className={styles.SingleComment}>

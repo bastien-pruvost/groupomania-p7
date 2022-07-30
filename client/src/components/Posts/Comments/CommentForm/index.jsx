@@ -6,7 +6,7 @@ import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 import styles from './CommentForm.module.css';
 import IconSend from 'components/Icons/IconSend';
 
-const CommentForm = ({ content, commentId, postId, setPostData, setEditMode }) => {
+const CommentForm = ({ content, commentId, postId, setPostData, editMode, setEditMode }) => {
   const { createComment, updateComment } = useComment();
   const { currentUser } = useContext(AuthContext);
   const [isLoading, setLoading] = useState(false);
@@ -19,7 +19,7 @@ const CommentForm = ({ content, commentId, postId, setPostData, setEditMode }) =
 
   useEffect(() => {
     setResponseErrorMsg([]);
-    if (commentId) {
+    if (editMode) {
       setValue('content', content);
     }
   }, []);
@@ -33,12 +33,12 @@ const CommentForm = ({ content, commentId, postId, setPostData, setEditMode }) =
     setResponseErrorMsg([]);
     setLoading(true);
     data.postId = postId;
-    const submitMethod = commentId ? updateComment(commentId, data) : createComment(data);
+    const submitMethod = editMode ? updateComment(commentId, data) : createComment(data);
     submitMethod
       .then((res) => {
         reset({ content: '' });
-        !commentId && setTimeout(() => setFocus('content'), 0);
-        commentId && setEditMode(false);
+        !editMode && setTimeout(() => setFocus('content'), 0);
+        editMode && setEditMode(false);
         setPostData(res.post);
       })
       .catch((err) => setResponseErrorMsg(err))
