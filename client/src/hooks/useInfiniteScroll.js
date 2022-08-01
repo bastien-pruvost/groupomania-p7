@@ -12,10 +12,10 @@ const useInfiniteScroll = (userId) => {
 
   const limitPerPage = 8;
 
-  const getPaginatePosts = async (id) => {
+  const getPaginatePosts = async () => {
     try {
-      const posts = id
-        ? await getUserPaginatePostsQuery(lastPostId, limitPerPage, id)
+      const posts = userId
+        ? await getUserPaginatePostsQuery(lastPostId, limitPerPage, userId)
         : await getPaginatePostsQuery(lastPostId, limitPerPage);
       if (posts.length === 0) {
         setAllPostsLoaded(true);
@@ -37,10 +37,13 @@ const useInfiniteScroll = (userId) => {
   };
 
   const refreshPostsData = () => {
-    setLastPostId(null);
     setAllPostsLoaded(false);
     setPostsData([]);
-    setPage(1);
+    setLastPostId(null);
+    setPage((prevPage) => {
+      if (prevPage === 1) return 0;
+      return 1;
+    });
   };
 
   useEffect(() => {
@@ -55,17 +58,12 @@ const useInfiniteScroll = (userId) => {
   }, []);
 
   useEffect(() => {
-    if (!allPostsLoaded && userId) {
-      getPaginatePosts(userId);
-    }
-    if (!allPostsLoaded && !userId) {
-      getPaginatePosts();
-    }
-  }, [page]);
-
-  useEffect(() => {
     refreshPostsData();
   }, [userId]);
+
+  useEffect(() => {
+    if (!allPostsLoaded) getPaginatePosts();
+  }, [page]);
 
   return { postsData, refreshPostsData, allPostsLoaded, scrollRef };
 };
