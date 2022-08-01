@@ -21,7 +21,12 @@ const ProfilePage = () => {
         <UserProfile userProfile={userProfile} />
       )}
       {currentUser.id === userProfile.id && <PostForm refreshPostsData={refreshPostsData} />}
-      <PostList postsData={postsData} allPostsLoaded={allPostsLoaded} scrollRef={scrollRef} />
+      <PostList
+        postsData={postsData}
+        allPostsLoaded={allPostsLoaded}
+        scrollRef={scrollRef}
+        refreshPostsData={refreshPostsData}
+      />
     </>
   );
 };
