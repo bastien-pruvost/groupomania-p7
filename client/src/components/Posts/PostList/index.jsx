@@ -21,8 +21,8 @@ const PostList = ({ postsData, allPostsLoaded, refreshPostsData, scrollRef }) =>
         <p className={styles.endMessage}>Il n'y a pas de posts plus anciens...</p>
       ) : (
         <>
-          <Loader grey={true} />
           <div ref={scrollRef} />
+          <Loader grey={true} />
         </>
       )}
     </div>

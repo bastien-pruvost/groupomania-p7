@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { getPaginatePostsQuery, getUserPaginatePostsQuery } from 'services/posts.services';
 
 const useInfiniteScroll = (userId) => {
@@ -29,12 +29,12 @@ const useInfiniteScroll = (userId) => {
     }
   };
 
-  const handleInfiniteScroll = (entries) => {
+  const handleInfiniteScroll = useCallback((entries) => {
     const target = entries[0];
     if (target.isIntersecting) {
       setPage(pageRef.current + 1);
     }
-  };
+  }, []);
 
   const refreshPostsData = () => {
     setAllPostsLoaded(false);
@@ -51,11 +51,12 @@ const useInfiniteScroll = (userId) => {
     const infiniteScrollObserver = new IntersectionObserver(handleInfiniteScroll);
     setTimeout(() => {
       if (currentScrollRef) infiniteScrollObserver.observe(currentScrollRef);
-    }, 1500);
+    }, 1000);
     return () => {
-      infiniteScrollObserver.unobserve(currentScrollRef);
+      // infiniteScrollObserver.unobserve(currentScrollRef);
+      infiniteScrollObserver.disconnect();
     };
-  }, []);
+  }, [allPostsLoaded]);
 
   useEffect(() => {
     refreshPostsData();
