@@ -17,7 +17,7 @@ const useInfiniteScroll = (userId) => {
       const posts = userId
         ? await getUserPaginatePostsQuery(lastPostId, limitPerPage, userId)
         : await getPaginatePostsQuery(lastPostId, limitPerPage);
-      if (posts.length === 0) {
+      if (posts.length < limitPerPage) {
         setAllPostsLoaded(true);
       } else {
         setLastPostId(posts[posts.length - 1].id);
@@ -48,7 +48,9 @@ const useInfiniteScroll = (userId) => {
 
   useEffect(() => {
     const currentScrollRef = scrollRef.current;
-    const infiniteScrollObserver = new IntersectionObserver(handleInfiniteScroll);
+    const infiniteScrollObserver = new IntersectionObserver(handleInfiniteScroll, {
+      rootMargin: '500px'
+    });
     setTimeout(() => {
       if (currentScrollRef) infiniteScrollObserver.observe(currentScrollRef);
     }, 1000);
