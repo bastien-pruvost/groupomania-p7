@@ -31,13 +31,15 @@ exports.multerValidator = (req, file, cb) => {
 
 // Check the format of inputs in the signup form
 exports.signupValidator = [
-  body('email').isEmail().withMessage(`L'adresse email n'est pas au bon format`),
+  body('email').trim().isEmail().withMessage(`L'adresse email n'est pas au bon format`),
   body('lastname')
+    .trim()
     .isLength({ min: 2, max: 100 })
     .withMessage(`Le nom doit contenir entre 2 et 100 caractères`)
     .matches(/^[A-Za-zÀ-ÖØ-öø-ÿ-]+$/)
     .withMessage('Le nom ne doit pas contenir de caractères spéciaux ni de chiffres'),
   body('firstname')
+    .trim()
     .isLength({ min: 2, max: 100 })
     .withMessage(`Le prénom doit contenir entre 2 et 100 caractères`)
     .matches(/^[A-Za-zÀ-ÖØ-öø-ÿ-]+$/)
@@ -66,6 +68,7 @@ exports.signupValidator = [
 
 exports.postValidator = [
   body('content')
+    .trim()
     .isLength({ max: 2000 })
     .withMessage(`Le contenu du post ne doit pas depasser 2000 caractères`),
   body()
@@ -74,7 +77,15 @@ exports.postValidator = [
     .custom((value, { req }) => !req.multerSizeError)
     .withMessage(`L'image ne doit pas dépasser 1 Mo`),
   body()
-    .custom((value, { req }) => req.body.content != null && req.files.postPic)
+    .custom((value, { req }) => req.body.content != null)
+    .withMessage(`Le formulaire doit contenir un champ content meme si il est vide`),
+  body()
+    .custom(
+      (value, { req }) =>
+        req.body.content ||
+        req.files.postPic ||
+        (req.post.imagePath && req.body.imageDeleted === 'false')
+    )
     .withMessage(`Vous ne pouvez pas publier un post vide`),
   checkValidationErrors
 ];
