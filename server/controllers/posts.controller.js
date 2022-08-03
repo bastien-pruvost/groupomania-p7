@@ -75,6 +75,7 @@ exports.deletePost = async (req, res) => {
   try {
     const postId = req.post.id;
     await deletePostById(postId);
+    deleteFile(req.post.imagePath);
     return res.status(200).json({ message: 'Le post a été supprimé' });
   } catch (err) {
     return res.status(500).json({ message: err.message });
