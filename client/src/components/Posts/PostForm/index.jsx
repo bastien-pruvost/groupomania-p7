@@ -9,6 +9,7 @@ import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 import Loader from 'components/Loader';
 import EmojiPicker from 'components/EmojiPicker';
 import IconDelete from 'components/Icons/IconDelete';
+import { Link } from 'react-router-dom';
 
 const PostForm = ({
   postId,
@@ -26,7 +27,9 @@ const PostForm = ({
   const [imagePreview, setImagePreview] = useState(null);
   const [imageDeleted, setImageDeleted] = useState(false);
   const validationSchema = postValidator();
-  const imagesUrl = process.env.REACT_APP_IMAGES_URL;
+  const profilePicUrl = currentUser.profilePicPath
+    ? `${process.env.REACT_APP_IMAGES_URL}/${currentUser.profilePicPath}`
+    : defaultProfilePic;
   const {
     register,
     handleSubmit,
@@ -42,7 +45,7 @@ const PostForm = ({
     if (editMode) {
       setValue('content', content);
       setFocus('content');
-      imagePath && setImagePreview(`${imagesUrl}/${imagePath}`);
+      imagePath && setImagePreview(`${process.env.REACT_APP_IMAGES_URL}/${imagePath}`);
     }
   }, []);
 
@@ -100,16 +103,13 @@ const PostForm = ({
     <PostContainer>
       <form className={styles.PostForm} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.topRow}>
-          <img
-            // src={`${cloudinaryUrl}/${currentUser.profilePicPath}`}
-            src={defaultProfilePic}
-            alt=''
-            className={styles.userPic}
-          />
+          <Link to={`/profile/${currentUser.id}`}>
+            <img src={profilePicUrl} alt='' className={styles.userPic} />
+          </Link>
 
-          <span>
+          <Link to={`/profile/${currentUser.id}`}>
             {currentUser.firstname} {currentUser.lastname}
-          </span>
+          </Link>
         </div>
 
         <div className={styles.textareaEmojiContainer}>
