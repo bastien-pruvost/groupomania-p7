@@ -237,7 +237,16 @@ h5 {
 
 /* Buttons */
 button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--grey-700);
+  transition: var(--transition);
   user-select: none;
+}
+
+button:hover {
+  color: var(--grey-400);
 }
 
 .btn {

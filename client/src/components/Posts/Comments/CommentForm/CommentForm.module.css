@@ -24,13 +24,4 @@
   align-items: center;
   align-self: flex-end;
   height: 2.65rem;
-  background-color: transparent;
-  border: none;
-  color: var(--grey-500);
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.submitBtn:hover {
-  color: var(--grey-800);
 }

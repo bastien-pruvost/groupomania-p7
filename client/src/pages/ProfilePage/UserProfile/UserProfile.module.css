@@ -23,7 +23,7 @@
   padding: 4rem 5% 2rem;
 }
 
-.infosContainer > svg {
+.editBtn {
   position: absolute;
   top: 1.5rem;
   right: 1.5rem;
@@ -38,6 +38,7 @@
 .profilePic {
   position: absolute;
   height: 10rem;
+  width: 10rem;
   top: 0;
   border-radius: 50%;
   border: 5px solid white;
