@@ -9,52 +9,37 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-const postPicStorage = new CloudinaryStorage({
+const storage = new CloudinaryStorage({
   cloudinary,
   params: {
-    folder: 'groupomania/post',
-    public_id: (req, file) => `${Date.now()}-${req.user.firstname}-${req.user.lastname}`
+    folder: (req, file) => {
+      if (file.fieldname === 'postPic') return 'groupomania/post';
+      if (file.fieldname === 'profilePic') return 'groupomania/profile';
+      if (file.fieldname === 'coverPic') return 'groupomania/cover';
+      return null;
+    },
+    public_id: (req, file) => `${Date.now()}-${req.user.id}`
   }
 });
 
-const profilePicStorage = new CloudinaryStorage({
-  cloudinary,
-  params: {
-    folder: 'groupomania/profile',
-    public_id: (req, file) => `${Date.now()}-${req.user.firstname}-${req.user.lastname}`
-  }
-});
-
-const coverPicStorage = new CloudinaryStorage({
-  cloudinary,
-  params: {
-    folder: 'groupomania/cover',
-    public_id: (req, file) => `${Date.now()}-${req.user.firstname}-${req.user.lastname}`
-  }
-});
+exports.uploadImage = (req, res, next) => {
+  const fieldsOptions = [
+    { name: 'postPic', maxCount: 1 },
+    { name: 'profilePic', maxCount: 1 },
+    { name: 'coverPic', maxCount: 1 }
+  ];
+  multer({ storage, fileFilter: multerValidator }).fields(fieldsOptions)(req, res, (err) => {
+    if (err) console.log(err.message);
+    return next();
+  });
+};
 
 exports.deleteFile = (publicId) => {
+  console.log('DELETE FILE !!');
   cloudinary.uploader.destroy(publicId, (error, result) => {
     if (result) console.log(result);
     if (error) console.log(error);
   });
-};
-
-exports.uploadImage = (storageString) => {
-  let storage = null;
-  if (storageString === 'post') storage = postPicStorage;
-  if (storageString === 'profile') storage = profilePicStorage;
-  if (storageString === 'cover') storage = coverPicStorage;
-  return (req, res, next) => {
-    multer({ storage, fileFilter: multerValidator }).single('image')(req, res, (err) => {
-      if (err && err.code === 'LIMIT_UNEXPECTED_FILE')
-        return res.status(400).json({
-          message: `L'image doit être envoyée dans un champ de formulaire nommé 'image'`
-        });
-      if (err) return res.status(500).json({ message: err.message });
-      return next();
-    });
-  };
 };
 
 // Local multer save :

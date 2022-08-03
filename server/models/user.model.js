@@ -27,14 +27,10 @@ const User = db.define(
       allowNull: false
     },
     profilePicPath: {
-      type: DataTypes.STRING(2083),
-      defaultValue: 'groupomania/profile/default-profile-pic.jpg',
-      allowNull: false
+      type: DataTypes.STRING(2083)
     },
     coverPicPath: {
-      type: DataTypes.STRING(2083),
-      defaultValue: 'groupomania/profile/default-cover-pic.jpg',
-      allowNull: false
+      type: DataTypes.STRING(2083)
     },
     profession: {
       type: DataTypes.STRING(150)

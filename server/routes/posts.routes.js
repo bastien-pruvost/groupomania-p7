@@ -14,12 +14,12 @@ const {
 
 router.get('/', ensureAuthenticated, getAllPosts);
 router.get('/user/:userId', ensureAuthenticated, getUserPosts);
-router.post('/', ensureAuthenticated, uploadImage('post'), postValidator, createPost);
+router.post('/', ensureAuthenticated, uploadImage, postValidator, createPost);
 router.put(
   '/:postId',
   ensureAuthenticated,
   ensureUserIsOwner,
-  uploadImage('post'),
+  uploadImage,
   postValidator,
   updatePost
 );

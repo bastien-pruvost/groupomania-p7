@@ -35,10 +35,11 @@ exports.getUserPosts = async (req, res) => {
 
 exports.createPost = async (req, res) => {
   try {
-    const { body, file, user } = req;
+    const { body, files, user } = req;
+    const image = files.postPic ? files.postPic[0] : null;
     const post = {
       content: body.content,
-      imagePath: req.file ? file.filename : null,
+      imagePath: image ? image.filename : null,
       userId: user.id
     };
     const savedPost = await saveNewPost(post);
@@ -50,11 +51,12 @@ exports.createPost = async (req, res) => {
 
 exports.updatePost = async (req, res) => {
   try {
-    const { body, file, user, post } = req;
+    const { body, files, user, post } = req;
+    const image = files.postPic ? files.postPic[0] : null;
     const updatedPost = { content: body.content, userId: user.id };
-    if (file) {
+    if (image) {
       !!post.imagePath && deleteFile(post.imagePath);
-      updatedPost.imagePath = file.filename;
+      updatedPost.imagePath = image.filename;
     } else if (body.imageDeleted === 'true') {
       !!post.imagePath && deleteFile(post.imagePath);
       updatedPost.imagePath = null;

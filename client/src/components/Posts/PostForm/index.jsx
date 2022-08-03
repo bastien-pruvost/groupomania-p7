@@ -78,7 +78,7 @@ const PostForm = ({
     setLoading(true);
     const formData = new FormData();
     formData.append('content', data.content);
-    formData.append('image', data.image[0]);
+    formData.append('postPic', data.image[0]);
     editMode && formData.append('imageDeleted', imageDeleted);
     const submitMethod = editMode ? updatePost(postId, formData) : createPost(formData);
     submitMethod

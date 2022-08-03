@@ -1,3 +1,4 @@
+const { deleteFile } = require('../middlewares/filesUpload.middleware');
 const { findUserProfileById, updateUserInfosById } = require('../queries/users.queries');
 
 exports.getUserProfile = async (req, res) => {
@@ -13,16 +14,42 @@ exports.getUserProfile = async (req, res) => {
 exports.updateUserInfos = async (req, res) => {
   try {
     const { userId } = req.params;
-    const { body } = req;
-    const updatedData = {};
-    if (body.lastname) updatedData.lastname = body.lastname;
-    if (body.firstname) updatedData.firstname = body.firstname;
-    if (body.profession) updatedData.profession = body.profession;
-    if (body.birthDate) updatedData.birthDate = body.birthDate;
-    if (body.phoneNumber) updatedData.phoneNumber = body.phoneNumber;
-    if (body.linkedinUrl) updatedData.linkedinUrl = body.linkedinUrl;
-    if (body.city) updatedData.city = body.city;
-    if (body.bio) updatedData.bio = body.bio;
+    const { body, user, files } = req;
+    const profilePic = files.profilePic ? files.profilePic[0] : null;
+    const coverPic = files.coverPic ? files.coverPic[0] : null;
+    const updatedData = {
+      lastname: body.lastname,
+      firstname: body.firstname,
+      profession: body.profession,
+      birthDate: body.birthDate,
+      phoneNumber: body.phoneNumber,
+      linkedinUrl: body.linkedinUrl,
+      city: body.city,
+      bio: body.bio
+    };
+
+    if (profilePic) {
+      !!user.profilePicPath && deleteFile(user.profilePicPath);
+      updatedData.profilePicPath = profilePic.filename;
+    } else if (body.profilePicDeleted === 'true') {
+      !!user.profilePicPath && deleteFile(user.profilePicPath);
+      updatedData.profilePicPath = null;
+    } else {
+      updatedData.profilePicPath = user.profilePicPath;
+    }
+
+    if (coverPic) {
+      !!user.coverPicPath && deleteFile(user.coverPicPath);
+      updatedData.coverPicPath = coverPic.filename;
+    } else if (body.coverPicDeleted === 'true') {
+      !!user.coverPicPath && deleteFile(user.coverPicPath);
+      updatedData.coverPicPath = null;
+    } else {
+      updatedData.coverPicPath = user.coverPicPath;
+    }
+
+    console.log(updatedData);
+
     await updateUserInfosById(userId, updatedData);
     const updatedProfile = await findUserProfileById(userId);
     res.status(200).json({ profile: updatedProfile });
