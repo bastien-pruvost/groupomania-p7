@@ -16,6 +16,9 @@ const CommentForm = ({ content, commentId, postId, setPostData, editMode, setEdi
   });
   const { errors } = formState;
   const validationSchema = true;
+  const profilePicUrl = currentUser.profilePicPath
+    ? `${process.env.REACT_APP_IMAGES_URL}/${currentUser.profilePicPath}`
+    : defaultProfilePic;
 
   useEffect(() => {
     setResponseErrorMsg([]);

@@ -35,6 +35,9 @@ const SinglePost = ({ post, deletePost, refreshPostsData }) => {
     paragraphsLimit: 3,
     charactersLimit: 400
   });
+  const profilePicUrl = user.profilePicPath
+    ? `${process.env.REACT_APP_IMAGES_URL}/${user.profilePicPath}`
+    : defaultProfilePic;
 
   const handleDelete = () => {
     deletePost(postId)
@@ -78,7 +81,8 @@ const SinglePost = ({ post, deletePost, refreshPostsData }) => {
     checkPostLikedByUser();
   }, [postData]);
 
-  const imageUrl = imagePath ? `${process.env.REACT_APP_IMAGES_URL}/${imagePath}` : null;
+  const imageUrl = randomPic;
+  // const imageUrl = imagePath ? `${process.env.REACT_APP_IMAGES_URL}/${imagePath}` : null;
   const timeAgo = formatTimeAgo(createdAt);
   const numberOfLikes = `${likes.length} J'aime`;
   const numberOfComments = `${comments.length} ${
@@ -99,7 +103,7 @@ const SinglePost = ({ post, deletePost, refreshPostsData }) => {
       <article className={styles.SinglePost}>
         <div className={styles.topRow}>
           <Link to={`/profile/${user.id}`}>
-            <img className={styles.userPic} src={defaultProfilePic} alt='Photo de profil' />
+            <img className={styles.userPic} src={profilePicUrl} alt='Photo de profil' />
           </Link>
 
           <div className={styles.nameTimeContainer}>
@@ -127,8 +131,7 @@ const SinglePost = ({ post, deletePost, refreshPostsData }) => {
           )}
         </p>
 
-        {/* {!!imageUrl && <img className={styles.image} src={imageUrl} alt='random' />} */}
-        {!!imageUrl && <img className={styles.image} src={randomPic} alt='random' />}
+        {!!imageUrl && <img className={styles.image} src={imageUrl} />}
 
         <div>
           <div className={styles.countsRow}>
