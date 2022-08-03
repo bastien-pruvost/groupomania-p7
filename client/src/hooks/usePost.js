@@ -34,8 +34,8 @@ const usePost = () => {
 
   const likePost = async (postId) => {
     try {
-      const response = await likePostQuery(postId);
-      return response;
+      const likedPost = await likePostQuery(postId);
+      return likedPost;
     } catch (err) {
       throw Array.isArray(err.message) ? err.message : [err.message];
     }
@@ -43,8 +43,8 @@ const usePost = () => {
 
   const dislikePost = async (postId) => {
     try {
-      const response = await dislikePostQuery(postId);
-      return response;
+      const dislikedPost = await dislikePostQuery(postId);
+      return dislikedPost;
     } catch (err) {
       throw Array.isArray(err.message) ? err.message : [err.message];
     }

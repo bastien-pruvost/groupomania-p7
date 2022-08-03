@@ -50,7 +50,7 @@ exports.updateUserInfos = async (req, res) => {
 
     await updateUserInfosById(userId, updatedData);
     const updatedProfile = await findUserProfileById(userId);
-    res.status(200).json({ profile: updatedProfile });
+    res.status(200).json({ userProfile: updatedProfile });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
