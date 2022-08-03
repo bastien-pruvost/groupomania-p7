@@ -14,6 +14,7 @@ const {
 
 router.get('/', ensureAuthenticated, getAllPosts);
 router.get('/user/:userId', ensureAuthenticated, getUserPosts);
+// router.post('/', ensureAuthenticated, preUploadImage, postValidator, createPost, uploadImage);
 router.post('/', ensureAuthenticated, uploadImage, postValidator, createPost);
 router.put(
   '/:postId',

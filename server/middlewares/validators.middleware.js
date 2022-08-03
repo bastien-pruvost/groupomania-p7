@@ -1,4 +1,5 @@
 const { validationResult, body } = require('express-validator');
+const { deleteFile } = require('./filesUpload.middleware');
 
 // Manages errors from different express-validators to return them to the user
 const checkValidationErrors = (req, res, next) => {
@@ -10,6 +11,7 @@ const checkValidationErrors = (req, res, next) => {
   errors.errors.forEach((error) => {
     message.push(error.msg);
   });
+  if (req.files) Object.values(req.files).forEach((file) => deleteFile(file[0].filename));
   return res.status(400).json({ message });
 };
 

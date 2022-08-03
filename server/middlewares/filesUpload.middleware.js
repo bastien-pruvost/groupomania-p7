@@ -37,8 +37,8 @@ exports.uploadImage = (req, res, next) => {
 exports.deleteFile = (publicId) => {
   !!publicId &&
     cloudinary.uploader.destroy(publicId, (error, result) => {
-      if (result) console.log(result);
-      if (error) console.log(error);
+      if (result) console.log('File delete : ', result);
+      if (error) console.log('File delete : ', error);
     });
 };
 

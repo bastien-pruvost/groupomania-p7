@@ -48,8 +48,6 @@ exports.updateUserInfos = async (req, res) => {
       updatedData.coverPicPath = user.coverPicPath;
     }
 
-    console.log(updatedData);
-
     await updateUserInfosById(userId, updatedData);
     const updatedProfile = await findUserProfileById(userId);
     res.status(200).json({ profile: updatedProfile });
