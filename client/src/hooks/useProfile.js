@@ -1,16 +1,25 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getUserProfileQuery } from 'services/users.services';
+import { getUserProfileQuery, updateUserProfileQuery } from 'services/users.services';
 
 const useProfile = () => {
   const params = useParams();
   const userId = params.userId;
-  const [userProfile, setUserProfile] = useState({});
+  const [userData, setUserData] = useState({});
 
-  const getUserProfile = async (formData) => {
+  const getUserProfile = async () => {
     try {
-      const response = await getUserProfileQuery(formData);
-      return response.userProfile;
+      const userProfile = await getUserProfileQuery(userId);
+      return userProfile;
+    } catch (err) {
+      throw Array.isArray(err.message) ? err.message : [err.message];
+    }
+  };
+
+  const updateUserProfile = async (formData) => {
+    try {
+      const updatedProfile = await updateUserProfileQuery(userId, formData);
+      return updatedProfile;
     } catch (err) {
       throw Array.isArray(err.message) ? err.message : [err.message];
     }
@@ -18,11 +27,11 @@ const useProfile = () => {
 
   useEffect(() => {
     getUserProfile(userId)
-      .then((profile) => setUserProfile(profile))
+      .then((profile) => setUserData(profile))
       .catch((err) => console.log(err));
   }, [userId]);
 
-  return { userProfile, userId };
+  return { userData, setUserData, userId, updateUserProfile };
 };
 
 export default useProfile;

@@ -10,7 +10,7 @@ import IconEdit from 'components/Icons/IconEdit';
 import { set, useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 
-const UserProfileForm = ({ userProfile }) => {
+const UserProfileForm = ({ userData, setUserData, setEditMode, updateUserProfile }) => {
   const [isLoading, setLoading] = useState(false);
   const [responseErrorMsg, setResponseErrorMsg] = useState([]);
   const [profilePicPreview, setProfilePicPreview] = useState(null);
@@ -18,7 +18,6 @@ const UserProfileForm = ({ userProfile }) => {
   const [profilePicDeleted, setProfilePicDeleted] = useState(false);
   const [coverPicDeleted, setCoverPicDeleted] = useState(false);
   const validationSchema = true;
-  const imagesUrl = process.env.REACT_APP_IMAGES_URL;
   const {
     firstname,
     lastname,
@@ -30,7 +29,7 @@ const UserProfileForm = ({ userProfile }) => {
     phoneNumber,
     linkedinUrl,
     bio
-  } = userProfile;
+  } = userData;
   const {
     register,
     handleSubmit,
@@ -41,6 +40,13 @@ const UserProfileForm = ({ userProfile }) => {
     formState: { errors }
   } = useForm({ mode: 'onSubmit' });
 
+  const coverPicUrl = coverPicPath
+    ? `${process.env.REACT_APP_IMAGES_URL}/${coverPicPath}`
+    : defaultCoverPic;
+  const profilePicUrl = profilePicPath
+    ? `${process.env.REACT_APP_IMAGES_URL}/${profilePicPath}`
+    : defaultProfilePic;
+
   const adjustTextareaHeight = (e) => {
     e.target.style.height = '1px';
     e.target.style.height = e.target.scrollHeight + 'px';
@@ -48,26 +54,54 @@ const UserProfileForm = ({ userProfile }) => {
 
   const handleCoverPicInput = (e) => {
     if (e.target?.files?.[0]) {
-      setCoverPicPreview(URL.createObjectURL(e.target.files[0]));
       setCoverPicDeleted(false);
     } else {
-      setCoverPicPreview(null);
+      e.target.files = getValues('coverPic');
     }
+    setCoverPicPreview(URL.createObjectURL(e.target.files[0]));
   };
 
   const handleProfilePicInput = (e) => {
     if (e.target?.files?.[0]) {
-      setProfilePicPreview(URL.createObjectURL(e.target.files[0]));
       setProfilePicDeleted(false);
     } else {
-      setProfilePicPreview(null);
+      e.target.files = getValues('profilePic');
     }
+    setProfilePicPreview(URL.createObjectURL(e.target.files[0]));
+  };
+
+  const onSubmit = async (data) => {
+    setResponseErrorMsg([]);
+    setLoading(true);
+    const formData = new FormData();
+    formData.append('lastname', data.lastname);
+    formData.append('firstname', data.firstname);
+    data.profession && formData.append('profession', data.profession);
+    data.birthDate && formData.append('birthDate', data.birthDate);
+    data.phoneNumber && formData.append('phoneNumber', data.phoneNumber);
+    data.linkedinUrl && formData.append('linkedinUrl', data.linkedinUrl);
+    data.city && formData.append('city', data.city);
+    data.bio && formData.append('bio', data.bio);
+    formData.append('coverPic', data.coverPic[0]);
+    formData.append('profilePic', data.profilePic[0]);
+    formData.append('coverPicDeleted', coverPicDeleted);
+    formData.append('profilePicDeleted', profilePicDeleted);
+    updateUserProfile(formData)
+      .then((updatedProfile) => {
+        // reset({ content: '', image: [] });
+        // setCoverPicPreview(null);
+        // setProfilePicPreview(null);
+        setUserData(updatedProfile);
+        setEditMode(false);
+      })
+      .catch((err) => setResponseErrorMsg(err))
+      .finally(() => setLoading(false));
   };
 
   useEffect(() => {
     setResponseErrorMsg([]);
-    profilePicPath && setProfilePicPreview(`${imagesUrl}/${profilePicPath}`);
-    coverPicPath && setCoverPicPreview(`${imagesUrl}/${coverPicPath}`);
+    setCoverPicPreview(coverPicUrl);
+    setProfilePicPreview(profilePicUrl);
     setValue('lastname', lastname);
     setValue('firstname', firstname);
     setValue('profession', profession);
@@ -78,31 +112,31 @@ const UserProfileForm = ({ userProfile }) => {
     setValue('bio', bio);
     setFocus('bio');
     setFocus('lastname');
-  }, [userProfile]);
+  }, [userData]);
 
   return (
-    <form className={styles.UserProfileForm}>
-      <label htmlFor='coverPicInput'>
-        <img className={styles.coverPic} src={defaultCoverPic} alt='Photo de couverture' />
+    <form className={styles.UserProfileForm} onSubmit={handleSubmit(onSubmit)}>
+      <label htmlFor='coverPic'>
+        <img className={styles.coverPic} src={coverPicPreview} alt='Photo de couverture' />
       </label>
       <input
         type='file'
         className='form-file-input'
         accept='image/*'
-        id='coverPicInput'
+        id='coverPic'
         onInput={handleCoverPicInput}
         {...register('coverPic', { validate: validationSchema.coverPic })}
       />
       <div className={styles.infosContainer}>
         <div className={styles.infosRow}>
           <div className={styles.infosColumn}>
-            <label className={styles.profilePicLabel} htmlFor='profilePicInput'>
-              <img className={styles.profilePic} src={defaultProfilePic} alt='' />
+            <label className={styles.profilePicLabel} htmlFor='profilePic'>
+              <img className={styles.profilePic} src={profilePicPreview} alt='' />
             </label>
             <input
               type='file'
               accept='image/*'
-              id='profilePicInput'
+              id='profilePic'
               className='form-file-input'
               onInput={handleProfilePicInput}
               {...register('profilePic', { validate: validationSchema.profilePic })}
@@ -187,7 +221,6 @@ const UserProfileForm = ({ userProfile }) => {
           </div>
           <button className={`btn btn-primary-grey ${styles.saveBtn}`}>Enregistrer</button>
         </div>
-        <IconEdit size='20' />
       </div>
     </form>
   );

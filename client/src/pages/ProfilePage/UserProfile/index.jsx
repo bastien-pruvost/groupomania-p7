@@ -1,32 +1,43 @@
 import styles from './UserProfile.module.css';
-import randomPic from 'assets/images/random-pic.jpg';
+import defaultCoverPic from 'assets/images/default-cover-pic.jpg';
 import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 import IconMapPin from 'components/Icons/IconMapPin';
 import IconPhone from 'components/Icons/IconPhone';
 import IconLinkedin from 'components/Icons/IconLinkedin';
 import IconCalendar from 'components/Icons/IconCalendar';
 import IconEdit from 'components/Icons/IconEdit';
+import { useContext } from 'react';
+import { AuthContext } from 'contexts/AuthContext';
 
-const UserProfile = ({ userProfile }) => {
+const UserProfile = ({ userData, setEditMode }) => {
+  const { currentUser } = useContext(AuthContext);
   const {
     firstname,
     lastname,
-    // profilePicPath,
-    // coverPicPath,
+    profilePicPath,
+    coverPicPath,
     profession,
     birthDate,
     city,
     phoneNumber,
     linkedinUrl,
     bio
-  } = userProfile;
+  } = userData;
+
+  const coverPicUrl = coverPicPath
+    ? `${process.env.REACT_APP_IMAGES_URL}/${coverPicPath}`
+    : defaultCoverPic;
+
+  const profilePicUrl = profilePicPath
+    ? `${process.env.REACT_APP_IMAGES_URL}/${profilePicPath}`
+    : defaultProfilePic;
 
   return (
     <div className={styles.UserProfile}>
-      <img className={styles.coverPic} src={randomPic} alt='Photo de couverture' />
+      <img className={styles.coverPic} src={coverPicUrl} alt='Photo de couverture' />
       <div className={styles.infosContainer}>
         <div className={styles.infosColumn}>
-          <img className={styles.profilePic} src={defaultProfilePic} alt='' />
+          <img className={styles.profilePic} src={profilePicUrl} alt='' />
           <h2 className={styles.name}>{`${firstname} ${lastname}`}</h2>
           {profession && <span className={styles.profession}>{profession}</span>}
         </div>
@@ -60,7 +71,11 @@ const UserProfile = ({ userProfile }) => {
         </div>
 
         {bio && <p className={styles.bioColumn}>{bio}</p>}
-        <IconEdit size='20' />
+        {currentUser.id === userData.id && (
+          <button className={styles.editBtn} onClick={() => setEditMode(true)}>
+            <IconEdit size='20' />
+          </button>
+        )}
       </div>
     </div>
   );

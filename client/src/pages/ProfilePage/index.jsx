@@ -9,18 +9,23 @@ import UserProfileForm from 'pages/ProfilePage/UserProfileForm';
 
 const ProfilePage = () => {
   const { currentUser } = useContext(AuthContext);
-  const { userProfile, userId } = useProfile();
+  const { userData, setUserData, userId, updateUserProfile } = useProfile();
   const { postsData, allPostsLoaded, refreshPostsData, scrollRef } = useInfiniteScroll(userId);
-  const [editMode, setEditMode] = useState(true);
+  const [editMode, setEditMode] = useState(false);
 
   return (
     <>
       {editMode ? (
-        <UserProfileForm userProfile={userProfile} />
+        <UserProfileForm
+          userData={userData}
+          setUserData={setUserData}
+          setEditMode={setEditMode}
+          updateUserProfile={updateUserProfile}
+        />
       ) : (
-        <UserProfile userProfile={userProfile} />
+        <UserProfile userData={userData} editMode={editMode} setEditMode={setEditMode} />
       )}
-      {currentUser.id === userProfile.id && <PostForm refreshPostsData={refreshPostsData} />}
+      {currentUser.id === userData.id && <PostForm refreshPostsData={refreshPostsData} />}
       <PostList
         postsData={postsData}
         allPostsLoaded={allPostsLoaded}
