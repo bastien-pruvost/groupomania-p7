@@ -29,20 +29,20 @@ exports.updateUserInfos = async (req, res) => {
     };
 
     if (profilePic) {
-      !!user.profilePicPath && deleteFile(user.profilePicPath);
+      deleteFile(user.profilePicPath);
       updatedData.profilePicPath = profilePic.filename;
     } else if (body.profilePicDeleted === 'true') {
-      !!user.profilePicPath && deleteFile(user.profilePicPath);
+      deleteFile(user.profilePicPath);
       updatedData.profilePicPath = null;
     } else {
       updatedData.profilePicPath = user.profilePicPath;
     }
 
     if (coverPic) {
-      !!user.coverPicPath && deleteFile(user.coverPicPath);
+      deleteFile(user.coverPicPath);
       updatedData.coverPicPath = coverPic.filename;
     } else if (body.coverPicDeleted === 'true') {
-      !!user.coverPicPath && deleteFile(user.coverPicPath);
+      deleteFile(user.coverPicPath);
       updatedData.coverPicPath = null;
     } else {
       updatedData.coverPicPath = user.coverPicPath;

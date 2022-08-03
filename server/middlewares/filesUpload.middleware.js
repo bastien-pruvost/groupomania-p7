@@ -35,11 +35,11 @@ exports.uploadImage = (req, res, next) => {
 };
 
 exports.deleteFile = (publicId) => {
-  console.log('DELETE FILE !!');
-  cloudinary.uploader.destroy(publicId, (error, result) => {
-    if (result) console.log(result);
-    if (error) console.log(error);
-  });
+  !!publicId &&
+    cloudinary.uploader.destroy(publicId, (error, result) => {
+      if (result) console.log(result);
+      if (error) console.log(error);
+    });
 };
 
 // Local multer save :
