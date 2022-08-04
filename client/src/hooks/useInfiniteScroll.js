@@ -6,6 +6,7 @@ const useInfiniteScroll = (userId) => {
   const [lastPostId, setLastPostId] = useState(null);
   const [allPostsLoaded, setAllPostsLoaded] = useState(false);
   const [page, setPage] = useState(1);
+  const isComponentMounted = useRef(false);
   const scrollRef = useRef(null);
   const pageRef = useRef(null);
   pageRef.current = page;
@@ -61,9 +62,14 @@ const useInfiniteScroll = (userId) => {
     };
   }, [allPostsLoaded]);
 
-  // useEffect(() => {
-  //   refreshPostsData();
-  // }, [userId]);
+  useEffect(() => {
+    if (isComponentMounted.current) {
+      refreshPostsData();
+      console.log('Refresh posts data !');
+    } else {
+      isComponentMounted.current = true;
+    }
+  }, [userId]);
 
   useEffect(() => {
     if (!allPostsLoaded) getPaginatePosts();
