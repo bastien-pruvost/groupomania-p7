@@ -32,11 +32,11 @@ const CommentForm = ({ content, commentId, postId, setPostData, editMode, setEdi
     data.postId = postId;
     const submitMethod = editMode ? updateComment(commentId, data) : createComment(data);
     submitMethod
-      .then((res) => {
+      .then((updatedPost) => {
         reset({ content: '' });
         !editMode && setTimeout(() => setFocus('content'), 0);
         editMode && setEditMode(false);
-        setPostData(res.post);
+        setPostData(updatedPost);
       })
       .catch((err) => setResponseErrorMsg(err))
       .finally(() => setLoading(false));

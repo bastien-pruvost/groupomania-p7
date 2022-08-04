@@ -26,10 +26,10 @@ const EmojiPicker = (props) => {
 
   useEffect(() => {
     const fetchEmoji = async () => {
-      const response = await axios.get(
+      const emojiMartResponse = await axios.get(
         'https://cdn.jsdelivr.net/npm/@emoji-mart/data@1.0.2/sets/14/native.json'
       );
-      const data = response.data;
+      const data = emojiMartResponse.data;
       new Picker({
         ...props,
         data,

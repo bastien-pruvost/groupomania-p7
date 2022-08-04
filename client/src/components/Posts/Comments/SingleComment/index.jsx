@@ -27,7 +27,7 @@ const SingleComment = ({ comment, setPostData }) => {
 
   const handleDelete = () => {
     deleteComment(commentId)
-      .then((res) => setPostData(res.post))
+      .then((updatedPost) => setPostData(updatedPost))
       .catch((err) => console.log(err));
   };
 

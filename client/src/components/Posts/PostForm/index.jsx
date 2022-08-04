@@ -77,11 +77,11 @@ const PostForm = ({
     editMode && formData.append('imageDeleted', imageDeleted);
     const submitMethod = editMode ? updatePost(postId, formData) : createPost(formData);
     submitMethod
-      .then((res) => {
+      .then((updatedPost) => {
         reset({ content: '', image: [] });
         setImagePreview(null);
         if (editMode) {
-          setPostData(res);
+          setPostData(updatedPost);
           setEditMode(false);
         } else {
           refreshPostsData();

@@ -66,22 +66,14 @@ const SinglePost = ({ post, refreshPostsData }) => {
 
   const handleLike = () => {
     likePost(postId)
-      .then((res) => {
-        setPostData(res.post);
-      })
+      .then((updatedPost) => setPostData(updatedPost))
       .catch((err) => console.log(err));
   };
 
   const handleDislike = () => {
     dislikePost(postId)
-      .then((res) => {
-        setPostData(res.post);
-      })
+      .then((updatedPost) => setPostData(updatedPost))
       .catch((err) => console.log(err));
-  };
-
-  const handleComments = () => {
-    setCommentsOpen(true);
   };
 
   useEffect(() => {
@@ -151,7 +143,7 @@ const SinglePost = ({ post, refreshPostsData }) => {
               <IconLike active={postLikedByUser} size='22' />
               <span className={postLikedByUser ? styles.likeBtnActive : ''}>J'aime</span>
             </button>
-            <button className={styles.interactionButton} onClick={handleComments}>
+            <button className={styles.interactionButton} onClick={() => setCommentsOpen(true)}>
               <IconComment size='22' />
               <span>Commenter</span>
             </button>

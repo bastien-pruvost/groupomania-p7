@@ -48,7 +48,7 @@ export const deletePostQuery = async (postId) => {
 export const likePostQuery = async (postId) => {
   try {
     const response = await api.post(`/posts/like/${postId}`);
-    return response.data;
+    return response.data.post;
   } catch (err) {
     handleError(err);
   }
@@ -56,7 +56,7 @@ export const likePostQuery = async (postId) => {
 export const dislikePostQuery = async (postId) => {
   try {
     const response = await api.post(`/posts/dislike/${postId}`);
-    return response.data;
+    return response.data.post;
   } catch (err) {
     handleError(err);
   }

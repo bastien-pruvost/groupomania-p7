@@ -20,7 +20,7 @@ const useProfile = () => {
   const updateUserProfile = async (formData) => {
     try {
       const updatedProfile = await updateUserProfileQuery(userId, formData);
-      return updatedProfile;
+      setUserData(updatedProfile);
     } catch (err) {
       throw Array.isArray(err.message) ? err.message : [err.message];
     }
