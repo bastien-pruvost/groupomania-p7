@@ -37,6 +37,7 @@ const SinglePost = ({ post, refreshPostsData }) => {
   });
 
   const allowEdit = currentUser.id === post.user.id || currentUser.isAdmin;
+
   const profilePicUrl = user.profilePicPath
     ? `${process.env.REACT_APP_IMAGES_URL}/${user.profilePicPath}`
     : defaultProfilePic;
