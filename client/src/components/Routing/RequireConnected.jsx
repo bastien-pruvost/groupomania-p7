@@ -5,7 +5,11 @@ import { AuthContext } from 'contexts/AuthContext';
 const RequireConnected = ({ children }) => {
   const { currentUser } = useContext(AuthContext);
 
-  return currentUser.id ? children ? children : <Outlet /> : <Navigate to='/landing' replace />;
+  if (currentUser.id) {
+    return children ? children : <Outlet />;
+  } else {
+    return <Navigate to='/signin' replace />;
+  }
 };
 
 export default RequireConnected;

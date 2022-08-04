@@ -1,31 +1,25 @@
-import { AuthContext } from 'contexts/AuthContext';
-import useComment from 'hooks/useComment';
+import styles from './CommentForm.module.css';
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
-import styles from './CommentForm.module.css';
+import useComment from 'hooks/useComment';
+import { AuthContext } from 'contexts/AuthContext';
 import IconSend from 'components/Icons/IconSend';
+import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 
 const CommentForm = ({ content, commentId, postId, setPostData, editMode, setEditMode }) => {
-  const { createComment, updateComment } = useComment();
   const { currentUser } = useContext(AuthContext);
   const [isLoading, setLoading] = useState(false);
   const [responseErrorMsg, setResponseErrorMsg] = useState([]);
+  const { createComment, updateComment } = useComment();
   const { formState, handleSubmit, register, reset, setFocus, setValue } = useForm({
     mode: 'onSubmit'
   });
   const { errors } = formState;
   const validationSchema = true;
+
   const profilePicUrl = currentUser.profilePicPath
     ? `${process.env.REACT_APP_IMAGES_URL}/${currentUser.profilePicPath}`
     : defaultProfilePic;
-
-  useEffect(() => {
-    setResponseErrorMsg([]);
-    if (editMode) {
-      setValue('content', content);
-    }
-  }, []);
 
   const adjustTextareaHeight = (e) => {
     e.target.style.height = '1px';
@@ -47,6 +41,13 @@ const CommentForm = ({ content, commentId, postId, setPostData, editMode, setEdi
       .catch((err) => setResponseErrorMsg(err))
       .finally(() => setLoading(false));
   };
+
+  useEffect(() => {
+    setResponseErrorMsg([]);
+    if (editMode) {
+      setValue('content', content);
+    }
+  }, []);
 
   return (
     <>

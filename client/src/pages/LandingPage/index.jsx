@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
 import styles from './LandingPage.module.css';
-import landingIllustration from 'assets/images/landing-illustration.svg';
+import { Link } from 'react-router-dom';
 import Wrapper from 'components/Wrapper';
+import landingIllustration from 'assets/images/landing-illustration.svg';
 
 function LandingPage() {
   return (

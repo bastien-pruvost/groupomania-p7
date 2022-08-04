@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   createCommentQuery,
   deleteCommentQuery,
@@ -8,8 +7,8 @@ import {
 const useComment = () => {
   const createComment = async (data) => {
     try {
-      const response = await createCommentQuery(data);
-      return response;
+      const updatedPost = await createCommentQuery(data);
+      return updatedPost;
     } catch (err) {
       throw Array.isArray(err.message) ? err.message : [err.message];
     }
@@ -17,8 +16,8 @@ const useComment = () => {
 
   const updateComment = async (commentId, data) => {
     try {
-      const response = await updateCommentQuery(commentId, data);
-      return response;
+      const updatedPost = await updateCommentQuery(commentId, data);
+      return updatedPost;
     } catch (err) {
       throw Array.isArray(err.message) ? err.message : [err.message];
     }
@@ -26,8 +25,8 @@ const useComment = () => {
 
   const deleteComment = async (commentId) => {
     try {
-      const response = await deleteCommentQuery(commentId);
-      return response;
+      const updatedPost = await deleteCommentQuery(commentId);
+      return updatedPost;
     } catch (err) {
       throw Array.isArray(err.message) ? err.message : [err.message];
     }

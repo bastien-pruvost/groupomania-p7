@@ -1,10 +1,10 @@
 import styles from './AuthForm.module.css';
 import { useState, useRef, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { authValidator } from 'utils/validationSchemas.utils';
-import { Link } from 'react-router-dom';
-import Loader from 'components/Loader';
 import { AuthContext } from 'contexts/AuthContext';
+import Loader from 'components/Loader';
 
 const AuthForm = ({ signinMode }) => {
   const { signin, signup } = useContext(AuthContext);
@@ -18,10 +18,6 @@ const AuthForm = ({ signinMode }) => {
   password.current = watch('password');
   const validationSchema = signinMode ? true : authValidator(password.current);
 
-  useEffect(() => {
-    setResponseErrorMsg([]);
-  }, [signinMode]);
-
   const onSubmit = async (formData) => {
     setResponseErrorMsg([]);
     setLoading(true);
@@ -31,12 +27,12 @@ const AuthForm = ({ signinMode }) => {
       .finally(() => setLoading(false));
   };
 
+  useEffect(() => {
+    setResponseErrorMsg([]);
+  }, [signinMode]);
+
   return (
-    <form
-      className={styles.AuthForm}
-      onSubmit={handleSubmit(onSubmit)}
-      // id='auth-form'
-    >
+    <form className={styles.AuthForm} onSubmit={handleSubmit(onSubmit)}>
       <h2>{signinMode ? 'Connexion' : 'Inscription'}</h2>
 
       <div className='form-group'>

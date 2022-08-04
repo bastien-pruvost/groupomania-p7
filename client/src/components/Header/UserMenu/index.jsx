@@ -8,9 +8,17 @@ const UserMenu = () => {
   const { currentUser, signout } = useContext(AuthContext);
   const [isMenuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
+
   const profilePicUrl = currentUser.profilePicPath
     ? `${process.env.REACT_APP_IMAGES_URL}/${currentUser.profilePicPath}`
     : defaultProfilePic;
+
+  const closeMenuOnOutsideClick = (e) => {
+    if (!e.target.closest(`#UserMenu`)) {
+      setMenuOpen(false);
+      document.removeEventListener('mousedown', closeMenuOnOutsideClick);
+    }
+  };
 
   const handleMenu = () => {
     if (!isMenuOpen) {
@@ -19,13 +27,6 @@ const UserMenu = () => {
       document.removeEventListener('mousedown', closeMenuOnOutsideClick);
     }
     setMenuOpen(!isMenuOpen);
-  };
-
-  const closeMenuOnOutsideClick = (e) => {
-    if (!e.target.closest(`#UserMenu`)) {
-      setMenuOpen(false);
-      document.removeEventListener('mousedown', closeMenuOnOutsideClick);
-    }
   };
 
   const handleProfileBtn = () => {

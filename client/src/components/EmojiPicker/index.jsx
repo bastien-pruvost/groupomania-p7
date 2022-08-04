@@ -1,13 +1,19 @@
-import { useEffect, useRef } from 'react';
+import styles from './EmojiPicker.module.css';
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { Picker } from 'emoji-mart';
 import IconEmoji from 'components/Icons/IconEmoji';
-import styles from './EmojiPicker.module.css';
-import { useState } from 'react';
 
 const EmojiPicker = (props) => {
   const ref = useRef();
   const [isOpen, setOpen] = useState(false);
+
+  const closeOnOutsideClick = (e) => {
+    if (!e.target.closest(`.emojiPicker`)) {
+      setOpen(false);
+      document.removeEventListener('mousedown', closeOnOutsideClick);
+    }
+  };
 
   const handleEmojiPicker = () => {
     if (!isOpen) {
@@ -16,13 +22,6 @@ const EmojiPicker = (props) => {
       document.removeEventListener('mousedown', closeOnOutsideClick);
     }
     setOpen(!isOpen);
-  };
-
-  const closeOnOutsideClick = (e) => {
-    if (!e.target.closest(`.emojiPicker`)) {
-      setOpen(false);
-      document.removeEventListener('mousedown', closeOnOutsideClick);
-    }
   };
 
   useEffect(() => {

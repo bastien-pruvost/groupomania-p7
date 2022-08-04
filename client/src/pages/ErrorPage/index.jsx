@@ -3,7 +3,7 @@ import styles from './ErrorPage.module.css';
 const ErrorPage = () => {
   return (
     <div className={styles.ErrorPage}>
-      <h1>ErrorPage</h1>
+      <h1>Erreur 404 - Cette page n'existe pas</h1>
     </div>
   );
 };

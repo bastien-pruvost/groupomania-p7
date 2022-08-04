@@ -4,7 +4,7 @@ import {
   signinQuery,
   signupQuery,
   signoutQuery,
-  getCurrentUserQuery
+  getConnectedUserQuery
 } from 'services/auth.services';
 
 const useAuth = () => {
@@ -19,20 +19,10 @@ const useAuth = () => {
   const [isAuthLoading, setAuthLoading] = useState(true);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    setAuthLoading(true);
-    getCurrentUserQuery()
-      .then((response) => {
-        setCurrentUser(response);
-      })
-      .catch((err) => console.log(err.message))
-      .finally(() => setAuthLoading(false));
-  }, []);
-
   const signin = async (formData) => {
     try {
-      const response = await signinQuery(formData);
-      setCurrentUser(response.user);
+      const user = await signinQuery(formData);
+      setCurrentUser(user);
     } catch (err) {
       throw Array.isArray(err.message) ? err.message : [err.message];
     }
@@ -40,8 +30,8 @@ const useAuth = () => {
 
   const signup = async (formData) => {
     try {
-      const response = await signupQuery(formData);
-      setCurrentUser(response.user);
+      const user = await signupQuery(formData);
+      setCurrentUser(user);
     } catch (err) {
       throw Array.isArray(err.message) ? err.message : [err.message];
     }
@@ -56,6 +46,18 @@ const useAuth = () => {
       console.log(err);
     }
   };
+
+  const getConnectedUser = async () => {
+    setAuthLoading(true);
+    getConnectedUserQuery()
+      .then((connectedUser) => setCurrentUser(connectedUser))
+      .catch((err) => console.log(err.message))
+      .finally(() => setAuthLoading(false));
+  };
+
+  useEffect(() => {
+    getConnectedUser();
+  }, []);
 
   return { signin, signup, signout, currentUser, setCurrentUser, noUser, isAuthLoading };
 };

@@ -5,7 +5,11 @@ import { AuthContext } from 'contexts/AuthContext';
 const RequireDisconnected = ({ children }) => {
   const { currentUser } = useContext(AuthContext);
 
-  return !currentUser.id ? children ? children : <Outlet /> : <Navigate to='/' replace />;
+  if (!currentUser.id) {
+    return children ? children : <Outlet />;
+  } else {
+    return <Navigate to='/' replace />;
+  }
 };
 
 export default RequireDisconnected;

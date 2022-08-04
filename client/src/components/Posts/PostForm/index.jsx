@@ -1,15 +1,15 @@
 import styles from './PostForm.module.css';
 import { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import usePost from 'hooks/usePost';
 import { AuthContext } from 'contexts/AuthContext';
 import { postValidator } from 'utils/validationSchemas.utils';
 import PostContainer from 'components/Posts/PostContainer';
-import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 import Loader from 'components/Loader';
 import EmojiPicker from 'components/EmojiPicker';
 import IconDelete from 'components/Icons/IconDelete';
-import { Link } from 'react-router-dom';
+import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 
 const PostForm = ({
   postId,
@@ -21,15 +21,12 @@ const PostForm = ({
   refreshPostsData
 }) => {
   const { currentUser } = useContext(AuthContext);
-  const { createPost, updatePost } = usePost();
   const [isLoading, setLoading] = useState(false);
   const [responseErrorMsg, setResponseErrorMsg] = useState([]);
   const [imagePreview, setImagePreview] = useState(null);
   const [imageDeleted, setImageDeleted] = useState(false);
+  const { createPost, updatePost } = usePost();
   const validationSchema = postValidator();
-  const profilePicUrl = currentUser.profilePicPath
-    ? `${process.env.REACT_APP_IMAGES_URL}/${currentUser.profilePicPath}`
-    : defaultProfilePic;
   const {
     register,
     handleSubmit,
@@ -40,18 +37,20 @@ const PostForm = ({
     formState: { errors }
   } = useForm({ mode: 'onSubmit' });
 
-  useEffect(() => {
-    setResponseErrorMsg([]);
-    if (editMode) {
-      setValue('content', content);
-      setFocus('content');
-      imagePath && setImagePreview(`${process.env.REACT_APP_IMAGES_URL}/${imagePath}`);
-    }
-  }, []);
+  const profilePicUrl = currentUser.profilePicPath
+    ? `${process.env.REACT_APP_IMAGES_URL}/${currentUser.profilePicPath}`
+    : defaultProfilePic;
 
   const adjustTextareaHeight = (e) => {
     e.target.style.height = '1px';
     e.target.style.height = e.target.scrollHeight + 'px';
+  };
+
+  const deleteImage = () => {
+    setImageDeleted(true);
+    setImagePreview(null);
+    setValue('image', []);
+    setFocus('content');
   };
 
   const handleFileInput = (e) => {
@@ -63,14 +62,7 @@ const PostForm = ({
     setImagePreview(URL.createObjectURL(e.target.files[0]));
   };
 
-  const deleteImage = () => {
-    setImageDeleted(true);
-    setImagePreview(null);
-    setValue('image', []);
-    setFocus('content');
-  };
-
-  const emojiHandler = (emoji) => {
+  const handleEmoji = (emoji) => {
     const value = getValues('content');
     setValue('content', `${value}${emoji.native}`);
     setFocus('content');
@@ -99,6 +91,15 @@ const PostForm = ({
       .finally(() => setLoading(false));
   };
 
+  useEffect(() => {
+    setResponseErrorMsg([]);
+    if (editMode) {
+      setValue('content', content);
+      setFocus('content');
+      imagePath && setImagePreview(`${process.env.REACT_APP_IMAGES_URL}/${imagePath}`);
+    }
+  }, []);
+
   return (
     <PostContainer>
       <form className={styles.PostForm} onSubmit={handleSubmit(onSubmit)}>
@@ -122,7 +123,7 @@ const PostForm = ({
             onFocus={(e) => adjustTextareaHeight(e)}
             {...register('content', { validate: validationSchema.content })}
           />
-          <EmojiPicker onEmojiSelect={emojiHandler} />
+          <EmojiPicker onEmojiSelect={handleEmoji} />
         </div>
 
         {!!errors.content?.message && <span className='form-alert'>{errors.content.message}</span>}

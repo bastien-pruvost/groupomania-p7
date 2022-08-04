@@ -1,26 +1,26 @@
+import styles from './SinglePost.module.css';
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { formatTimeAgo } from 'utils/dates.utils';
-import styles from './SinglePost.module.css';
-import PostContainer from 'components/Posts/PostContainer';
-import Comments from 'components/Posts/Comments';
-import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
-import randomPic from 'assets/images/random-pic.jpg';
-import IconLike from 'components/Icons/IconLike';
-import IconComment from 'components/Icons/IconComment';
-import PostForm from 'components/Posts/PostForm';
-import { AuthContext } from 'contexts/AuthContext';
-import EditMenu from 'components/EditMenu';
 import usePost from 'hooks/usePost';
 import useTextLimiter from 'hooks/useTextLimiter';
+import { formatTimeAgo } from 'utils/dates.utils';
+import { AuthContext } from 'contexts/AuthContext';
+import PostForm from 'components/Posts/PostForm';
+import PostContainer from 'components/Posts/PostContainer';
+import EditMenu from 'components/EditMenu';
+import Comments from 'components/Posts/Comments';
+import IconLike from 'components/Icons/IconLike';
+import IconComment from 'components/Icons/IconComment';
+import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
+import randomPic from 'assets/images/random-pic.jpg';
 
 const SinglePost = ({ post, deletePost, refreshPostsData }) => {
   const { currentUser } = useContext(AuthContext);
-  const { likePost, dislikePost } = usePost();
+  const [postData, setPostData] = useState(post);
   const [editMode, setEditMode] = useState(false);
   const [postLikedByUser, setPostLikedByUser] = useState(false);
   const [isCommentsOpen, setCommentsOpen] = useState(false);
-  const [postData, setPostData] = useState(post);
+  const { likePost, dislikePost } = usePost();
   const {
     id: postId,
     content,
@@ -35,9 +35,28 @@ const SinglePost = ({ post, deletePost, refreshPostsData }) => {
     paragraphsLimit: 3,
     charactersLimit: 400
   });
+
   const profilePicUrl = user.profilePicPath
     ? `${process.env.REACT_APP_IMAGES_URL}/${user.profilePicPath}`
     : defaultProfilePic;
+  const imageUrl = randomPic;
+  // const imageUrl = imagePath ? `${process.env.REACT_APP_IMAGES_URL}/${imagePath}` : null;
+  const timeAgoText = formatTimeAgo(createdAt);
+  const numberOfLikes = `${likes.length} J'aime`;
+  const numberOfComments = `${comments.length} ${
+    comments.length > 1 ? 'commentaires' : 'commentaire'
+  }`;
+
+  const checkPostLikedByUser = () => {
+    if (likes.length === 0) {
+      return setPostLikedByUser(false);
+    }
+    likes.forEach((like) => {
+      if (like.user.id === currentUser.id) {
+        return setPostLikedByUser(true);
+      }
+    });
+  };
 
   const handleDelete = () => {
     deletePost(postId)
@@ -61,17 +80,6 @@ const SinglePost = ({ post, deletePost, refreshPostsData }) => {
       .catch((err) => console.log(err));
   };
 
-  const checkPostLikedByUser = () => {
-    if (likes.length === 0) {
-      return setPostLikedByUser(false);
-    }
-    likes.forEach((like) => {
-      if (like.user.id === currentUser.id) {
-        return setPostLikedByUser(true);
-      }
-    });
-  };
-
   const handleComments = () => {
     setCommentsOpen(true);
   };
@@ -81,24 +89,20 @@ const SinglePost = ({ post, deletePost, refreshPostsData }) => {
     checkPostLikedByUser();
   }, [postData]);
 
-  const imageUrl = randomPic;
-  // const imageUrl = imagePath ? `${process.env.REACT_APP_IMAGES_URL}/${imagePath}` : null;
-  const timeAgo = formatTimeAgo(createdAt);
-  const numberOfLikes = `${likes.length} J'aime`;
-  const numberOfComments = `${comments.length} ${
-    comments.length > 1 ? 'commentaires' : 'commentaire'
-  }`;
+  if (editMode) {
+    return (
+      <PostForm
+        postId={postId}
+        content={content}
+        imagePath={imagePath}
+        editMode={editMode}
+        setEditMode={setEditMode}
+        setPostData={setPostData}
+      />
+    );
+  }
 
-  return editMode ? (
-    <PostForm
-      postId={postId}
-      content={content}
-      imagePath={imagePath}
-      editMode={editMode}
-      setEditMode={setEditMode}
-      setPostData={setPostData}
-    />
-  ) : (
+  return (
     <PostContainer>
       <article className={styles.SinglePost}>
         <div className={styles.topRow}>
@@ -110,7 +114,7 @@ const SinglePost = ({ post, deletePost, refreshPostsData }) => {
             <Link className={styles.nameText} to={`/profile/${user.id}`}>
               {user.firstname} {user.lastname}
             </Link>
-            <span className={styles.timeText}>{timeAgo}</span>
+            <span className={styles.timeText}>{timeAgoText}</span>
           </div>
 
           {post.user.id === currentUser.id && (

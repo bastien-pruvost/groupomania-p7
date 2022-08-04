@@ -1,5 +1,5 @@
-// import { useEffect, useState } from 'react';
 import styles from './Loader.module.css';
+// import { useEffect, useState } from 'react';
 
 const Loader = ({ grey }) => {
   // const [isShown, setShown] = useState(false);

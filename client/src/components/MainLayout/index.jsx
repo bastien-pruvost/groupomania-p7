@@ -1,5 +1,5 @@
-import { Outlet } from 'react-router-dom';
 import styles from './MainLayout.module.css';
+import { Outlet } from 'react-router-dom';
 import Wrapper from 'components/Wrapper';
 
 const MainLayout = () => {

@@ -1,23 +1,30 @@
 import styles from './UserProfileForm.module.css';
-import defaultCoverPic from 'assets/images/default-cover-pic.jpg';
-import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
-import IconInfo from 'components/Icons/IconInfo';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import IconMapPin from 'components/Icons/IconMapPin';
+import IconCalendar from 'components/Icons/IconCalendar';
 import IconPhone from 'components/Icons/IconPhone';
 import IconLinkedin from 'components/Icons/IconLinkedin';
-import IconCalendar from 'components/Icons/IconCalendar';
-import IconEdit from 'components/Icons/IconEdit';
-import { set, useForm } from 'react-hook-form';
-import { useEffect, useState } from 'react';
+import IconInfo from 'components/Icons/IconInfo';
+import defaultCoverPic from 'assets/images/default-cover-pic.jpg';
+import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 
 const UserProfileForm = ({ userData, setUserData, setEditMode, updateUserProfile }) => {
   const [isLoading, setLoading] = useState(false);
   const [responseErrorMsg, setResponseErrorMsg] = useState([]);
-  const [profilePicPreview, setProfilePicPreview] = useState(null);
   const [coverPicPreview, setCoverPicPreview] = useState(null);
-  const [profilePicDeleted, setProfilePicDeleted] = useState(false);
+  const [profilePicPreview, setProfilePicPreview] = useState(null);
   const [coverPicDeleted, setCoverPicDeleted] = useState(false);
+  const [profilePicDeleted, setProfilePicDeleted] = useState(false);
   const validationSchema = true;
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    getValues,
+    setFocus,
+    formState: { errors }
+  } = useForm({ mode: 'onSubmit' });
   const {
     firstname,
     lastname,
@@ -30,19 +37,11 @@ const UserProfileForm = ({ userData, setUserData, setEditMode, updateUserProfile
     linkedinUrl,
     bio
   } = userData;
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    getValues,
-    setFocus,
-    reset,
-    formState: { errors }
-  } = useForm({ mode: 'onSubmit' });
 
   const coverPicUrl = coverPicPath
     ? `${process.env.REACT_APP_IMAGES_URL}/${coverPicPath}`
     : defaultCoverPic;
+
   const profilePicUrl = profilePicPath
     ? `${process.env.REACT_APP_IMAGES_URL}/${profilePicPath}`
     : defaultProfilePic;
@@ -88,9 +87,6 @@ const UserProfileForm = ({ userData, setUserData, setEditMode, updateUserProfile
     formData.append('profilePicDeleted', profilePicDeleted);
     updateUserProfile(formData)
       .then((updatedProfile) => {
-        // reset({ content: '', image: [] });
-        // setCoverPicPreview(null);
-        // setProfilePicPreview(null);
         setUserData(updatedProfile);
         setEditMode(false);
       })

@@ -29,13 +29,6 @@ const useInfiniteScroll = (userId) => {
     }
   };
 
-  const handleInfiniteScroll = useCallback((entries) => {
-    const target = entries[0];
-    if (target.isIntersecting) {
-      setPage(pageRef.current + 1);
-    }
-  }, []);
-
   const refreshPostsData = () => {
     setAllPostsLoaded(false);
     setPostsData([]);
@@ -46,16 +39,24 @@ const useInfiniteScroll = (userId) => {
     });
   };
 
+  const handleInfiniteScroll = useCallback((entries) => {
+    const target = entries[0];
+    if (target.isIntersecting) {
+      setPage(pageRef.current + 1);
+    }
+  }, []);
+
   useEffect(() => {
     const currentScrollRef = scrollRef.current;
     const infiniteScrollObserver = new IntersectionObserver(handleInfiniteScroll, {
       rootMargin: '500px'
     });
+
     setTimeout(() => {
       if (currentScrollRef) infiniteScrollObserver.observe(currentScrollRef);
     }, 1000);
+
     return () => {
-      // infiniteScrollObserver.unobserve(currentScrollRef);
       infiniteScrollObserver.disconnect();
     };
   }, [allPostsLoaded]);

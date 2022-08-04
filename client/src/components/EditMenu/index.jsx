@@ -1,9 +1,16 @@
-import IconMore from 'components/Icons/IconMore';
-import { useState } from 'react';
 import styles from './EditMenu.module.css';
+import { useState } from 'react';
+import IconMore from 'components/Icons/IconMore';
 
 const EditMenu = ({ handleEdit, handleDelete, iconSize }) => {
   const [isMenuOpen, setMenuOpen] = useState(false);
+
+  const closeMenuOnOutsideClick = (e) => {
+    if (!e.target.closest(`.moreMenuContainer`)) {
+      setMenuOpen(false);
+      document.removeEventListener('mousedown', closeMenuOnOutsideClick);
+    }
+  };
 
   const handleMenu = () => {
     if (!isMenuOpen) {
@@ -12,13 +19,6 @@ const EditMenu = ({ handleEdit, handleDelete, iconSize }) => {
       document.removeEventListener('mousedown', closeMenuOnOutsideClick);
     }
     setMenuOpen(!isMenuOpen);
-  };
-
-  const closeMenuOnOutsideClick = (e) => {
-    if (!e.target.closest(`.moreMenuContainer`)) {
-      setMenuOpen(false);
-      document.removeEventListener('mousedown', closeMenuOnOutsideClick);
-    }
   };
 
   return (

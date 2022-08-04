@@ -1,7 +1,7 @@
-import CommentForm from 'components/Posts/Comments/CommentForm';
-import SingleComment from 'components/Posts/Comments/SingleComment';
-import { useEffect, useState } from 'react';
 import styles from './Comments.module.css';
+import { useEffect, useState } from 'react';
+import SingleComment from 'components/Posts/Comments/SingleComment';
+import CommentForm from 'components/Posts/Comments/CommentForm';
 
 const Comments = ({ comments, postId, setPostData }) => {
   const [showAllComments, setShowAllComments] = useState(true);

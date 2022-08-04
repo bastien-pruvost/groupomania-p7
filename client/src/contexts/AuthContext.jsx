@@ -1,6 +1,6 @@
-import Loader from 'components/Loader';
-import useAuth from 'hooks/useAuth';
 import { createContext } from 'react';
+import useAuth from 'hooks/useAuth';
+import Loader from 'components/Loader';
 
 export const AuthContext = createContext();
 

@@ -3,16 +3,17 @@ import { useParams } from 'react-router-dom';
 import { getUserProfileQuery, updateUserProfileQuery } from 'services/users.services';
 
 const useProfile = () => {
+  const [userData, setUserData] = useState({});
   const params = useParams();
   const userId = params.userId;
-  const [userData, setUserData] = useState({});
 
   const getUserProfile = async () => {
     try {
       const userProfile = await getUserProfileQuery(userId);
-      return userProfile;
+      setUserData(userProfile);
     } catch (err) {
-      throw Array.isArray(err.message) ? err.message : [err.message];
+      // throw Array.isArray(err.message) ? err.message : [err.message];
+      console.log(err);
     }
   };
 
@@ -26,9 +27,7 @@ const useProfile = () => {
   };
 
   useEffect(() => {
-    getUserProfile(userId)
-      .then((profile) => setUserData(profile))
-      .catch((err) => console.log(err));
+    getUserProfile();
   }, [userId]);
 
   return { userData, setUserData, userId, updateUserProfile };

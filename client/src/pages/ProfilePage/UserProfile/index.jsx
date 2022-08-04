@@ -1,13 +1,13 @@
 import styles from './UserProfile.module.css';
-import defaultCoverPic from 'assets/images/default-cover-pic.jpg';
-import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
-import IconMapPin from 'components/Icons/IconMapPin';
-import IconPhone from 'components/Icons/IconPhone';
-import IconLinkedin from 'components/Icons/IconLinkedin';
-import IconCalendar from 'components/Icons/IconCalendar';
-import IconEdit from 'components/Icons/IconEdit';
 import { useContext } from 'react';
 import { AuthContext } from 'contexts/AuthContext';
+import IconMapPin from 'components/Icons/IconMapPin';
+import IconCalendar from 'components/Icons/IconCalendar';
+import IconPhone from 'components/Icons/IconPhone';
+import IconLinkedin from 'components/Icons/IconLinkedin';
+import IconEdit from 'components/Icons/IconEdit';
+import defaultCoverPic from 'assets/images/default-cover-pic.jpg';
+import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 
 const UserProfile = ({ userData, setEditMode }) => {
   const { currentUser } = useContext(AuthContext);
