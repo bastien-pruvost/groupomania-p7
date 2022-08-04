@@ -53,7 +53,7 @@ exports.updatePost = async (req, res) => {
   try {
     const { body, files, user, post } = req;
     const image = files.postPic ? files.postPic[0] : null;
-    const updatedPost = { content: body.content, userId: user.id };
+    const updatedPost = { content: body.content, userId: post.userId };
     if (image) {
       deleteFile(post.imagePath);
       updatedPost.imagePath = image.filename;

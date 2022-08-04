@@ -36,6 +36,7 @@ const SinglePost = ({ post, refreshPostsData }) => {
     charactersLimit: 400
   });
 
+  const allowEdit = currentUser.id === post.user.id || currentUser.isAdmin;
   const profilePicUrl = user.profilePicPath
     ? `${process.env.REACT_APP_IMAGES_URL}/${user.profilePicPath}`
     : defaultProfilePic;
@@ -87,6 +88,7 @@ const SinglePost = ({ post, refreshPostsData }) => {
         postId={postId}
         content={content}
         postPicPath={postPicPath}
+        postAuthor={user}
         editMode={editMode}
         setEditMode={setEditMode}
         setPostData={setPostData}
@@ -109,7 +111,7 @@ const SinglePost = ({ post, refreshPostsData }) => {
             <span className={styles.timeText}>{timeAgoText}</span>
           </div>
 
-          {post.user.id === currentUser.id && (
+          {allowEdit && (
             <EditMenu
               handleEdit={() => setEditMode(true)}
               handleDelete={handleDelete}

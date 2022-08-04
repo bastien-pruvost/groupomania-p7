@@ -15,6 +15,7 @@ const PostForm = ({
   postId,
   content,
   postPicPath,
+  postAuthor,
   editMode,
   setEditMode,
   setPostData,
@@ -37,8 +38,10 @@ const PostForm = ({
     formState: { errors }
   } = useForm({ mode: 'onSubmit' });
 
-  const profilePicUrl = currentUser.profilePicPath
-    ? `${process.env.REACT_APP_IMAGES_URL}/${currentUser.profilePicPath}`
+  const author = postAuthor ? postAuthor : currentUser;
+
+  const profilePicUrl = author.profilePicPath
+    ? `${process.env.REACT_APP_IMAGES_URL}/${author.profilePicPath}`
     : defaultProfilePic;
 
   const adjustTextareaHeight = (e) => {
@@ -78,12 +81,12 @@ const PostForm = ({
     const submitMethod = editMode ? updatePost(postId, formData) : createPost(formData);
     submitMethod
       .then((updatedPost) => {
-        reset({ content: '', image: [] });
-        setImagePreview(null);
         if (editMode) {
           setPostData(updatedPost);
           setEditMode(false);
         } else {
+          reset({ content: '', image: [] });
+          setImagePreview(null);
           refreshPostsData();
         }
       })
@@ -104,12 +107,12 @@ const PostForm = ({
     <PostContainer>
       <form className={styles.PostForm} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.topRow}>
-          <Link to={`/profile/${currentUser.id}`}>
+          <Link to={`/profile/${author.id}`}>
             <img src={profilePicUrl} alt='' className={styles.userPic} />
           </Link>
 
-          <Link to={`/profile/${currentUser.id}`}>
-            {currentUser.firstname} {currentUser.lastname}
+          <Link to={`/profile/${author.id}`}>
+            {author.firstname} {author.lastname}
           </Link>
         </div>
 
