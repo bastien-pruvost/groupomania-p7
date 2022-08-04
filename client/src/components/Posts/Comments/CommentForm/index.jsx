@@ -46,6 +46,7 @@ const CommentForm = ({ content, commentId, postId, setPostData, editMode, setEdi
     setResponseErrorMsg([]);
     if (editMode) {
       setValue('content', content);
+      setFocus('content');
     }
   }, []);
 
