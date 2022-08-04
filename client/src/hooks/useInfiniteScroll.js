@@ -65,7 +65,6 @@ const useInfiniteScroll = (userId) => {
   useEffect(() => {
     if (isComponentMounted.current) {
       refreshPostsData();
-      console.log('Refresh posts data !');
     } else {
       isComponentMounted.current = true;
     }
