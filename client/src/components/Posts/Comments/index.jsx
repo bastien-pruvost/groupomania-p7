@@ -4,17 +4,17 @@ import SingleComment from 'components/Posts/Comments/SingleComment';
 import CommentForm from 'components/Posts/Comments/CommentForm';
 
 const Comments = ({ comments, postId, setPostData }) => {
-  const [showAllComments, setShowAllComments] = useState(true);
+  const [allCommentsShown, setAllCommentsShown] = useState(true);
 
   useEffect(() => {
     if (comments.length > 1) {
-      setShowAllComments(false);
+      setAllCommentsShown(false);
     }
   }, []);
 
   return (
     <div className={styles.Comments}>
-      {showAllComments ? (
+      {allCommentsShown ? (
         comments.map((comment) => (
           <SingleComment key={comment.id} comment={comment} setPostData={setPostData} />
         ))
@@ -23,7 +23,7 @@ const Comments = ({ comments, postId, setPostData }) => {
           <SingleComment comment={comments[0]} setPostData={setPostData} />
           <button
             className={`${styles.showAllBtn} limit-text-btn`}
-            onClick={() => setShowAllComments(true)}
+            onClick={() => setAllCommentsShown(true)}
           >
             Voir tous les commentaires
           </button>

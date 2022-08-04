@@ -77,8 +77,8 @@ const SinglePost = ({ post, refreshPostsData }) => {
   };
 
   useEffect(() => {
-    if (comments.length > 0) setCommentsOpen(true);
     checkPostLikedByUser();
+    if (comments.length > 0) setCommentsOpen(true);
   }, [postData]);
 
   if (editMode) {

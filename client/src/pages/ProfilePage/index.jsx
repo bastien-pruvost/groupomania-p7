@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import useProfile from 'hooks/useProfile';
 import useInfiniteScroll from 'hooks/useInfiniteScroll';
 import { AuthContext } from 'contexts/AuthContext';
