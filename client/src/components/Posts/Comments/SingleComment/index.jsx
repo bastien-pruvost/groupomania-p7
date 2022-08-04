@@ -20,6 +20,8 @@ const SingleComment = ({ comment, setPostData }) => {
     charactersLimit: 100
   });
 
+  const allowEdit = currentUser.id === user.id || currentUser.isAdmin;
+
   const timeAgoText = formatTimeAgo(createdAt);
   const profilePicUrl = user.profilePicPath
     ? `${process.env.REACT_APP_IMAGES_URL}/${user.profilePicPath}`
@@ -57,7 +59,7 @@ const SingleComment = ({ comment, setPostData }) => {
             </Link>
             <span className={styles.timeText}>{timeAgoText}</span>
           </div>
-          {comment.user.id === currentUser.id && (
+          {allowEdit && (
             <EditMenu
               handleEdit={() => setEditMode(true)}
               handleDelete={handleDelete}
