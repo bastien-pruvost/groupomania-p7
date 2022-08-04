@@ -24,6 +24,8 @@ const UserProfile = ({ userData, setEditMode }) => {
     bio
   } = userData;
 
+  const allowEdit = currentUser.id === userData.id || currentUser.isAdmin;
+
   const coverPicUrl = coverPicPath
     ? `${process.env.REACT_APP_IMAGES_URL}/${coverPicPath}`
     : defaultCoverPic;
@@ -71,7 +73,7 @@ const UserProfile = ({ userData, setEditMode }) => {
         </div>
 
         {bio && <p className={styles.bioColumn}>{bio}</p>}
-        {currentUser.id === userData.id && (
+        {allowEdit && (
           <button className={styles.editBtn} onClick={() => setEditMode(true)}>
             <IconEdit size='20' />
           </button>
