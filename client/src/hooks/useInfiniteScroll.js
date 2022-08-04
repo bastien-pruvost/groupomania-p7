@@ -61,9 +61,9 @@ const useInfiniteScroll = (userId) => {
     };
   }, [allPostsLoaded]);
 
-  useEffect(() => {
-    refreshPostsData();
-  }, [userId]);
+  // useEffect(() => {
+  //   refreshPostsData();
+  // }, [userId]);
 
   useEffect(() => {
     if (!allPostsLoaded) getPaginatePosts();

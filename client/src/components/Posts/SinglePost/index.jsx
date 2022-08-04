@@ -14,17 +14,17 @@ import IconComment from 'components/Icons/IconComment';
 import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 import randomPic from 'assets/images/random-pic.jpg';
 
-const SinglePost = ({ post, deletePost, refreshPostsData }) => {
+const SinglePost = ({ post, refreshPostsData }) => {
   const { currentUser } = useContext(AuthContext);
   const [postData, setPostData] = useState(post);
   const [editMode, setEditMode] = useState(false);
   const [postLikedByUser, setPostLikedByUser] = useState(false);
   const [isCommentsOpen, setCommentsOpen] = useState(false);
-  const { likePost, dislikePost } = usePost();
+  const { likePost, dislikePost, deletePost } = usePost();
   const {
     id: postId,
     content,
-    imagePath,
+    imagePath: postPicPath,
     user,
     createdAt,
     user_like_posts: likes,
@@ -39,8 +39,8 @@ const SinglePost = ({ post, deletePost, refreshPostsData }) => {
   const profilePicUrl = user.profilePicPath
     ? `${process.env.REACT_APP_IMAGES_URL}/${user.profilePicPath}`
     : defaultProfilePic;
-  const imageUrl = randomPic;
-  // const imageUrl = imagePath ? `${process.env.REACT_APP_IMAGES_URL}/${imagePath}` : null;
+  const postPicUrl = postPicPath ? randomPic : null;
+  // const postPicUrl = postPicPath ? `${process.env.REACT_APP_IMAGES_URL}/${postPicPath}` : null;
   const timeAgoText = formatTimeAgo(createdAt);
   const numberOfLikes = `${likes.length} J'aime`;
   const numberOfComments = `${comments.length} ${
@@ -94,7 +94,7 @@ const SinglePost = ({ post, deletePost, refreshPostsData }) => {
       <PostForm
         postId={postId}
         content={content}
-        imagePath={imagePath}
+        postPicPath={postPicPath}
         editMode={editMode}
         setEditMode={setEditMode}
         setPostData={setPostData}
@@ -135,7 +135,7 @@ const SinglePost = ({ post, deletePost, refreshPostsData }) => {
           )}
         </p>
 
-        {!!imageUrl && <img className={styles.image} src={imageUrl} />}
+        {!!postPicUrl && <img className={styles.image} src={postPicUrl} />}
 
         <div>
           <div className={styles.countsRow}>

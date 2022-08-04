@@ -10,7 +10,7 @@ import PostList from 'components/Posts/PostList';
 const ProfilePage = () => {
   const { currentUser } = useContext(AuthContext);
   const [editMode, setEditMode] = useState(false);
-  const { userData, setUserData, userId, updateUserProfile } = useProfile();
+  const { userData, userId, updateUserProfile } = useProfile();
   const { postsData, allPostsLoaded, refreshPostsData, scrollRef } = useInfiniteScroll(userId);
 
   return (
@@ -18,7 +18,6 @@ const ProfilePage = () => {
       {editMode ? (
         <UserProfileForm
           userData={userData}
-          setUserData={setUserData}
           setEditMode={setEditMode}
           updateUserProfile={updateUserProfile}
         />

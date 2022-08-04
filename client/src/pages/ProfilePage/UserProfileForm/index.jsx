@@ -9,7 +9,7 @@ import IconInfo from 'components/Icons/IconInfo';
 import defaultCoverPic from 'assets/images/default-cover-pic.jpg';
 import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 
-const UserProfileForm = ({ userData, setUserData, setEditMode, updateUserProfile }) => {
+const UserProfileForm = ({ userData, setEditMode, updateUserProfile }) => {
   const [isLoading, setLoading] = useState(false);
   const [responseErrorMsg, setResponseErrorMsg] = useState([]);
   const [coverPicPreview, setCoverPicPreview] = useState(null);
@@ -86,10 +86,7 @@ const UserProfileForm = ({ userData, setUserData, setEditMode, updateUserProfile
     formData.append('coverPicDeleted', coverPicDeleted);
     formData.append('profilePicDeleted', profilePicDeleted);
     updateUserProfile(formData)
-      .then((updatedProfile) => {
-        setUserData(updatedProfile);
-        setEditMode(false);
-      })
+      .then(() => setEditMode(false))
       .catch((err) => setResponseErrorMsg(err))
       .finally(() => setLoading(false));
   };

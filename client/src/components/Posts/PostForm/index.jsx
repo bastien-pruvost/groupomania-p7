@@ -14,7 +14,7 @@ import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 const PostForm = ({
   postId,
   content,
-  imagePath,
+  postPicPath,
   editMode,
   setEditMode,
   setPostData,
@@ -96,7 +96,7 @@ const PostForm = ({
     if (editMode) {
       setValue('content', content);
       setFocus('content');
-      imagePath && setImagePreview(`${process.env.REACT_APP_IMAGES_URL}/${imagePath}`);
+      postPicPath && setImagePreview(`${process.env.REACT_APP_IMAGES_URL}/${postPicPath}`);
     }
   }, []);
 

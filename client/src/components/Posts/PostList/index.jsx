@@ -9,12 +9,7 @@ const PostList = ({ postsData, allPostsLoaded, refreshPostsData, scrollRef }) =>
   return (
     <div className={styles.PostList}>
       {postsData.map((post) => (
-        <SinglePost
-          key={post.id}
-          post={post}
-          deletePost={deletePost}
-          refreshPostsData={refreshPostsData}
-        />
+        <SinglePost key={post.id} post={post} refreshPostsData={refreshPostsData} />
       ))}
 
       {allPostsLoaded ? (
