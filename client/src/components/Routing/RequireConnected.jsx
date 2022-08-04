@@ -8,7 +8,7 @@ const RequireConnected = ({ children }) => {
   if (currentUser.id) {
     return children ? children : <Outlet />;
   } else {
-    return <Navigate to='/signin' replace />;
+    return <Navigate to='/landing' replace />;
   }
 };
 
