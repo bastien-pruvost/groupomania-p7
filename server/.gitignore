@@ -1,3 +1,25 @@
+# Dependencies
+/node_modules
+/jspm_packages
+/.pnp
+.pnp.js
+
+# Dotenv environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Testing
+/coverage
+
+# Production
+/build
+
+# OS Files
+.DS_Store
+
 # Logs
 logs
 *.log
@@ -32,12 +54,8 @@ bower_components
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
 
-# Dependency directories
-node_modules/
-jspm_packages/
-
 # Typescript v1 declaration files
-typings/
+/typings
 
 # Optional npm cache directory
 .npm
@@ -53,9 +71,6 @@ typings/
 
 # Yarn Integrity file
 .yarn-integrity
-
-# dotenv environment variables file
-.env
 
 # next.js build output
 .next
