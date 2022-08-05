@@ -55,7 +55,7 @@
   flex-direction: column;
   gap: 0.8rem;
   color: var(--grey-500);
-  flex-grow: 1;
+  flex: 1 1 12rem;
 }
 
 .infoItem {
@@ -66,9 +66,13 @@
   vertical-align: middle;
 }
 
+.infoItem > svg {
+  flex-shrink: 0;
+}
+
 .infosTextarea {
   color: var(--grey-600);
-  flex: 1 1 30rem;
+  flex: 1 1 25rem;
 }
 
 .infosInput {
