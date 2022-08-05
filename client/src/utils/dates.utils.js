@@ -40,3 +40,23 @@ export const formatTimeAgo = (postDate) => {
   const formatedDate = date.toLocaleDateString('fr');
   return `Le ${formatedDate}`;
 };
+
+export const formatBirthDateText = (date) => {
+  const day = date.split('-')[2];
+  const month = date.split('-')[1];
+  const dayText = day[0] === '0' ? day[1] : day;
+  let monthText = '';
+  if (month === '01') monthText = 'Janvier';
+  if (month === '02') monthText = 'Fevrier';
+  if (month === '03') monthText = 'Mars';
+  if (month === '04') monthText = 'Avril';
+  if (month === '05') monthText = 'Mai';
+  if (month === '06') monthText = 'Juin';
+  if (month === '07') monthText = 'Juillet';
+  if (month === '08') monthText = 'Août';
+  if (month === '09') monthText = 'Septembre';
+  if (month === '10') monthText = 'Octobre';
+  if (month === '11') monthText = 'Novembre';
+  if (month === '12') monthText = 'Decembre';
+  return `${dayText} ${monthText}`;
+};

@@ -8,6 +8,7 @@ import IconLinkedin from 'components/Icons/IconLinkedin';
 import IconEdit from 'components/Icons/IconEdit';
 import defaultCoverPic from 'assets/images/default-cover-pic.jpg';
 import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
+import { formatBirthDateText } from 'utils/dates.utils';
 
 const UserProfile = ({ userData, setEditMode }) => {
   const { currentUser } = useContext(AuthContext);
@@ -26,6 +27,8 @@ const UserProfile = ({ userData, setEditMode }) => {
 
   const allowEdit = currentUser.id === userData.id || currentUser.isAdmin;
 
+  const birthDateText = birthDate ? formatBirthDateText(birthDate) : null;
+
   const coverPicUrl = coverPicPath
     ? `${process.env.REACT_APP_IMAGES_URL}/${coverPicPath}`
     : defaultCoverPic;
@@ -40,7 +43,7 @@ const UserProfile = ({ userData, setEditMode }) => {
       <div className={styles.infosContainer}>
         <div className={styles.infosColumn}>
           <img className={styles.profilePic} src={profilePicUrl} alt='' />
-          <h2 className={styles.name}>{`${firstname} ${lastname}`}</h2>
+          {firstname && <h2 className={styles.name}>{`${firstname} ${lastname}`}</h2>}
           {profession && <span className={styles.profession}>{profession}</span>}
         </div>
 
@@ -53,7 +56,7 @@ const UserProfile = ({ userData, setEditMode }) => {
           {birthDate && (
             <div className={styles.infoItem}>
               <IconCalendar size={20} />
-              <span>{birthDate}</span>
+              <span>{birthDateText}</span>
             </div>
           )}
           {phoneNumber && (
