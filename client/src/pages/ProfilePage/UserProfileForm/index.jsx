@@ -9,7 +9,7 @@ import IconInfo from 'components/Icons/IconInfo';
 import defaultCoverPic from 'assets/images/default-cover-pic.jpg';
 import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 
-const UserProfileForm = ({ userData, setEditMode, updateUserProfile }) => {
+const UserProfileForm = ({ userData, setEditMode, updateUserProfile, refreshPostsData }) => {
   const [isLoading, setLoading] = useState(false);
   const [responseErrorMsg, setResponseErrorMsg] = useState([]);
   const [coverPicPreview, setCoverPicPreview] = useState(null);
@@ -38,6 +38,9 @@ const UserProfileForm = ({ userData, setEditMode, updateUserProfile }) => {
     bio
   } = userData;
 
+  const birthDay = birthDate ? birthDate.split('-')[2] : null;
+  const birthMonth = birthDate ? birthDate.split('-')[1] : null;
+
   const coverPicUrl = coverPicPath
     ? `${process.env.REACT_APP_IMAGES_URL}/${coverPicPath}`
     : defaultCoverPic;
@@ -46,9 +49,24 @@ const UserProfileForm = ({ userData, setEditMode, updateUserProfile }) => {
     ? `${process.env.REACT_APP_IMAGES_URL}/${profilePicPath}`
     : defaultProfilePic;
 
-  const adjustTextareaHeight = (e) => {
-    e.target.style.height = '1px';
-    e.target.style.height = e.target.scrollHeight + 'px';
+  const limitBirthDay = (e) => {
+    const dayValue = e.target.value;
+    if (dayValue && dayValue > 31) {
+      setValue('birthDay', 31);
+    }
+    if (dayValue && dayValue < 0) {
+      setValue('birthDay', 1);
+    }
+  };
+
+  const limitBirthMonth = (e) => {
+    const monthValue = e.target.value;
+    if (monthValue && monthValue > 12) {
+      setValue('birthMonth', 12);
+    }
+    if (monthValue && monthValue < 0) {
+      setValue('birthMonth', 1);
+    }
   };
 
   const handleCoverPicInput = (e) => {
@@ -69,24 +87,34 @@ const UserProfileForm = ({ userData, setEditMode, updateUserProfile }) => {
     setProfilePicPreview(URL.createObjectURL(e.target.files[0]));
   };
 
+  const adjustTextareaHeight = (e) => {
+    e.target.style.height = '1px';
+    e.target.style.height = e.target.scrollHeight + 'px';
+  };
+
   const onSubmit = async (data) => {
     setResponseErrorMsg([]);
     setLoading(true);
+    if (data.birthDay.length === 1) data.birthDay = `0${data.birthDay}`;
+    const formatedBirthDate = `0000-${data.birthMonth}-${data.birthDay}`;
     const formData = new FormData();
     formData.append('lastname', data.lastname);
     formData.append('firstname', data.firstname);
-    data.profession && formData.append('profession', data.profession);
-    data.birthDate && formData.append('birthDate', data.birthDate);
-    data.phoneNumber && formData.append('phoneNumber', data.phoneNumber);
-    data.linkedinUrl && formData.append('linkedinUrl', data.linkedinUrl);
-    data.city && formData.append('city', data.city);
-    data.bio && formData.append('bio', data.bio);
+    formData.append('profession', data.profession);
+    formData.append('phoneNumber', data.phoneNumber);
+    formData.append('linkedinUrl', data.linkedinUrl);
+    formData.append('city', data.city);
+    formData.append('birthDate', formatedBirthDate);
+    formData.append('bio', data.bio);
     formData.append('coverPic', data.coverPic[0]);
     formData.append('profilePic', data.profilePic[0]);
     formData.append('coverPicDeleted', coverPicDeleted);
     formData.append('profilePicDeleted', profilePicDeleted);
     updateUserProfile(formData)
-      .then(() => setEditMode(false))
+      .then(() => {
+        setEditMode(false);
+        refreshPostsData();
+      })
       .catch((err) => setResponseErrorMsg(err))
       .finally(() => setLoading(false));
   };
@@ -98,7 +126,8 @@ const UserProfileForm = ({ userData, setEditMode, updateUserProfile }) => {
     setValue('lastname', lastname);
     setValue('firstname', firstname);
     setValue('profession', profession);
-    setValue('birthDate', birthDate);
+    setValue('birthDay', birthDay);
+    setValue('birthMonth', birthMonth);
     setValue('city', city);
     setValue('phoneNumber', phoneNumber);
     setValue('linkedinUrl', linkedinUrl);
@@ -135,16 +164,16 @@ const UserProfileForm = ({ userData, setEditMode, updateUserProfile }) => {
               {...register('profilePic', { validate: validationSchema.profilePic })}
             />
             <input
-              className={`form-input ${styles.infosInput} ${errors.lastname ? 'error' : ''}`}
-              type='text'
-              placeholder='Nom'
-              {...register('lastname', { validate: validationSchema.lastname })}
-            />
-            <input
               className={`form-input ${styles.infosInput} ${errors.firstname ? 'error' : ''}`}
               type='text'
               placeholder='Prénom'
               {...register('firstname', { validate: validationSchema.firstname })}
+            />
+            <input
+              className={`form-input ${styles.infosInput} ${errors.lastname ? 'error' : ''}`}
+              type='text'
+              placeholder='Nom'
+              {...register('lastname', { validate: validationSchema.lastname })}
             />
             <input
               className={`form-input ${styles.infosInput} ${errors.profession ? 'error' : ''}`}
@@ -168,10 +197,22 @@ const UserProfileForm = ({ userData, setEditMode, updateUserProfile }) => {
             <div className={styles.infoItem}>
               <IconCalendar size={20} />
               <input
-                className={`form-input ${styles.infosInput} ${errors.birthDate ? 'error' : ''}`}
-                type='date'
-                placeholder="Date d'anniversaire"
-                {...register('birthDate', { validate: validationSchema.birthDate })}
+                className={`form-input ${styles.infosInput} ${errors.birthDay ? 'error' : ''}`}
+                type='number'
+                min={1}
+                max={31}
+                onInput={limitBirthDay}
+                placeholder='Jour'
+                {...register('birthDay', { validate: validationSchema.birthDay })}
+              />
+              <input
+                className={`form-input ${styles.infosInput} ${errors.birthMonth ? 'error' : ''}`}
+                type='number'
+                min={1}
+                max={12}
+                onInput={limitBirthMonth}
+                placeholder='Mois'
+                {...register('birthMonth', { validate: validationSchema.birthMonth })}
               />
             </div>
 

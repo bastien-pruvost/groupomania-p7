@@ -20,6 +20,7 @@ const ProfilePage = () => {
           userData={userData}
           setEditMode={setEditMode}
           updateUserProfile={updateUserProfile}
+          refreshPostsData={refreshPostsData}
         />
       ) : (
         <UserProfile userData={userData} editMode={editMode} setEditMode={setEditMode} />

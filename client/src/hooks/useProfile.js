@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react';
+import { AuthContext } from 'contexts/AuthContext';
+import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getUserProfileQuery, updateUserProfileQuery } from 'services/users.services';
 
 const useProfile = () => {
+  const { setCurrentUser } = useContext(AuthContext);
   const [userData, setUserData] = useState({});
   const params = useParams();
   const userId = params.userId;
@@ -21,6 +23,15 @@ const useProfile = () => {
     try {
       const updatedProfile = await updateUserProfileQuery(userId, formData);
       setUserData(updatedProfile);
+      setCurrentUser((prevState) => {
+        const updatedCurrentUser = {
+          ...prevState,
+          lastname: updatedProfile.lastname,
+          firstname: updatedProfile.firstname,
+          profilePicPath: updatedProfile.profilePicPath
+        };
+        return updatedCurrentUser;
+      });
     } catch (err) {
       throw Array.isArray(err.message) ? err.message : [err.message];
     }
