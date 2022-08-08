@@ -243,7 +243,7 @@ const UserProfileForm = ({ userData, setEditMode, updateUserProfile, refreshPost
             onInput={(e) => adjustTextareaHeight(e)}
             onFocus={(e) => adjustTextareaHeight(e)}
             {...register('bio', { validate: validationSchema.bio })}
-          ></textarea>
+          />
         </div>
         <div className={styles.submitRow}>
           <div className={styles.submitWarning}>
@@ -253,7 +253,16 @@ const UserProfileForm = ({ userData, setEditMode, updateUserProfile, refreshPost
               utilisateurs.
             </p>
           </div>
-          <button className={`btn btn-primary-grey ${styles.saveBtn}`}>Enregistrer</button>
+          <div className={styles.buttonsContainer}>
+            <button
+              type='button'
+              className='btn btn-secondary-grey'
+              onClick={() => setEditMode(false)}
+            >
+              Annuler
+            </button>
+            <button className={`btn btn-primary-grey ${styles.saveBtn}`}>Enregistrer</button>
+          </div>
         </div>
       </div>
     </form>

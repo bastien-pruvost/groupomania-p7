@@ -170,8 +170,18 @@ const PostForm = ({
             onInput={handleFileInput}
             {...register('image', { validate: validationSchema.image })}
           />
-
-          <input type='submit' value='Publier' className='btn btn-primary-grey' />
+          <div className={styles.buttonsContainer}>
+            {editMode && (
+              <button
+                type='button'
+                className='btn btn-secondary-grey'
+                onClick={() => setEditMode(false)}
+              >
+                Annuler
+              </button>
+            )}
+            <input type='submit' value='Publier' className='btn btn-primary-grey' />
+          </div>
         </div>
       </form>
     </PostContainer>

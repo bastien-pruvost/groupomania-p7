@@ -61,10 +61,17 @@ const CommentForm = ({ content, commentId, postId, setPostData, editMode, setEdi
           onFocus={(e) => adjustTextareaHeight(e)}
           {...register('content', { validate: validationSchema.content })}
         />
+
         <button type='submit' className={styles.submitBtn}>
           <IconSend size='32' />
         </button>
       </form>
+
+      {editMode && (
+        <button type='button' className='limit-text-btn' onClick={() => setEditMode(false)}>
+          Annuler
+        </button>
+      )}
 
       {responseErrorMsg.length > 0 && (
         <ul className='alert alert-danger'>

@@ -98,6 +98,11 @@
   flex-shrink: 0;
 }
 
+.buttonsContainer {
+  display: flex;
+  gap: 1rem;
+}
+
 @media screen and (max-width: 576px) {
   .submitRow {
     flex-direction: column;

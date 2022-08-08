@@ -81,8 +81,18 @@
   margin: auto;
 }
 
+.buttonsContainer {
+  display: flex;
+  gap: 1rem;
+}
+
 @media screen and (max-width: 576px) {
   .bottomRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  .buttonsContainer {
     flex-direction: column;
     align-items: stretch;
     gap: 1rem;
