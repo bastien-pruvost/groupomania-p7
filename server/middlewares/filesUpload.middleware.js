@@ -1,35 +1,30 @@
 const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const multer = require('multer');
-const { multerValidator } = require('./validators.middleware');
+const { multerConfig } = require('../configs/multer.config');
 
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET
-});
+cloudinary.config(multerConfig.cloudinary);
 
-const storage = new CloudinaryStorage({
-  cloudinary,
-  params: {
-    folder: (req, file) => {
-      if (file.fieldname === 'postPic') return 'groupomania/post';
-      if (file.fieldname === 'profilePic') return 'groupomania/profile';
-      if (file.fieldname === 'coverPic') return 'groupomania/cover';
-      return null;
-    },
-    public_id: (req, file) => `${Date.now()}-${req.user.id}`
+const storage = new CloudinaryStorage({ cloudinary, params: multerConfig.storageParams });
+
+const fileFilter = (req, file, cb) => {
+  if (!multerConfig.acceptedMimetypes.includes(file.mimetype)) {
+    req.multerTypeError = true;
+    return cb(null, false);
   }
-});
+  return cb(null, true);
+};
 
 exports.uploadImage = (req, res, next) => {
-  const fieldsOptions = [
-    { name: 'postPic', maxCount: 1 },
-    { name: 'profilePic', maxCount: 1 },
-    { name: 'coverPic', maxCount: 1 }
-  ];
-  multer({ storage, fileFilter: multerValidator }).fields(fieldsOptions)(req, res, (err) => {
-    if (err) console.log(err.message);
+  const multerParams = { storage, limits: multerConfig.limits, fileFilter };
+
+  multer(multerParams).fields(multerConfig.fieldsOptions)(req, res, (err) => {
+    if (err && err.code === 'LIMIT_UNEXPECTED_FILE') return res.status(400).json({ message: err });
+    if (err && err.code === 'LIMIT_FILE_SIZE') {
+      req.multerSizeError = true;
+      return next();
+    }
+    if (err) return res.status(500).json({ message: err.message });
     return next();
   });
 };
@@ -37,16 +32,17 @@ exports.uploadImage = (req, res, next) => {
 exports.deleteFile = (publicId) => {
   !!publicId &&
     cloudinary.uploader.destroy(publicId, (error, result) => {
-      if (result) console.log('File delete : ', result);
-      if (error) console.log('File delete : ', error);
+      if (result) console.log('File delete result : ', result);
+      if (error) console.log('File delete error : ', error);
     });
 };
 
-// Local multer save :
+// Local disk storage :
+//
 // exports.upload = multer({
 //   storage: multer.diskStorage({
 //     destination: (req, file, cb) => {
-//       cb(null, path.join(__dirname, '../public/images/avatars'));
+//       cb(null, path.join(__dirname, '../public/images'));
 //     },
 //     filename: (req, file, cb) => {
 //       cb(null, `${Date.now()} - ${file.originalname}`);
