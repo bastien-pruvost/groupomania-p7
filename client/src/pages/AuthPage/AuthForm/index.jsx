@@ -10,9 +10,7 @@ const AuthForm = ({ signinMode }) => {
   const { signin, signup } = useContext(AuthContext);
   const [isLoading, setLoading] = useState(false);
   const [responseErrorMsg, setResponseErrorMsg] = useState([]);
-  const { formState, watch, handleSubmit, register } = useForm({
-    mode: 'onSubmit'
-  });
+  const { formState, watch, handleSubmit, register } = useForm({ mode: 'onSubmit' });
   const { errors } = formState;
   const password = useRef({});
   password.current = watch('password');
@@ -21,8 +19,8 @@ const AuthForm = ({ signinMode }) => {
   const onSubmit = async (formData) => {
     setResponseErrorMsg([]);
     setLoading(true);
-    const authMethod = signinMode ? signin : signup;
-    authMethod(formData)
+    const request = signinMode ? signin : signup;
+    request(formData)
       .catch((err) => setResponseErrorMsg(err))
       .finally(() => setLoading(false));
   };

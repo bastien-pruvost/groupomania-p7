@@ -103,7 +103,7 @@ exports.profileValidator = [
     .withMessage(`La profession ne doit pas dépasser 150 caractères`),
   body()
     .custom((value, { req }) => !req.multerTypeError)
-    .withMessage(`L'image doit être au format JPEG, JPG, ou PNG`)
+    .withMessage(`Les images doivent être au format JPEG, JPG, ou PNG`)
     .custom((value, { req }) => !req.multerSizeError)
-    .withMessage(`L'image ne doit pas dépasser 1 MB`)
+    .withMessage(`Les images ne doivent pas dépasser 1 MB`)
 ];
