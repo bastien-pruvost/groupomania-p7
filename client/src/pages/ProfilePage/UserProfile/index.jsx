@@ -1,5 +1,7 @@
 import styles from './UserProfile.module.css';
 import { useContext } from 'react';
+import useTextLimiter from 'hooks/useTextLimiter';
+import { formatBirthDateText } from 'utils/dates.utils';
 import { AuthContext } from 'contexts/AuthContext';
 import IconMapPin from 'components/Icons/IconMapPin';
 import IconCalendar from 'components/Icons/IconCalendar';
@@ -8,7 +10,6 @@ import IconLinkedin from 'components/Icons/IconLinkedin';
 import IconEdit from 'components/Icons/IconEdit';
 import defaultCoverPic from 'assets/images/default-cover-pic.jpg';
 import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
-import { formatBirthDateText } from 'utils/dates.utils';
 
 const UserProfile = ({ userData, setEditMode }) => {
   const { currentUser } = useContext(AuthContext);
@@ -24,6 +25,11 @@ const UserProfile = ({ userData, setEditMode }) => {
     linkedinUrl,
     bio
   } = userData;
+  const { isContentLimited, textContent, handleLimitedText } = useTextLimiter({
+    text: bio,
+    paragraphsLimit: 3,
+    charactersLimit: 400
+  });
 
   const allowEdit = currentUser.id === userData.id || currentUser.isAdmin;
 
@@ -75,7 +81,17 @@ const UserProfile = ({ userData, setEditMode }) => {
           )}
         </div>
 
-        {bio && <p className={styles.bioColumn}>{bio}</p>}
+        {bio && (
+          <p className={styles.bioColumn}>
+            {textContent}
+            {isContentLimited && (
+              <button className='limit-text-btn' onClick={handleLimitedText}>
+                Voir plus
+              </button>
+            )}
+          </p>
+        )}
+
         {allowEdit && (
           <button className={styles.editBtn} onClick={() => setEditMode(true)}>
             <IconEdit size='20' />

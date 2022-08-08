@@ -23,7 +23,9 @@ const ProfilePage = () => {
           refreshPostsData={refreshPostsData}
         />
       ) : (
-        <UserProfile userData={userData} editMode={editMode} setEditMode={setEditMode} />
+        userData.id && (
+          <UserProfile userData={userData} editMode={editMode} setEditMode={setEditMode} />
+        )
       )}
 
       {currentUser.id === userData.id && <PostForm refreshPostsData={refreshPostsData} />}
