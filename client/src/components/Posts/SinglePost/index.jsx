@@ -50,14 +50,14 @@ const SinglePost = ({ post, refreshPostsData }) => {
   }`;
 
   const checkPostLikedByUser = () => {
-    if (likes.length === 0) {
-      return setPostLikedByUser(false);
+    setPostLikedByUser(false);
+    if (likes.length > 0) {
+      likes.forEach((like) => {
+        if (like.user.id === currentUser.id) {
+          return setPostLikedByUser(true);
+        }
+      });
     }
-    likes.forEach((like) => {
-      if (like.user.id === currentUser.id) {
-        return setPostLikedByUser(true);
-      }
-    });
   };
 
   const handleDelete = () => {
