@@ -57,12 +57,9 @@ exports.signupValidator = [
       'Le mot de passe doit contenir au minimum une majuscule, une minuscule, un chiffre et un caractère spécial'
     ),
 
-  body('passwordConfirm').custom((value, { req }) => {
-    if (value !== req.body.password) {
-      throw new Error('La confirmation du mot de passe ne correspond pas au mot de passe');
-    }
-    return true;
-  }),
+  body('passwordConfirm')
+    .custom((value, { req }) => value === req.body.password)
+    .withMessage(`La confirmation du mot de passe ne correspond pas au mot de passe`),
   checkValidationErrors
 ];
 
@@ -87,5 +84,15 @@ exports.postValidator = [
         (req.post.imagePath && req.body.imageDeleted === 'false')
     )
     .withMessage(`Vous ne pouvez pas publier un post vide`),
+  checkValidationErrors
+];
+
+exports.commentValidator = [
+  body('content')
+    .trim()
+    .isLength({ min: 1 })
+    .withMessage(`Le contenu du commentaire ne peut pas être vide`)
+    .isLength({ max: 1000 })
+    .withMessage(`Le contenu du commentaire ne doit pas depasser 1000 caractères`),
   checkValidationErrors
 ];
