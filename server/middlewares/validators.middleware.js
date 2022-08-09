@@ -3,7 +3,6 @@ const { deleteFile } = require('./filesUpload.middleware');
 
 // Manages errors from different express-validators to return them to the user
 const checkValidationErrors = (req, res, next) => {
-  console.log('CHECK VALIDATION');
   const errors = validationResult(req);
   if (errors.isEmpty()) {
     return next();
@@ -101,9 +100,26 @@ exports.profileValidator = [
     .trim()
     .isLength({ max: 150 })
     .withMessage(`La profession ne doit pas dépasser 150 caractères`),
+  body('birthDate')
+    .trim()
+    .isDate({ format: 'YYYY-MM-DD', strictMode: true, delimiters: ['-'] })
+    .withMessage(`La date n'est pas au bon format (0000-MM-DD)`),
+  body('city')
+    .trim()
+    .isLength({ max: 150 })
+    .withMessage(`La ville ne doit pas dépasser 150 caractères`),
+  body('phoneNumber')
+    .trim()
+    .isMobilePhone(['fr-FR'], { strictMode: false })
+    .withMessage(`Le numéro de téléphone n'est pas au bon format`),
+  body('linkedinUrl').trim().isURL().withMessage(`L'url linkedin n'est pas une url valide`),
+  body('bio')
+    .isLength({ max: 2000 })
+    .withMessage(`La description ne doit pas dépasser 2000 caractères`),
   body()
     .custom((value, { req }) => !req.multerTypeError)
     .withMessage(`Les images doivent être au format JPEG, JPG, ou PNG`)
     .custom((value, { req }) => !req.multerSizeError)
-    .withMessage(`Les images ne doivent pas dépasser 1 MB`)
+    .withMessage(`Les images ne doivent pas dépasser 1 MB`),
+  checkValidationErrors
 ];
