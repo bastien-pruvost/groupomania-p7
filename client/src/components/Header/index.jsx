@@ -3,8 +3,8 @@ import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from 'contexts/AuthContext';
 import Wrapper from 'components/Wrapper';
-import Logo from 'components/Logo';
 import UserMenu from 'components/Header/UserMenu';
+import logo from 'assets/images/logo-color.svg';
 
 const Header = () => {
   const { currentUser } = useContext(AuthContext);
@@ -14,8 +14,13 @@ const Header = () => {
       <Wrapper>
         <div className={styles.flexContainer}>
           <Link to='/'>
-            <Logo />
+            <img src={logo} alt='Logo Groupomania' className={styles.logo} />
           </Link>
+
+          <nav className={styles.headerNav}>
+            <Link to='/'>Accueil</Link>
+            <Link to={`/profile/${currentUser.id}`}>Mon profil</Link>
+          </nav>
 
           {!!currentUser.id && <UserMenu />}
         </div>

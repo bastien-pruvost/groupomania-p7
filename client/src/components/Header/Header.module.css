@@ -16,3 +16,18 @@
   align-items: center;
   gap: 1.5rem;
 }
+
+.flexContainer > a {
+  flex: 0 1 15rem;
+}
+
+.logo {
+  width: 100%;
+  object-fit: scale-down;
+}
+
+.headerNav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
