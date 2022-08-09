@@ -1,6 +1,7 @@
 import styles from './UserProfileForm.module.css';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import Loader from 'components/Loader';
 import IconMapPin from 'components/Icons/IconMapPin';
 import IconCalendar from 'components/Icons/IconCalendar';
 import IconPhone from 'components/Icons/IconPhone';
@@ -8,6 +9,7 @@ import IconLinkedin from 'components/Icons/IconLinkedin';
 import IconInfo from 'components/Icons/IconInfo';
 import defaultCoverPic from 'assets/images/default-cover-pic.jpg';
 import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
+import { profileValidator } from 'utils/validationSchemas.utils';
 
 const UserProfileForm = ({ userData, setEditMode, updateUserProfile, refreshPostsData }) => {
   const [isLoading, setLoading] = useState(false);
@@ -16,7 +18,7 @@ const UserProfileForm = ({ userData, setEditMode, updateUserProfile, refreshPost
   const [profilePicPreview, setProfilePicPreview] = useState(null);
   const [coverPicDeleted, setCoverPicDeleted] = useState(false);
   const [profilePicDeleted, setProfilePicDeleted] = useState(false);
-  const validationSchema = true;
+  const validationSchema = profileValidator;
   const {
     register,
     handleSubmit,
@@ -96,7 +98,7 @@ const UserProfileForm = ({ userData, setEditMode, updateUserProfile, refreshPost
     setResponseErrorMsg([]);
     setLoading(true);
     if (data.birthDay.length === 1) data.birthDay = `0${data.birthDay}`;
-    const formatedBirthDate = `0000-${data.birthMonth}-${data.birthDay}`;
+    const formatedBirthDate = `2000-${data.birthMonth}-${data.birthDay}`;
     const formData = new FormData();
     formData.append('lastname', data.lastname);
     formData.append('firstname', data.firstname);
@@ -133,7 +135,7 @@ const UserProfileForm = ({ userData, setEditMode, updateUserProfile, refreshPost
     setValue('linkedinUrl', linkedinUrl);
     setValue('bio', bio);
     setFocus('bio');
-    setFocus('lastname');
+    setFocus('firstname');
   }, [userData]);
 
   return (
@@ -147,7 +149,7 @@ const UserProfileForm = ({ userData, setEditMode, updateUserProfile, refreshPost
         accept='image/*'
         id='coverPic'
         onInput={handleCoverPicInput}
-        {...register('coverPic', { validate: validationSchema.coverPic })}
+        {...register('coverPic', { validate: validationSchema.image })}
       />
       <div className={styles.infosContainer}>
         <div className={styles.infosRow}>
@@ -161,90 +163,154 @@ const UserProfileForm = ({ userData, setEditMode, updateUserProfile, refreshPost
               id='profilePic'
               className='form-file-input'
               onInput={handleProfilePicInput}
-              {...register('profilePic', { validate: validationSchema.profilePic })}
+              {...register('profilePic', { validate: validationSchema.image })}
             />
-            <input
-              className={`form-input ${styles.infosInput} ${errors.firstname ? 'error' : ''}`}
-              type='text'
-              placeholder='Prénom'
-              {...register('firstname', { validate: validationSchema.firstname })}
-            />
-            <input
-              className={`form-input ${styles.infosInput} ${errors.lastname ? 'error' : ''}`}
-              type='text'
-              placeholder='Nom'
-              {...register('lastname', { validate: validationSchema.lastname })}
-            />
-            <input
-              className={`form-input ${styles.infosInput} ${errors.profession ? 'error' : ''}`}
-              type='text'
-              placeholder='Profession'
-              {...register('profession', { validate: validationSchema.profession })}
-            />
+
+            <div className='form-group'>
+              <label htmlFor='firstname' className='form-label'>
+                Prénom
+              </label>
+              <input
+                className={`form-input ${styles.infosInput} ${errors.firstname ? 'error' : ''}`}
+                type='text'
+                placeholder='Prénom'
+                {...register('firstname', { validate: validationSchema.firstname })}
+              />
+              <span className='form-alert'>{errors.firstname?.message}</span>
+            </div>
+
+            <div className='form-group'>
+              <label htmlFor='lastname' className='form-label'>
+                Nom
+              </label>
+              <input
+                className={`form-input ${styles.infosInput} ${errors.lastname ? 'error' : ''}`}
+                type='text'
+                placeholder='Nom'
+                {...register('lastname', { validate: validationSchema.lastname })}
+              />
+              <span className='form-alert'>{errors.lastname?.message}</span>
+            </div>
+
+            <div className='form-group'>
+              <label htmlFor='profession' className='form-label'>
+                Profession
+              </label>
+              <input
+                className={`form-input ${styles.infosInput} ${errors.profession ? 'error' : ''}`}
+                type='text'
+                placeholder='Profession'
+                {...register('profession', { validate: validationSchema.profession })}
+              />
+              <span className='form-alert'>{errors.profession?.message}</span>
+            </div>
           </div>
 
           <div className={styles.infosColumn}>
-            <div className={styles.infoItem}>
-              <IconMapPin size={20} />{' '}
-              <input
-                className={`form-input ${styles.infosInput} ${errors.city ? 'error' : ''}`}
-                type='text'
-                placeholder='Ville'
-                {...register('city', { validate: validationSchema.city })}
-              />
+            <div className='form-group'>
+              <label htmlFor='city' className='form-label'>
+                Ville
+              </label>
+              <div className={styles.infoItem}>
+                <IconMapPin size={20} />{' '}
+                <input
+                  className={`form-input ${styles.infosInput} ${errors.city ? 'error' : ''}`}
+                  type='text'
+                  placeholder='Ville'
+                  {...register('city', { validate: validationSchema.city })}
+                />
+              </div>
+              <span className='form-alert'>{errors.city?.message}</span>
             </div>
 
-            <div className={styles.infoItem}>
-              <IconCalendar size={20} />
-              <input
-                className={`form-input ${styles.infosInput} ${errors.birthDay ? 'error' : ''}`}
-                type='number'
-                min={1}
-                max={31}
-                onInput={limitBirthDay}
-                placeholder='Jour'
-                {...register('birthDay', { validate: validationSchema.birthDay })}
-              />
-              <input
-                className={`form-input ${styles.infosInput} ${errors.birthMonth ? 'error' : ''}`}
-                type='number'
-                min={1}
-                max={12}
-                onInput={limitBirthMonth}
-                placeholder='Mois'
-                {...register('birthMonth', { validate: validationSchema.birthMonth })}
-              />
+            <div className='form-group'>
+              <label htmlFor='birthDay' className='form-label'>
+                Date d'anniversaire
+              </label>
+              <div className={styles.infoItem}>
+                <IconCalendar size={20} />
+                <input
+                  className={`form-input ${styles.infosInput} ${errors.birthDay ? 'error' : ''}`}
+                  type='number'
+                  min={1}
+                  max={31}
+                  onInput={limitBirthDay}
+                  placeholder='Jour'
+                  {...register('birthDay', { validate: validationSchema.birthDay })}
+                />
+                <input
+                  className={`form-input ${styles.infosInput} ${errors.birthMonth ? 'error' : ''}`}
+                  type='number'
+                  min={1}
+                  max={12}
+                  onInput={limitBirthMonth}
+                  placeholder='Mois'
+                  {...register('birthMonth', { validate: validationSchema.birthMonth })}
+                />
+              </div>
+              <span className='form-alert'>
+                {errors.birthDay?.message} {errors.birthMonth?.message}
+              </span>
             </div>
 
-            <div className={styles.infoItem}>
-              <IconPhone size={20} />
-              <input
-                className={`form-input ${styles.infosInput} ${errors.phoneNumber ? 'error' : ''}`}
-                type='number'
-                placeholder='Numéro de téléphone'
-                {...register('phoneNumber', { validate: validationSchema.phoneNumber })}
-              />
+            <div className='form-group'>
+              <label htmlFor='phoneNumber' className='form-label'>
+                Numéro de téléphone
+              </label>
+              <div className={styles.infoItem}>
+                <IconPhone size={20} />
+                <input
+                  className={`form-input ${styles.infosInput} ${errors.phoneNumber ? 'error' : ''}`}
+                  type='number'
+                  placeholder='Numéro de téléphone'
+                  {...register('phoneNumber', { validate: validationSchema.phoneNumber })}
+                />
+              </div>
+              <span className='form-alert'>{errors.phoneNumber?.message}</span>
             </div>
 
-            <div className={styles.infoItem}>
-              <IconLinkedin size={20} />
-              <input
-                className={`form-input ${styles.infosInput} ${errors.linkedinUrl ? 'error' : ''}`}
-                type='text'
-                placeholder='Lien Linkedin'
-                {...register('linkedinUrl', { validate: validationSchema.linkedinUrl })}
-              />
+            <div className='form-group'>
+              <label htmlFor='linkedinUrl' className='form-label'>
+                Lien linkedin
+              </label>
+              <div className={styles.infoItem}>
+                <IconLinkedin size={20} />
+                <input
+                  className={`form-input ${styles.infosInput} ${errors.linkedinUrl ? 'error' : ''}`}
+                  type='text'
+                  placeholder='Lien Linkedin'
+                  {...register('linkedinUrl', { validate: validationSchema.linkedinUrl })}
+                />
+              </div>
+              <span className='form-alert'>{errors.linkedinUrl?.message}</span>
             </div>
           </div>
 
-          <textarea
-            className={`form-textarea ${styles.infosTextarea} ${errors.bio ? 'error' : ''}`}
-            placeholder='Votre description'
-            onInput={(e) => adjustTextareaHeight(e)}
-            onFocus={(e) => adjustTextareaHeight(e)}
-            {...register('bio', { validate: validationSchema.bio })}
-          />
+          <div className='form-group'>
+            <label htmlFor='bio' className='form-label'>
+              Votre description
+            </label>
+            <textarea
+              className={`form-textarea ${styles.infosTextarea} ${errors.bio ? 'error' : ''}`}
+              placeholder='Votre description'
+              onInput={(e) => adjustTextareaHeight(e)}
+              onFocus={(e) => adjustTextareaHeight(e)}
+              {...register('bio', { validate: validationSchema.bio })}
+            />
+            <span className='form-alert'>{errors.bio?.message}</span>
+          </div>
         </div>
+
+        {responseErrorMsg.length > 0 && (
+          <ul className='alert alert-danger'>
+            {responseErrorMsg.map((message, index) => (
+              <li className='alert-li' key={index}>
+                {message}
+              </li>
+            ))}
+          </ul>
+        )}
+
         <div className={styles.submitRow}>
           <div className={styles.submitWarning}>
             <IconInfo size='24' />
@@ -254,6 +320,7 @@ const UserProfileForm = ({ userData, setEditMode, updateUserProfile, refreshPost
             </p>
           </div>
           <div className={styles.buttonsContainer}>
+            {isLoading && <Loader />}
             <button
               type='button'
               className='btn btn-secondary-grey'

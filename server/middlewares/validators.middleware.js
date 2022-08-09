@@ -23,13 +23,13 @@ exports.signupValidator = [
     .isLength({ min: 2, max: 100 })
     .withMessage(`Le nom doit contenir entre 2 et 100 caractères`)
     .matches(/^[A-Za-zÀ-ÖØ-öø-ÿ-]+$/)
-    .withMessage('Le nom ne doit pas contenir de caractères spéciaux ni de chiffres'),
+    .withMessage(`Le nom ne doit pas contenir de caractères spéciaux ni de chiffres`),
   body('firstname')
     .trim()
     .isLength({ min: 2, max: 100 })
     .withMessage(`Le prénom doit contenir entre 2 et 100 caractères`)
     .matches(/^[A-Za-zÀ-ÖØ-öø-ÿ-]+$/)
-    .withMessage('Le prénom ne doit pas contenir de caractères spéciaux ni de chiffres'),
+    .withMessage(`Le prénom ne doit pas contenir de caractères spéciaux ni de chiffres`),
   body('password')
     .isLength({ min: 8, max: 1024 })
     .withMessage(`Le mot de passe doit contenir minimum 8 caractères`)
@@ -40,7 +40,7 @@ exports.signupValidator = [
       minSymbols: 1
     })
     .withMessage(
-      'Le mot de passe doit contenir au minimum une majuscule, une minuscule, un chiffre et un caractère spécial'
+      `Le mot de passe doit contenir au minimum une majuscule, une minuscule, un chiffre et un caractère spécial`
     ),
 
   body('passwordConfirm')
@@ -89,13 +89,13 @@ exports.profileValidator = [
     .isLength({ min: 2, max: 100 })
     .withMessage(`Le nom doit contenir entre 2 et 100 caractères`)
     .matches(/^[A-Za-zÀ-ÖØ-öø-ÿ-]+$/)
-    .withMessage('Le nom ne doit pas contenir de caractères spéciaux ni de chiffres'),
+    .withMessage(`Le nom ne doit pas contenir de caractères spéciaux ni de chiffres`),
   body('firstname')
     .trim()
     .isLength({ min: 2, max: 100 })
     .withMessage(`Le prénom doit contenir entre 2 et 100 caractères`)
     .matches(/^[A-Za-zÀ-ÖØ-öø-ÿ-]+$/)
-    .withMessage('Le prénom ne doit pas contenir de caractères spéciaux ni de chiffres'),
+    .withMessage(`Le prénom ne doit pas contenir de caractères spéciaux ni de chiffres`),
   body('profession')
     .trim()
     .isLength({ max: 150 })
@@ -103,14 +103,14 @@ exports.profileValidator = [
   body('birthDate')
     .trim()
     .isDate({ format: 'YYYY-MM-DD', strictMode: true, delimiters: ['-'] })
-    .withMessage(`La date n'est pas au bon format (0000-MM-DD)`),
+    .withMessage(`La date d'anniversaire n'est pas valide`),
   body('city')
     .trim()
     .isLength({ max: 150 })
     .withMessage(`La ville ne doit pas dépasser 150 caractères`),
   body('phoneNumber')
     .trim()
-    .isMobilePhone(['fr-FR'], { strictMode: false })
+    .isMobilePhone(['fr-FR'])
     .withMessage(`Le numéro de téléphone n'est pas au bon format`),
   body('linkedinUrl').trim().isURL().withMessage(`L'url linkedin n'est pas une url valide`),
   body('bio')

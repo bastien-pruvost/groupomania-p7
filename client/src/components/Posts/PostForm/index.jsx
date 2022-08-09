@@ -27,7 +27,7 @@ const PostForm = ({
   const [imagePreview, setImagePreview] = useState(null);
   const [imageDeleted, setImageDeleted] = useState(false);
   const { createPost, updatePost } = usePost();
-  const validationSchema = postValidator();
+  const validationSchema = postValidator;
   const {
     register,
     handleSubmit,
@@ -161,7 +161,7 @@ const PostForm = ({
             )}
           </div>
 
-          {isLoading && <Loader grey={true} />}
+          {isLoading && <Loader grey />}
           <input
             type='file'
             accept='image/*'

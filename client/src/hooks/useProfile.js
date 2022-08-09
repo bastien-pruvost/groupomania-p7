@@ -14,8 +14,7 @@ const useProfile = () => {
       const userProfile = await getUserProfileQuery(userId);
       setUserData(userProfile);
     } catch (err) {
-      // throw Array.isArray(err.message) ? err.message : [err.message];
-      console.log(err);
+      throw Array.isArray(err.message) ? err.message : [err.message];
     }
   };
 

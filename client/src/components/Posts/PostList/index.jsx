@@ -17,7 +17,7 @@ const PostList = ({ postsData, allPostsLoaded, refreshPostsData, scrollRef }) =>
       ) : (
         <>
           <div ref={scrollRef} />
-          <Loader grey={true} />
+          <Loader grey />
         </>
       )}
     </div>
