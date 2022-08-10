@@ -1,5 +1,5 @@
 import styles from './SinglePost.module.css';
-import { useContext, useEffect, useState } from 'react';
+import { memo, useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import usePost from 'hooks/usePost';
 import useTextLimiter from 'hooks/useTextLimiter';
@@ -161,4 +161,4 @@ const SinglePost = ({ post, refreshPostsData }) => {
   );
 };
 
-export default SinglePost;
+export default memo(SinglePost);
