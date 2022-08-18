@@ -4,8 +4,6 @@ import SinglePost from 'components/Posts/SinglePost';
 import Loader from 'components/Loader';
 
 const PostList = ({ postsData, allPostsLoaded, refreshPostsData, scrollRef }) => {
-  const { deletePost } = usePost();
-
   return (
     <div className={styles.PostList}>
       {postsData.map((post) => (

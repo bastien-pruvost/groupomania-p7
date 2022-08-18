@@ -49,15 +49,15 @@ const SinglePost = ({ post, refreshPostsData }) => {
     comments.length > 1 ? 'commentaires' : 'commentaire'
   }`;
 
-  const checkPostLikedByUser = () => {
-    setPostLikedByUser(false);
-    if (likes.length > 0) {
-      likes.forEach((like) => {
-        if (like.user.id === currentUser.id) {
-          return setPostLikedByUser(true);
-        }
-      });
-    }
+  const isPostLikedByUser = () => {
+    let isLiked = false;
+    if (likes.length === 0) return isLiked;
+    likes.forEach((like) => {
+      if (like.user.id === currentUser.id) {
+        return (isLiked = true);
+      }
+    });
+    return isLiked;
   };
 
   const handleDelete = () => {
@@ -79,7 +79,7 @@ const SinglePost = ({ post, refreshPostsData }) => {
   };
 
   useEffect(() => {
-    checkPostLikedByUser();
+    setPostLikedByUser(isPostLikedByUser());
     if (comments.length > 0) setCommentsOpen(true);
   }, [postData]);
 

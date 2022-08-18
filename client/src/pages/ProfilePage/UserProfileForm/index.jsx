@@ -1,6 +1,8 @@
 import styles from './UserProfileForm.module.css';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { profileValidator } from 'utils/validationSchemas.utils';
+import { adjustTextareaHeight } from 'utils/layout.utils';
 import Loader from 'components/Loader';
 import IconMapPin from 'components/Icons/IconMapPin';
 import IconCalendar from 'components/Icons/IconCalendar';
@@ -9,7 +11,6 @@ import IconLinkedin from 'components/Icons/IconLinkedin';
 import IconInfo from 'components/Icons/IconInfo';
 import defaultCoverPic from 'assets/images/default-cover-pic.jpg';
 import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
-import { profileValidator } from 'utils/validationSchemas.utils';
 
 const UserProfileForm = ({ userData, setEditMode, updateUserProfile, refreshPostsData }) => {
   const [isLoading, setLoading] = useState(false);
@@ -87,11 +88,6 @@ const UserProfileForm = ({ userData, setEditMode, updateUserProfile, refreshPost
       e.target.files = getValues('profilePic');
     }
     setProfilePicPreview(URL.createObjectURL(e.target.files[0]));
-  };
-
-  const adjustTextareaHeight = (e) => {
-    e.target.style.height = '1px';
-    e.target.style.height = e.target.scrollHeight + 'px';
   };
 
   const onSubmit = async (data) => {

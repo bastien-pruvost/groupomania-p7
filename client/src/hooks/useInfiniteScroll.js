@@ -3,7 +3,6 @@ import { getPaginatePostsQuery, getUserPaginatePostsQuery } from 'services/posts
 
 const useInfiniteScroll = (userId) => {
   const [postsData, setPostsData] = useState([]);
-  const [lastPostId, setLastPostId] = useState(null);
   const [allPostsLoaded, setAllPostsLoaded] = useState(false);
   const isComponentMounted = useRef(false);
   const populatePostsRef = useRef(null);
@@ -11,17 +10,16 @@ const useInfiniteScroll = (userId) => {
   const limitPerPage = 8;
 
   const populatePosts = async (args) => {
-    const refreshList = args?.refreshList;
+    const refreshMode = args?.refreshMode;
+    const lastPostId = postsData[postsData.length - 1]?.id;
     try {
       const posts = userId
         ? await getUserPaginatePostsQuery(lastPostId, limitPerPage, userId)
         : await getPaginatePostsQuery(lastPostId, limitPerPage);
       if (posts.length < limitPerPage) {
         setAllPostsLoaded(true);
-      } else {
-        setLastPostId(posts[posts.length - 1].id);
       }
-      const newPosts = refreshList ? [...posts] : [...postsData, ...posts];
+      const newPosts = refreshMode ? [...posts] : [...postsData, ...posts];
       setPostsData(newPosts);
     } catch (err) {
       console.log(err);
@@ -32,8 +30,7 @@ const useInfiniteScroll = (userId) => {
 
   const refreshPostsData = useCallback(() => {
     setAllPostsLoaded(false);
-    setLastPostId(null);
-    populatePosts({ refreshList: true });
+    populatePosts({ refreshMode: true });
   }, []);
 
   const handleInfiniteScroll = useCallback((entries) => {

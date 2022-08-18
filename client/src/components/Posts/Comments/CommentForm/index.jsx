@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import useComment from 'hooks/useComment';
 import { commentValidator } from 'utils/validationSchemas.utils';
+import { adjustTextareaHeight } from 'utils/layout.utils';
 import { AuthContext } from 'contexts/AuthContext';
 import IconSend from 'components/Icons/IconSend';
 import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
@@ -22,11 +23,6 @@ const CommentForm = ({ content, commentId, postId, setPostData, editMode, setEdi
   const profilePicUrl = currentUser.profilePicPath
     ? `${process.env.REACT_APP_IMAGES_URL}/${currentUser.profilePicPath}`
     : defaultProfilePic;
-
-  const adjustTextareaHeight = (e) => {
-    e.target.style.height = '1px';
-    e.target.style.height = e.target.scrollHeight + 'px';
-  };
 
   const onSubmit = async (data) => {
     setResponseErrorMsg([]);

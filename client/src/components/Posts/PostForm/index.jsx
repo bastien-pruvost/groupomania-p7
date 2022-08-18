@@ -1,10 +1,11 @@
 import styles from './PostForm.module.css';
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import usePost from 'hooks/usePost';
 import { AuthContext } from 'contexts/AuthContext';
 import { postValidator } from 'utils/validationSchemas.utils';
+import { adjustTextareaHeight } from 'utils/layout.utils';
 import PostContainer from 'components/Posts/PostContainer';
 import Loader from 'components/Loader';
 import EmojiPicker from 'components/EmojiPicker';
@@ -44,11 +45,6 @@ const PostForm = ({
     ? `${process.env.REACT_APP_IMAGES_URL}/${author.profilePicPath}`
     : defaultProfilePic;
 
-  const adjustTextareaHeight = (e) => {
-    e.target.style.height = '1px';
-    e.target.style.height = e.target.scrollHeight + 'px';
-  };
-
   const deleteImage = () => {
     setImageDeleted(true);
     setImagePreview(null);
@@ -65,11 +61,11 @@ const PostForm = ({
     setImagePreview(URL.createObjectURL(e.target.files[0]));
   };
 
-  const handleEmoji = (emoji) => {
+  const handleEmoji = useCallback((emoji) => {
     const value = getValues('content');
     setValue('content', `${value}${emoji.native}`);
     setFocus('content');
-  };
+  }, []);
 
   const onSubmit = async (data) => {
     setResponseErrorMsg([]);

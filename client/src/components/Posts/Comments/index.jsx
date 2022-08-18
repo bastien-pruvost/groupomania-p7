@@ -4,13 +4,7 @@ import SingleComment from 'components/Posts/Comments/SingleComment';
 import CommentForm from 'components/Posts/Comments/CommentForm';
 
 const Comments = ({ comments, postId, setPostData }) => {
-  const [allCommentsShown, setAllCommentsShown] = useState(true);
-
-  useEffect(() => {
-    if (comments.length > 1) {
-      setAllCommentsShown(false);
-    }
-  }, []);
+  const [allCommentsShown, setAllCommentsShown] = useState(comments.length === 1);
 
   return (
     <div className={styles.Comments}>
