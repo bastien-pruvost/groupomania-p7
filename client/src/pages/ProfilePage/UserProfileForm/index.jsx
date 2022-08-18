@@ -99,8 +99,11 @@ const UserProfileForm = ({ userData, setEditMode, updateUserProfile, refreshPost
     setResponseErrorMsg([]);
     setLoading(true);
     if (data.birthDay.length === 1) data.birthDay = `0${data.birthDay}`;
-    const formatedBirthDate = `2000-${data.birthMonth}-${data.birthDay}`;
+    if (data.birthMonth.length === 1) data.birthMonth = `0${data.birthMonth}`;
+    const formatedBirthDate =
+      !data.birthDay && !data.birthMonth ? '' : `2000-${data.birthMonth}-${data.birthDay}`;
     const formData = new FormData();
+    console.log(formatedBirthDate);
     formData.append('lastname', data.lastname);
     formData.append('firstname', data.firstname);
     formData.append('profession', data.profession);

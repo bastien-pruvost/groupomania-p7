@@ -20,12 +20,12 @@ exports.updateUserInfos = async (req, res) => {
     const updatedData = {
       lastname: body.lastname,
       firstname: body.firstname,
-      profession: body.profession,
-      birthDate: body.birthDate,
-      phoneNumber: body.phoneNumber,
-      linkedinUrl: body.linkedinUrl,
-      city: body.city,
-      bio: body.bio
+      profession: body.profession || null,
+      birthDate: body.birthDate || null,
+      phoneNumber: body.phoneNumber || null,
+      linkedinUrl: body.linkedinUrl || null,
+      city: body.city || null,
+      bio: body.bio || null
     };
 
     if (profilePic) {

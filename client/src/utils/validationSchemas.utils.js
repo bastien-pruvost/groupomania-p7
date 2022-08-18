@@ -113,11 +113,22 @@ export const profileValidator = {
       validator.isLength(value, { max: 150 }) || `La ville ne doit pas dépasser 150 caractères`
   },
   phoneNumber: {
-    isMobilePhone: (value) =>
-      validator.isMobilePhone(value, ['fr-FR']) || `Le numéro de téléphone n'est pas au bon format`
+    isMobilePhone: (value) => {
+      if (value) {
+        return (
+          validator.isMobilePhone(value, ['fr-FR']) ||
+          `Le numéro de téléphone n'est pas au bon format`
+        );
+      }
+      return true;
+    }
   },
   linkedinUrl: {
-    isUrl: (value) => validator.isURL(value) || `L'url linkedin n'est pas une url valide`
+    isUrl: (value) => {
+      if (value) {
+        return validator.isURL(value) || `L'url linkedin n'est pas une url valide`;
+      }
+    }
   },
   bio: {
     isLength: (value) =>

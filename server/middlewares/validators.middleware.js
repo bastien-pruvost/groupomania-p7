@@ -97,23 +97,32 @@ exports.profileValidator = [
     .matches(/^[A-Za-zÀ-ÖØ-öø-ÿ-]+$/)
     .withMessage(`Le prénom ne doit pas contenir de caractères spéciaux ni de chiffres`),
   body('profession')
+    .optional({ checkFalsy: true, nullable: true })
     .trim()
     .isLength({ max: 150 })
     .withMessage(`La profession ne doit pas dépasser 150 caractères`),
   body('birthDate')
+    .optional({ checkFalsy: true, nullable: true })
     .trim()
     .isDate({ format: 'YYYY-MM-DD', strictMode: true, delimiters: ['-'] })
     .withMessage(`La date d'anniversaire n'est pas valide`),
   body('city')
+    .optional({ checkFalsy: true, nullable: true })
     .trim()
     .isLength({ max: 150 })
     .withMessage(`La ville ne doit pas dépasser 150 caractères`),
   body('phoneNumber')
+    .optional({ checkFalsy: true, nullable: true })
     .trim()
     .isMobilePhone(['fr-FR'])
     .withMessage(`Le numéro de téléphone n'est pas au bon format`),
-  body('linkedinUrl').trim().isURL().withMessage(`L'url linkedin n'est pas une url valide`),
+  body('linkedinUrl')
+    .optional({ checkFalsy: true, nullable: true })
+    .trim()
+    .isURL()
+    .withMessage(`L'url linkedin n'est pas une url valide`),
   body('bio')
+    .optional({ checkFalsy: true, nullable: true })
     .isLength({ max: 2000 })
     .withMessage(`La description ne doit pas dépasser 2000 caractères`),
   body()

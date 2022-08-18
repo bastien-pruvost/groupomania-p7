@@ -69,6 +69,7 @@
   position: absolute;
   top: 0;
   transform: translateY(-70%);
+  cursor: pointer;
 }
 
 .profilePic {
