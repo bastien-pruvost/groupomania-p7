@@ -9,6 +9,7 @@ import IconCalendar from 'components/Icons/IconCalendar';
 import IconPhone from 'components/Icons/IconPhone';
 import IconLinkedin from 'components/Icons/IconLinkedin';
 import IconInfo from 'components/Icons/IconInfo';
+import IconEdit from 'components/Icons/IconEdit';
 import defaultCoverPic from 'assets/images/default-cover-pic.jpg';
 import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 
@@ -136,8 +137,11 @@ const UserProfileForm = ({ userData, setEditMode, updateUserProfile, refreshPost
 
   return (
     <form className={styles.UserProfileForm} onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor='coverPic'>
+      <label className={styles.coverPicContainer} htmlFor='coverPic'>
         <img className={styles.coverPic} src={coverPicPreview} alt='Photo de couverture' />
+        <div className={styles.coverPicButton}>
+          <IconEdit size={22} />
+        </div>
       </label>
       <input
         type='file'
@@ -150,8 +154,11 @@ const UserProfileForm = ({ userData, setEditMode, updateUserProfile, refreshPost
       <div className={styles.infosContainer}>
         <div className={styles.infosRow}>
           <div className={styles.infosColumn}>
-            <label className={styles.profilePicLabel} htmlFor='profilePic'>
+            <label className={styles.profilePicContainer} htmlFor='profilePic'>
               <img className={styles.profilePic} src={profilePicPreview} alt='' />
+              <div className={styles.profilePicButton}>
+                <IconEdit size={20} />
+              </div>
             </label>
             <input
               type='file'
