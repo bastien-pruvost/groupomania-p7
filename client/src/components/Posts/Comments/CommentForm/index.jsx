@@ -1,5 +1,5 @@
 import styles from './CommentForm.module.css';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import useComment from 'hooks/useComment';
 import { commentValidator } from 'utils/validationSchemas.utils';
@@ -19,6 +19,11 @@ const CommentForm = ({ content, commentId, postId, setPostData, editMode, setEdi
   });
   const { errors } = formState;
   const validationSchema = commentValidator;
+
+  const textareaRef = useRef(null);
+  const { ref, ...registerContentRest } = register('content', {
+    validate: validationSchema.content
+  });
 
   const profilePicUrl = currentUser.profilePicPath
     ? `${process.env.REACT_APP_IMAGES_URL}/${currentUser.profilePicPath}`
@@ -44,7 +49,7 @@ const CommentForm = ({ content, commentId, postId, setPostData, editMode, setEdi
     setResponseErrorMsg([]);
     if (editMode) {
       setValue('content', content);
-      setFocus('content');
+      adjustTextareaHeight(textareaRef.current);
     }
   }, []);
 
@@ -55,9 +60,12 @@ const CommentForm = ({ content, commentId, postId, setPostData, editMode, setEdi
         <textarea
           placeholder={`Commenter...`}
           className={`form-textarea ${styles.contentTextarea} ${errors.content ? 'error' : ''}`}
-          onInput={(e) => adjustTextareaHeight(e)}
-          onFocus={(e) => adjustTextareaHeight(e)}
-          {...register('content', { validate: validationSchema.content })}
+          onInput={(e) => adjustTextareaHeight(e.target)}
+          {...registerContentRest}
+          ref={(e) => {
+            ref(e);
+            textareaRef.current = e;
+          }}
         />
         {isLoading ? (
           <Loader grey />
@@ -67,7 +75,7 @@ const CommentForm = ({ content, commentId, postId, setPostData, editMode, setEdi
           </button>
         )}
       </form>
-      <span className='form-alert'>{errors.content?.message}</span>
+      {errors.content?.message && <span className='form-alert'>{errors.content?.message}</span>}
 
       {editMode && (
         <button type='button' className='limit-text-btn' onClick={() => setEditMode(false)}>

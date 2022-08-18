@@ -1,4 +1,4 @@
-export const adjustTextareaHeight = (e) => {
-  e.target.style.height = '1px';
-  e.target.style.height = e.target.scrollHeight + 'px';
+export const adjustTextareaHeight = (target) => {
+  target.style.height = '1px';
+  target.style.height = target.scrollHeight + 'px';
 };

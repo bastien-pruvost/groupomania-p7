@@ -1,5 +1,5 @@
 import styles from './PostForm.module.css';
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import usePost from 'hooks/usePost';
@@ -38,6 +38,12 @@ const PostForm = ({
     reset,
     formState: { errors }
   } = useForm({ mode: 'onSubmit' });
+
+  // share ref to adjust textarea height
+  const textareaRef = useRef(null);
+  const { ref, ...registerContentRest } = register('content', {
+    validate: validationSchema.content
+  });
 
   const author = postAuthor ? postAuthor : currentUser;
 
@@ -94,7 +100,7 @@ const PostForm = ({
     setResponseErrorMsg([]);
     if (editMode) {
       setValue('content', content);
-      setFocus('content');
+      adjustTextareaHeight(textareaRef.current);
       postPicPath && setImagePreview(`${process.env.REACT_APP_IMAGES_URL}/${postPicPath}`);
     }
   }, []);
@@ -118,9 +124,12 @@ const PostForm = ({
             className={`form-textarea form-emoji-padding ${styles.contentTextarea} ${
               errors.content ? 'error' : ''
             }`}
-            onInput={(e) => adjustTextareaHeight(e)}
-            onFocus={(e) => adjustTextareaHeight(e)}
-            {...register('content', { validate: validationSchema.content })}
+            onInput={(e) => adjustTextareaHeight(e.target)}
+            {...registerContentRest}
+            ref={(e) => {
+              ref(e);
+              textareaRef.current = e;
+            }}
           />
           <EmojiPicker onEmojiSelect={handleEmoji} />
         </div>

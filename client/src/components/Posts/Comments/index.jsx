@@ -4,7 +4,7 @@ import SingleComment from 'components/Posts/Comments/SingleComment';
 import CommentForm from 'components/Posts/Comments/CommentForm';
 
 const Comments = ({ comments, postId, setPostData }) => {
-  const [allCommentsShown, setAllCommentsShown] = useState(comments.length === 1);
+  const [allCommentsShown, setAllCommentsShown] = useState(comments.length < 2);
 
   return (
     <div className={styles.Comments}>

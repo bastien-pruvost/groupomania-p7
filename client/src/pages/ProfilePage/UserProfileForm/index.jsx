@@ -1,5 +1,5 @@
 import styles from './UserProfileForm.module.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { profileValidator } from 'utils/validationSchemas.utils';
 import { adjustTextareaHeight } from 'utils/layout.utils';
@@ -26,9 +26,13 @@ const UserProfileForm = ({ userData, setEditMode, updateUserProfile, refreshPost
     handleSubmit,
     setValue,
     getValues,
-    setFocus,
     formState: { errors }
   } = useForm({ mode: 'onSubmit' });
+
+  // share ref to adjust textarea height
+  const textareaRef = useRef(null);
+  const { ref, ...registerBioRest } = register('bio', { validate: validationSchema.bio });
+
   const {
     firstname,
     lastname,
@@ -131,8 +135,7 @@ const UserProfileForm = ({ userData, setEditMode, updateUserProfile, refreshPost
     setValue('phoneNumber', phoneNumber);
     setValue('linkedinUrl', linkedinUrl);
     setValue('bio', bio);
-    setFocus('bio');
-    setFocus('firstname');
+    adjustTextareaHeight(textareaRef.current);
   }, [userData]);
 
   return (
@@ -296,9 +299,12 @@ const UserProfileForm = ({ userData, setEditMode, updateUserProfile, refreshPost
             <textarea
               className={`form-textarea ${styles.infosTextarea} ${errors.bio ? 'error' : ''}`}
               placeholder='Votre description'
-              onInput={(e) => adjustTextareaHeight(e)}
-              onFocus={(e) => adjustTextareaHeight(e)}
-              {...register('bio', { validate: validationSchema.bio })}
+              onInput={(e) => adjustTextareaHeight(e.target)}
+              {...registerBioRest}
+              ref={(e) => {
+                ref(e);
+                textareaRef.current = e;
+              }}
             />
             <span className='form-alert'>{errors.bio?.message}</span>
           </div>
