@@ -19,7 +19,7 @@ const Header = () => {
 
           <nav className={styles.headerNav}>
             <Link to='/'>Accueil</Link>
-            <Link to={`/profile/${currentUser.id}`}>Mon profil</Link>
+            {/* <Link to={`/profile/${currentUser.id}`}>Mon profil</Link> */}
           </nav>
 
           {!!currentUser.id && <UserMenu />}
