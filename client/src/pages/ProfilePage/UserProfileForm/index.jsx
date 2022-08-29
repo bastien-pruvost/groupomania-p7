@@ -95,28 +95,31 @@ const UserProfileForm = ({ userData, setEditMode, updateUserProfile, refreshPost
     setProfilePicPreview(URL.createObjectURL(e.target.files[0]));
   };
 
-  const onSubmit = async (data) => {
-    setResponseErrorMsg([]);
-    setLoading(true);
-    if (data.birthDay.length === 1) data.birthDay = `0${data.birthDay}`;
-    if (data.birthMonth.length === 1) data.birthMonth = `0${data.birthMonth}`;
+  const formatedData = (data) => {
+    if (data.birthDay?.length === 1) data.birthDay = `0${data.birthDay}`;
+    if (data.birthMonth?.length === 1) data.birthMonth = `0${data.birthMonth}`;
     const formatedBirthDate =
-      !data.birthDay && !data.birthMonth ? '' : `2000-${data.birthMonth}-${data.birthDay}`;
+      !data.birthDay && !data.birthMonth ? null : `2000-${data.birthMonth}-${data.birthDay}`;
     const formData = new FormData();
-    console.log(formatedBirthDate);
     formData.append('lastname', data.lastname);
     formData.append('firstname', data.firstname);
-    formData.append('profession', data.profession);
-    formData.append('phoneNumber', data.phoneNumber);
-    formData.append('linkedinUrl', data.linkedinUrl);
-    formData.append('city', data.city);
-    formData.append('birthDate', formatedBirthDate);
-    formData.append('bio', data.bio);
+    formData.append('profession', data.profession || '');
+    formData.append('phoneNumber', data.phoneNumber || '');
+    formData.append('linkedinUrl', data.linkedinUrl || '');
+    formData.append('city', data.city || '');
+    formatedBirthDate && formData.append('birthDate', formatedBirthDate);
+    formData.append('bio', data.bio || '');
     formData.append('coverPic', data.coverPic[0]);
     formData.append('profilePic', data.profilePic[0]);
     formData.append('coverPicDeleted', coverPicDeleted);
     formData.append('profilePicDeleted', profilePicDeleted);
-    updateUserProfile(formData)
+    return formData;
+  };
+
+  const onSubmit = (data) => {
+    setResponseErrorMsg([]);
+    setLoading(true);
+    updateUserProfile(formatedData(data))
       .then(() => {
         setEditMode(false);
         refreshPostsData();
@@ -270,7 +273,8 @@ const UserProfileForm = ({ userData, setEditMode, updateUserProfile, refreshPost
                 <IconPhone size={20} />
                 <input
                   className={`form-input ${styles.infosInput} ${errors.phoneNumber ? 'error' : ''}`}
-                  type='number'
+                  type='text'
+                  maxLength={10}
                   placeholder='Numéro de téléphone'
                   {...register('phoneNumber', { validate: validationSchema.phoneNumber })}
                 />
