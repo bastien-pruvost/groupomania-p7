@@ -11,7 +11,7 @@ exports.multerConfig = {
       if (file.fieldname === 'coverPic') return 'groupomania/cover';
       return null;
     },
-    public_id: (req, file) => `${Date.now()}-${req.user.id}`
+    public_id: (req, file) => `${Date.now()}-${req.currentUser.id}`
   },
   fieldsOptions: [
     { name: 'postPic', maxCount: 1 },

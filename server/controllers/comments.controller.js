@@ -7,11 +7,11 @@ const { findPostById } = require('../queries/posts.queries');
 
 exports.createComment = async (req, res) => {
   try {
-    const { body, user } = req;
+    const { body, currentUser } = req;
     const comment = {
       content: body.content,
       postId: body.postId,
-      userId: user.id
+      userId: currentUser.id
     };
     await saveNewComment(comment);
     const updatedPost = await findPostById(body.postId);
@@ -23,7 +23,7 @@ exports.createComment = async (req, res) => {
 
 exports.updateComment = async (req, res) => {
   try {
-    const { body, user, comment } = req;
+    const { body, comment } = req;
     const updatedComment = { content: body.content };
     await updateCommentById(updatedComment, comment.id);
     const updatedPost = await findPostById(comment.postId);

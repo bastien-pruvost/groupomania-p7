@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { findCurrentUserById } = require('../queries/users.queries');
+const { findCurrentUserById, findUserProfileById } = require('../queries/users.queries');
 const { createJwt } = require('../utils/jwt.utils');
 const { jwtConfig } = require('../configs/jwt.config');
 const { findPostById } = require('../queries/posts.queries');
@@ -20,7 +20,7 @@ exports.ensureAuthenticated = async (req, res, next) => {
       return res.status(401).json({ message: `Utilisateur non connecté` });
     }
     req.signin(user.id);
-    req.user = user;
+    req.currentUser = user;
     return next();
   } catch (err) {
     return res.status(500).json({ message: err.message });
@@ -29,12 +29,12 @@ exports.ensureAuthenticated = async (req, res, next) => {
 
 exports.ensureUserIsOwner = async (req, res, next) => {
   try {
-    const currentUserId = req.user.id;
+    const currentUserId = req.currentUser.id;
     if (req.params.postId) {
       const postId = Number(req.params.postId);
       const post = await findPostById(postId);
       if (!post) return res.status(404).json({ message: `Impossible de trouver ce post` });
-      if (currentUserId !== post.userId && !req.user.isAdmin)
+      if (currentUserId !== post.userId && !req.currentUser.isAdmin)
         return res.status(403).json({ message: `Vous n'êtes pas l'auteur de ce post` });
       req.post = post;
     }
@@ -43,14 +43,16 @@ exports.ensureUserIsOwner = async (req, res, next) => {
       const comment = await findCommentById(commentId);
       if (!comment)
         return res.status(404).json({ message: `Impossible de trouver ce commentaire` });
-      if (currentUserId !== comment.userId && !req.user.isAdmin)
+      if (currentUserId !== comment.userId && !req.currentUser.isAdmin)
         return res.status(403).json({ message: `Vous n'êtes pas l'auteur de ce commentaire` });
       req.comment = comment;
     }
     if (req.params.userId) {
       const profileUserId = Number(req.params.userId);
-      if (currentUserId !== profileUserId && !req.user.isAdmin)
+      const user = await findUserProfileById(profileUserId);
+      if (currentUserId !== profileUserId && !req.currentUser.isAdmin)
         return res.status(403).json({ message: `Vous n'êtes pas autorisé à modifier ce profil` });
+      req.user = user;
     }
     return next();
   } catch (err) {

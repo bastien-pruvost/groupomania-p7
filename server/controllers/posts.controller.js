@@ -35,12 +35,12 @@ exports.getUserPosts = async (req, res) => {
 
 exports.createPost = async (req, res) => {
   try {
-    const { body, files, user } = req;
+    const { body, files, currentUser } = req;
     const image = files.postPic ? files.postPic[0] : null;
     const post = {
       content: body.content,
       imagePath: image ? image.filename : null,
-      userId: user.id
+      userId: currentUser.id
     };
     const savedPost = await saveNewPost(post);
     return res.status(201).json({ message: 'Le post a été publié', post: savedPost });
@@ -51,7 +51,7 @@ exports.createPost = async (req, res) => {
 
 exports.updatePost = async (req, res) => {
   try {
-    const { body, files, user, post } = req;
+    const { body, files, post } = req;
     const image = files.postPic ? files.postPic[0] : null;
     const updatedPost = { content: body.content };
     if (image) {
@@ -85,7 +85,7 @@ exports.deletePost = async (req, res) => {
 exports.likePost = async (req, res) => {
   try {
     const { postId } = req.params;
-    const userId = req.user.id;
+    const userId = req.currentUser.id;
     const alreadyLiked = await findLike(userId, postId);
     if (alreadyLiked) return res.status(400).json({ message: 'Vous avez déja liké ce post' });
     await saveNewLike(userId, postId);
@@ -99,7 +99,7 @@ exports.likePost = async (req, res) => {
 exports.dislikePost = async (req, res) => {
   try {
     const { postId } = req.params;
-    const userId = req.user.id;
+    const userId = req.currentUser.id;
     await deleteLike(userId, postId);
     const updatedPost = await findPostById(postId);
     return res.status(200).json({ message: 'Le like a été supprimé', post: updatedPost });
