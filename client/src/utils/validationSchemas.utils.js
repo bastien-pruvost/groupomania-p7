@@ -101,7 +101,10 @@ export const profileValidator = {
   },
   profession: {
     isLength: (value) =>
-      validator.isLength(value, { max: 150 }) || `La profession ne doit pas dépasser 150 caractères`
+      !value
+        ? true
+        : validator.isLength(value, { max: 150 }) ||
+          `La profession ne doit pas dépasser 150 caractères`
   },
   birthDate: {
     isDate: (value) =>
@@ -110,30 +113,27 @@ export const profileValidator = {
   },
   city: {
     isLength: (value) =>
-      validator.isLength(value, { max: 150 }) || `La ville ne doit pas dépasser 150 caractères`
+      !value
+        ? true
+        : validator.isLength(value, { max: 150 }) || `La ville ne doit pas dépasser 150 caractères`
   },
   phoneNumber: {
-    isMobilePhone: (value) => {
-      if (value) {
-        return (
-          validator.isMobilePhone(value, ['fr-FR']) ||
+    isMobilePhone: (value) =>
+      !value
+        ? true
+        : validator.isMobilePhone(value, ['fr-FR']) ||
           `Le numéro de téléphone n'est pas au bon format`
-        );
-      }
-      return true;
-    }
   },
   linkedinUrl: {
-    isUrl: (value) => {
-      if (value) {
-        return validator.isURL(value) || `L'url linkedin n'est pas une url valide`;
-      }
-    }
+    isUrl: (value) =>
+      !value ? true : validator.isURL(value) || `L'url linkedin n'est pas une url valide`
   },
   bio: {
     isLength: (value) =>
-      validator.isLength(value, { max: 2000 }) ||
-      `La description ne doit pas dépasser 2000 caractères`
+      !value
+        ? true
+        : validator.isLength(value, { max: 2000 }) ||
+          `La description ne doit pas dépasser 2000 caractères`
   },
   image: {
     isImage: (value) => {
