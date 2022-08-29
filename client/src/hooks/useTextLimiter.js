@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 const useTextLimiter = ({ text, paragraphsLimit, charactersLimit }) => {
   const [isContentLimited, setContentLimited] = useState(false);
   const [textContent, setTextContent] = useState(text);
-  const numberOfParagraphs = text.split(/\r/).length;
-  const numberOfCharacters = text.length;
+  const numberOfParagraphs = text?.split(/\r/).length;
+  const numberOfCharacters = text?.length;
 
   const limitCharacters = () => {
     const dots = '...';
