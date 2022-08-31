@@ -6,6 +6,7 @@ import { getUserProfileQuery, updateUserProfileQuery } from 'services/users.serv
 const useProfile = () => {
   const { setCurrentUser, currentUser } = useContext(AuthContext);
   const [userData, setUserData] = useState({});
+  const [responseErrorMsg, setResponseErrorMsg] = useState([]);
   const params = useParams();
   const userId = Number(params.userId);
 
@@ -38,10 +39,10 @@ const useProfile = () => {
   };
 
   useEffect(() => {
-    getUserProfile();
+    getUserProfile().catch((err) => setResponseErrorMsg(err));
   }, [userId]);
 
-  return { userData, setUserData, userId, updateUserProfile };
+  return { userData, setUserData, userId, updateUserProfile, responseErrorMsg };
 };
 
 export default useProfile;

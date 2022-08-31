@@ -10,7 +10,7 @@ import PostList from 'components/Posts/PostList';
 const ProfilePage = () => {
   const { currentUser } = useContext(AuthContext);
   const [editMode, setEditMode] = useState(false);
-  const { userData, userId, updateUserProfile } = useProfile();
+  const { userData, userId, updateUserProfile, responseErrorMsg } = useProfile();
   const { postsData, allPostsLoaded, refreshPostsData, scrollRef } = useInfiniteScroll(userId);
 
   return (
@@ -26,6 +26,16 @@ const ProfilePage = () => {
         userData.id && (
           <UserProfile userData={userData} editMode={editMode} setEditMode={setEditMode} />
         )
+      )}
+
+      {responseErrorMsg.length > 0 && (
+        <ul className='alert alert-danger'>
+          {responseErrorMsg.map((message, index) => (
+            <li className='alert-li' key={index}>
+              {message}
+            </li>
+          ))}
+        </ul>
       )}
 
       {currentUser.id === userData.id && <PostForm refreshPostsData={refreshPostsData} />}

@@ -5,9 +5,12 @@ exports.getUserProfile = async (req, res) => {
   try {
     const { userId } = req.params;
     const userProfile = await findUserProfileById(userId);
-    res.status(200).json({ userProfile });
+    if (!userProfile) {
+      return res.status(404).json({ message: 'Utilisateur introuvable' });
+    }
+    return res.status(200).json({ userProfile });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: err.message });
   }
 };
 
@@ -50,8 +53,8 @@ exports.updateUserInfos = async (req, res) => {
 
     await updateUserInfosById(userId, updatedData);
     const updatedProfile = await findUserProfileById(userId);
-    res.status(200).json({ userProfile: updatedProfile });
+    return res.status(200).json({ userProfile: updatedProfile });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: err.message });
   }
 };
