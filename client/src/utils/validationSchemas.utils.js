@@ -103,8 +103,8 @@ export const profileValidator = {
     isLength: (value) =>
       !value
         ? true
-        : validator.isLength(value, { max: 150 }) ||
-          `La profession ne doit pas dépasser 150 caractères`
+        : validator.isLength(value, { max: 75 }) ||
+          `La profession ne doit pas dépasser 75 caractères`
   },
   birthDate: {
     isDate: (value) =>
@@ -115,7 +115,7 @@ export const profileValidator = {
     isLength: (value) =>
       !value
         ? true
-        : validator.isLength(value, { max: 150 }) || `La ville ne doit pas dépasser 150 caractères`
+        : validator.isLength(value, { max: 75 }) || `La ville ne doit pas dépasser 75 caractères`
   },
   phoneNumber: {
     isMobilePhone: (value) =>

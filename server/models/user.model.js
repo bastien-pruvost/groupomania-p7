@@ -33,13 +33,13 @@ const User = db.define(
       type: DataTypes.STRING(2083)
     },
     profession: {
-      type: DataTypes.STRING(150)
+      type: DataTypes.STRING(75)
     },
     birthDate: {
       type: DataTypes.DATEONLY
     },
     city: {
-      type: DataTypes.STRING(150)
+      type: DataTypes.STRING(75)
     },
     phoneNumber: {
       type: DataTypes.STRING(10)

@@ -99,8 +99,8 @@ exports.profileValidator = [
   body('profession')
     .optional({ checkFalsy: true, nullable: true })
     .trim()
-    .isLength({ max: 150 })
-    .withMessage(`La profession ne doit pas dépasser 150 caractères`),
+    .isLength({ max: 75 })
+    .withMessage(`La profession ne doit pas dépasser 75 caractères`),
   body('birthDate')
     .optional({ checkFalsy: true, nullable: true })
     .trim()
@@ -109,8 +109,8 @@ exports.profileValidator = [
   body('city')
     .optional({ checkFalsy: true, nullable: true })
     .trim()
-    .isLength({ max: 150 })
-    .withMessage(`La ville ne doit pas dépasser 150 caractères`),
+    .isLength({ max: 75 })
+    .withMessage(`La ville ne doit pas dépasser 75 caractères`),
   body('phoneNumber')
     .optional({ checkFalsy: true, nullable: true })
     .trim()
