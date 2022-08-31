@@ -36,7 +36,7 @@ exports.updateComment = async (req, res) => {
 exports.deleteComment = async (req, res) => {
   try {
     const { comment } = req;
-    deleteCommentById(comment.id);
+    await deleteCommentById(comment.id);
     const updatedPost = await findPostById(comment.postId);
     return res.status(200).json({ message: 'Le commentaire a été supprimé', post: updatedPost });
   } catch (err) {
