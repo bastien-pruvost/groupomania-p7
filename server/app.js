@@ -1,6 +1,5 @@
 const express = require('express');
 const helmet = require('helmet');
-const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const db = require('./configs/db.config');
@@ -42,7 +41,6 @@ app.use((req, res, next) => {
 // Use helmet middleware for all request (Add some recommended security headers)
 app.use(helmet({ crossOriginResourcePolicy: { policy: 'same-site' } }));
 
-app.use(logger('dev'));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
