@@ -4,8 +4,8 @@ import useTextLimiter from 'hooks/useTextLimiter';
 import { formatBirthDateText } from 'utils/dates.utils';
 import { AuthContext } from 'contexts/AuthContext';
 import IconMapPin from 'components/Icons/IconMapPin';
-import IconCalendar from 'components/Icons/IconCalendar';
 import IconPhone from 'components/Icons/IconPhone';
+import IconGift from 'components/Icons/IconGift';
 import IconLinkedin from 'components/Icons/IconLinkedin';
 import IconEdit from 'components/Icons/IconEdit';
 import defaultCoverPic from 'assets/images/default-cover-pic.jpg';
@@ -61,7 +61,7 @@ const UserProfile = ({ userData, setEditMode }) => {
           )}
           {birthDate && (
             <div className={styles.infoItem}>
-              <IconCalendar size={20} />
+              <IconGift size={20} />
               <span>{birthDateText}</span>
             </div>
           )}
