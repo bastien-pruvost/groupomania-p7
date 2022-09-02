@@ -9,7 +9,15 @@ import IconSend from 'components/Icons/IconSend';
 import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
 import Loader from 'components/Loader';
 
-const CommentForm = ({ content, commentId, postId, setPostData, editMode, setEditMode }) => {
+const CommentForm = ({
+  content,
+  commentId,
+  postId,
+  author,
+  setPostData,
+  editMode,
+  setEditMode
+}) => {
   const { currentUser } = useContext(AuthContext);
   const [isLoading, setLoading] = useState(false);
   const [responseErrorMsg, setResponseErrorMsg] = useState([]);
@@ -25,8 +33,10 @@ const CommentForm = ({ content, commentId, postId, setPostData, editMode, setEdi
     validate: validationSchema.content
   });
 
-  const profilePicUrl = currentUser.profilePicPath
-    ? `${process.env.REACT_APP_IMAGES_URL}/${currentUser.profilePicPath}`
+  const commentAuthor = author ? author : currentUser;
+
+  const profilePicUrl = commentAuthor.profilePicPath
+    ? `${process.env.REACT_APP_IMAGES_URL}/${commentAuthor.profilePicPath}`
     : defaultProfilePic;
 
   const onSubmit = async (data) => {
