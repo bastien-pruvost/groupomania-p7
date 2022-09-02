@@ -2,7 +2,6 @@
   position: sticky;
   top: 0;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   height: var(--header-height);
   background-color: var(--white);
@@ -17,12 +16,9 @@
   gap: 1.5rem;
 }
 
-.flexContainer > a {
-  flex: 0 1 15rem;
-}
-
 .logo {
-  width: 100%;
+  width: 15rem;
+  max-width: 100%;
   object-fit: scale-down;
 }
 

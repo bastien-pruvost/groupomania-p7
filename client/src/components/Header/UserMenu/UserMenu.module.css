@@ -4,10 +4,12 @@
 
 .toggleMenu {
   display: flex;
+  justify-content: flex-end;
   align-items: center;
   gap: 1rem;
   cursor: pointer;
   user-select: none;
+  flex: 1 1;
 }
 
 .toggleMenu:hover {
@@ -15,12 +17,14 @@
 }
 
 .toggleMenu:hover > .profilePic {
-  filter: brightness(1.02);
+  filter: brightness(1.04);
 }
 
 .names {
-  display: block;
+  display: inline-block;
   font-weight: 600;
+  text-align: right;
+  flex: 1 1;
 }
 
 .profilePic {
