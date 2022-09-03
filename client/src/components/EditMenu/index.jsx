@@ -23,7 +23,12 @@ const EditMenu = ({ handleEdit, handleDelete, iconSize }) => {
 
   return (
     <div className={styles.EditMenu + ' moreMenuContainer'}>
-      <button className={styles.editButton} onClick={handleMenu} onKeyDown={handleMenu}>
+      <button
+        className={styles.editButton}
+        onClick={handleMenu}
+        onKeyDown={handleMenu}
+        aria-label='Editer le post'
+      >
         <IconMore size={iconSize} />
       </button>
 
