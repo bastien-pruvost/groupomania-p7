@@ -5,10 +5,14 @@
   width: 100%;
 }
 
+.inputContainer {
+  width: 100%;
+}
+
 .userPic {
   width: 2.25rem;
   height: 2.25rem;
-  margin-top: 0.25rem;
+  margin-top: 1.8rem;
   border-radius: 50%;
   box-shadow: var(--shadow-1);
 }
@@ -25,4 +29,5 @@
   align-items: center;
   align-self: flex-end;
   height: 2.65rem;
+  margin-bottom: 0.3rem;
 }

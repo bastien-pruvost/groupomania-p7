@@ -123,10 +123,11 @@ const PostForm = ({
         </div>
 
         <div className={styles.textareaEmojiContainer}>
-          <label htmlFor={`post-content-${postId || ''}`}>Rédiger un post :</label>
+          <label className='form-label' htmlFor={`post-content-${postId || ''}`}>
+            Rédiger un post :
+          </label>
           <textarea
             id={`post-content-${postId || ''}`}
-            placeholder='Contenu du post...'
             className={`form-textarea form-emoji-padding ${styles.contentTextarea} ${
               errors.content ? 'error' : ''
             }`}

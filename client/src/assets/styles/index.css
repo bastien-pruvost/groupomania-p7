@@ -419,9 +419,9 @@ button:hover {
 
 .form-label {
   display: block;
-  padding-left: 0.2rem;
-  margin-bottom: 0.35rem;
-  letter-spacing: var(--letter-spacing);
+  /* padding-left: 0.2rem; */
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.3px;
 }
 
 .form-input,

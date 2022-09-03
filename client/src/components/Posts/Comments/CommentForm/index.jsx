@@ -71,20 +71,21 @@ const CommentForm = ({
           src={profilePicUrl}
           alt={`Photo de profil de ${commentAuthor.firstname} ${commentAuthor.lastname}`}
         />
-        <label htmlFor={`comment-content-${postId}-${commentId || ''}`}>
-          Ecrire un commentaire :
-        </label>
-        <textarea
-          id={`comment-content-${postId}-${commentId || ''}`}
-          placeholder='Commentaire...'
-          className={`form-textarea ${styles.contentTextarea} ${errors.content ? 'error' : ''}`}
-          onInput={(e) => adjustTextareaHeight(e.target)}
-          {...registerContentRest}
-          ref={(e) => {
-            ref(e);
-            textareaRef.current = e;
-          }}
-        />
+        <div className={styles.inputContainer}>
+          <label className='form-label' htmlFor={`comment-content-${postId}-${commentId || ''}`}>
+            {editMode ? 'Modifier le' : 'Ecrire un'} commentaire :
+          </label>
+          <textarea
+            id={`comment-content-${postId}-${commentId || ''}`}
+            className={`form-textarea ${styles.contentTextarea} ${errors.content ? 'error' : ''}`}
+            onInput={(e) => adjustTextareaHeight(e.target)}
+            {...registerContentRest}
+            ref={(e) => {
+              ref(e);
+              textareaRef.current = e;
+            }}
+          />
+        </div>
         {isLoading ? (
           <Loader grey />
         ) : (
