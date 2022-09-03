@@ -101,7 +101,11 @@ const UserProfile = ({ userData, setEditMode }) => {
         )}
 
         {allowEdit && (
-          <button className={styles.editBtn} onClick={() => setEditMode(true)}>
+          <button
+            className={styles.editBtn}
+            onClick={() => setEditMode(true)}
+            aria-label='Modifier le profil'
+          >
             <IconEdit size='20' />
           </button>
         )}

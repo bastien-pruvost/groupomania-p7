@@ -23,7 +23,7 @@ const Header = () => {
             <>
               {location.pathname !== '/feed' && (
                 <nav className={styles.headerNav}>
-                  <Link to='/'>
+                  <Link to='/' aria-label="Page d'accueil">
                     <IconHome size='24' />
                   </Link>
                 </nav>
