@@ -66,9 +66,17 @@ const CommentForm = ({
   return (
     <>
       <form className={styles.CommentForm} onSubmit={handleSubmit(onSubmit)}>
-        <img className={styles.userPic} src={profilePicUrl} alt='' />
+        <img
+          className={styles.userPic}
+          src={profilePicUrl}
+          alt={`Photo de profil de ${commentAuthor.firstname} ${commentAuthor.lastname}`}
+        />
+        <label htmlFor={`comment-content-${postId}-${commentId || ''}`}>
+          Ecrire un commentaire :
+        </label>
         <textarea
-          placeholder={`Commenter...`}
+          id={`comment-content-${postId}-${commentId || ''}`}
+          placeholder='Commentaire...'
           className={`form-textarea ${styles.contentTextarea} ${errors.content ? 'error' : ''}`}
           onInput={(e) => adjustTextareaHeight(e.target)}
           {...registerContentRest}
@@ -80,7 +88,7 @@ const CommentForm = ({
         {isLoading ? (
           <Loader grey />
         ) : (
-          <button type='submit' className={styles.submitBtn}>
+          <button type='submit' aria-label='Envoyer le commentaire' className={styles.submitBtn}>
             <IconSend size='32' />
           </button>
         )}

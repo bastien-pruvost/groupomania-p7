@@ -50,7 +50,11 @@ const SingleComment = ({ comment, setPostData }) => {
   return (
     <div className={styles.SingleComment}>
       <Link to={`/profile/${user.id}`}>
-        <img src={profilePicUrl} alt='' className={styles.userPic} />
+        <img
+          src={profilePicUrl}
+          alt={`Photo de profil de ${user.firstname} ${user.lastname}`}
+          className={styles.userPic}
+        />
       </Link>
       <div className={styles.rightColumn}>
         <div className={styles.topRow}>

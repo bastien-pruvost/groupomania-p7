@@ -100,7 +100,11 @@ const SinglePost = ({ post, refreshPostsData }) => {
       <article className={styles.SinglePost}>
         <div className={styles.topRow}>
           <Link to={`/profile/${user.id}`}>
-            <img className={styles.userPic} src={profilePicUrl} alt='Photo de profil' />
+            <img
+              className={styles.userPic}
+              src={profilePicUrl}
+              alt={`Photo de profil de ${user.firstname} ${user.lastname}`}
+            />
           </Link>
 
           <div className={styles.nameTimeContainer}>
@@ -128,7 +132,7 @@ const SinglePost = ({ post, refreshPostsData }) => {
           )}
         </p>
 
-        {!!postPicUrl && <img className={styles.image} src={postPicUrl} />}
+        {!!postPicUrl && <img className={styles.image} src={postPicUrl} alt='Image du post' />}
 
         <div>
           <div className={styles.countsRow}>

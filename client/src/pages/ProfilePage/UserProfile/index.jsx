@@ -45,10 +45,18 @@ const UserProfile = ({ userData, setEditMode }) => {
 
   return (
     <div className={styles.UserProfile}>
-      <img className={styles.coverPic} src={coverPicUrl} alt='Photo de couverture' />
+      <img
+        className={styles.coverPic}
+        src={coverPicUrl}
+        alt={`Photo de couverture de ${firstname} ${lastname}`}
+      />
       <div className={styles.infosContainer}>
         <div className={styles.infosColumn}>
-          <img className={styles.profilePic} src={profilePicUrl} alt='' />
+          <img
+            className={styles.profilePic}
+            src={profilePicUrl}
+            alt={`Photo de profil de ${firstname} ${lastname}`}
+          />
           {firstname && <h2 className={styles.name}>{`${firstname} ${lastname}`}</h2>}
           {profession && <span className={styles.profession}>{profession}</span>}
         </div>

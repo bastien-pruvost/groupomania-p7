@@ -43,7 +43,7 @@ const UserMenu = () => {
     <div className={styles.UserMenu} id='UserMenu'>
       <div tabIndex='0' className={styles.toggleMenu} onClick={handleMenu} onKeyDown={handleMenu}>
         <span className={styles.names}>{`${currentUser.firstname} ${currentUser.lastname}`}</span>
-        <img className={styles.profilePic} src={profilePicUrl} alt='Photo de profil' />
+        <img className={styles.profilePic} src={profilePicUrl} alt='Votre photo de profil' />
       </div>
 
       {!!isMenuOpen && (

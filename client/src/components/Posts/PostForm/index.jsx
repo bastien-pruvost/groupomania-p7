@@ -110,7 +110,11 @@ const PostForm = ({
       <form className={styles.PostForm} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.topRow}>
           <Link to={`/profile/${author.id}`}>
-            <img src={profilePicUrl} alt='' className={styles.userPic} />
+            <img
+              src={profilePicUrl}
+              alt={`Photo de profil de ${author.firstname} ${author.lastname}`}
+              className={styles.userPic}
+            />
           </Link>
 
           <Link to={`/profile/${author.id}`}>
@@ -119,8 +123,10 @@ const PostForm = ({
         </div>
 
         <div className={styles.textareaEmojiContainer}>
+          <label htmlFor={`post-content-${postId || ''}`}>Rédiger un post :</label>
           <textarea
-            placeholder={`Rediger un post...`}
+            id={`post-content-${postId || ''}`}
+            placeholder='Contenu du post...'
             className={`form-textarea form-emoji-padding ${styles.contentTextarea} ${
               errors.content ? 'error' : ''
             }`}
@@ -138,7 +144,11 @@ const PostForm = ({
 
         {!!imagePreview && (
           <div className={styles.imagePreviewContainer}>
-            <img className={styles.imagePreview} src={imagePreview} alt='' />
+            <img
+              className={styles.imagePreview}
+              src={imagePreview}
+              alt="Prévisualisation de l'image du post"
+            />
             <button type='button' className={styles.deleteButton} onClick={deleteImage}>
               <IconDelete size={22} color='#ffffff' />
             </button>

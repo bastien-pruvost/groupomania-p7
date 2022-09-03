@@ -164,7 +164,11 @@ const UserProfileForm = ({ userData, setEditMode, updateUserProfile, refreshPost
         <div className={styles.infosRow}>
           <div className={styles.infosColumn}>
             <label className={styles.profilePicContainer} htmlFor='profilePic'>
-              <img className={styles.profilePic} src={profilePicPreview} alt='' />
+              <img
+                className={styles.profilePic}
+                src={profilePicPreview}
+                alt='Photo de couverture'
+              />
               <div className={styles.profilePicButton}>
                 <IconEdit size={20} />
               </div>
