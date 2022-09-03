@@ -1,5 +1,5 @@
 import styles from './Comments.module.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import SingleComment from 'components/Posts/Comments/SingleComment';
 import CommentForm from 'components/Posts/Comments/CommentForm';
 

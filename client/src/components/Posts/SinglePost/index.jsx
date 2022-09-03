@@ -12,7 +12,6 @@ import Comments from 'components/Posts/Comments';
 import IconLike from 'components/Icons/IconLike';
 import IconComment from 'components/Icons/IconComment';
 import defaultProfilePic from 'assets/images/default-profile-pic.jpg';
-import randomPic from 'assets/images/random-pic.jpg';
 
 const SinglePost = ({ post, refreshPostsData }) => {
   const { currentUser } = useContext(AuthContext);
@@ -42,7 +41,6 @@ const SinglePost = ({ post, refreshPostsData }) => {
     ? `${process.env.REACT_APP_IMAGES_URL}/${user.profilePicPath}`
     : defaultProfilePic;
   const postPicUrl = postPicPath ? `${process.env.REACT_APP_IMAGES_URL}/${postPicPath}` : null;
-  // const postPicUrl = postPicPath ? randomPic : null;
   const timeAgoText = formatTimeAgo(createdAt);
   const numberOfLikes = `${likes.length} J'aime`;
   const numberOfComments = `${comments.length} ${

@@ -13,7 +13,7 @@ const SingleComment = ({ comment, setPostData }) => {
   const { currentUser } = useContext(AuthContext);
   const [editMode, setEditMode] = useState(false);
   const { deleteComment } = useComment();
-  const { id: commentId, postId, user, content, createdAt, user_like_comments: likes } = comment;
+  const { id: commentId, postId, user, content, createdAt } = comment;
   const { isContentLimited, textContent, handleLimitedText } = useTextLimiter({
     text: content,
     paragraphsLimit: 2,

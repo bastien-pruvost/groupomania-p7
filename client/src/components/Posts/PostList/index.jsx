@@ -1,5 +1,4 @@
 import styles from './PostList.module.css';
-import usePost from 'hooks/usePost';
 import SinglePost from 'components/Posts/SinglePost';
 import Loader from 'components/Loader';
 

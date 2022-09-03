@@ -31,10 +31,10 @@ export const formatTimeAgo = (postDate) => {
     return `Il y a ${Math.round(timeAgoInMs / 2629800000)} mois`;
   }
   // if (timeAgoInMs < 3974400000) {
-  //   return `un an`;
+  //   return `Il y a un an`;
   // }
   // if (timeAgoInMs < 50544000000) {
-  //   return `${Math.round(timeAgoInMs / 31557600000)} ans`;
+  //   return `Il y a ${Math.round(timeAgoInMs / 31557600000)} ans`;
   // }
   const date = new Date(postDate);
   const formatedDate = date.toLocaleDateString('fr');
