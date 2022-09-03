@@ -359,7 +359,7 @@ button:hover {
 .limit-text-btn {
   padding-left: 0.5rem;
   font-size: inherit;
-  color: var(--grey-400);
+  color: var(--grey-500);
   border: none;
   background-color: transparent;
   cursor: pointer;
