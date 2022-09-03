@@ -83,7 +83,7 @@ npm install # Installer les packages et dépendances nécessaires
 npm start # Démarrer l'application React
 ```
 
-5. **Tester l'application**
+5. **Lancer l'application**
 
 - Verifiez que le service MySQL ou MariaDB est bien lancé
 
