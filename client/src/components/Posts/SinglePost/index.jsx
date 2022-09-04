@@ -77,6 +77,10 @@ const SinglePost = ({ post, refreshPostsData }) => {
   };
 
   useEffect(() => {
+    setPostData(post);
+  }, [post]);
+
+  useEffect(() => {
     setPostLikedByUser(isPostLikedByUser());
     if (comments.length > 0) setCommentsOpen(true);
   }, [postData]);
@@ -163,4 +167,5 @@ const SinglePost = ({ post, refreshPostsData }) => {
   );
 };
 
-export default memo(SinglePost);
+// export default memo(SinglePost);
+export default SinglePost;

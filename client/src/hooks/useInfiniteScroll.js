@@ -11,7 +11,7 @@ const useInfiniteScroll = (userId) => {
 
   const populatePosts = async (args) => {
     const refreshMode = args?.refreshMode;
-    const lastPostId = postsData[postsData.length - 1]?.id;
+    const lastPostId = refreshMode ? 0 : postsData[postsData.length - 1]?.id;
     try {
       const posts = userId
         ? await getUserPaginatePostsQuery(lastPostId, limitPerPage, userId)
@@ -28,10 +28,10 @@ const useInfiniteScroll = (userId) => {
 
   populatePostsRef.current = populatePosts;
 
-  const refreshPostsData = useCallback(() => {
+  const refreshPostsData = () => {
     setAllPostsLoaded(false);
     populatePosts({ refreshMode: true });
-  }, []);
+  };
 
   const handleInfiniteScroll = useCallback((entries) => {
     const target = entries[0];
