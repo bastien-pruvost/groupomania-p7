@@ -9,7 +9,7 @@ const routes = require('./routes/routes');
 // Sync database
 require('./models/db-relations');
 
-db.sync({ alter: true, force: false })
+db.sync({ alter: false, force: false })
   .then(console.log('Connexion a la base de données OK'))
   .catch((err) => {
     console.log(`Erreur de connexion a la base de données : ${err}`);
