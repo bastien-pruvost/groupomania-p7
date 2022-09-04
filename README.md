@@ -59,9 +59,9 @@ source database/groupomania.sql; -- Importer le dump sql situé dans le dossier 
 
 3. **Initialisez le Backend**
 
-Les fichiers '.env' sont disponibles dans les livrables dans un dossier '/env' pour éviter de rendre publique certaines données (dont les clés de l'API Cloudinary pour l'hébérgement des images)
+Les fichiers '.env' sont disponibles dans les livrables dans le dossier 'PRUVOST_Bastien_04_fichiers-env_062022' pour éviter de rendre publique certaines données (dont les clés de l'API Cloudinary pour l'hébérgement des images)
 
-- Copiez le fichier '.env' dans le dossier '/groupomania-p7/server'
+- Copiez le fichier '.env' du dossier 'server' dans le dossier '/groupomania-p7/server'
 
 - Dans le dossier 'groupomania-p7', executez les commandes suivantes dans un nouveau terminal :
 
@@ -73,7 +73,7 @@ npm start # Démarrer le serveur
 
 4. **Initialisez le frontend**
 
-- Copiez le fichier '.env' dans le dossier '/groupomania-p7/client'
+- Copiez le fichier '.env' du dossier 'client' dans le dossier '/groupomania-p7/client'
 
 - Dans le dossier 'groupomania-p7', executez les commandes suivantes dans un nouveau terminal:
 
