@@ -4,7 +4,7 @@
 -- https://tableplus.com/
 --
 -- Database: groupomania
--- Generation Time: 2022-09-02 14:15:55.3060
+-- Generation Time: 2022-09-04 13:56:39.7640
 -- -------------------------------------------------------------
 
 
@@ -129,7 +129,7 @@ INSERT INTO `posts` (`id`, `content`, `imagePath`, `createdAt`, `updatedAt`, `us
 (13, 'Nouveau bureau tout neuf et tout propre, prêt pour le télétravail !\r\nMaintenant il faut le maintenir rangé et ne pas l\'encombrer de tasses de café 😅', 'groupomania/post/1662114436543-2', '2022-08-27 10:27:17', '2022-08-27 10:27:17', 8),
 (14, 'Je suis ravi d\'avoir travaillé sur la création de ce réseau social.\r\nContent de voir que cela vous plait 😁', NULL, '2022-08-27 10:38:17', '2022-08-27 10:38:17', 2),
 (15, 'Ça y est j\'ai déménagé sur Paris, fini les 2h de transports pour venir travailler..\r\nEt la vue ne me déplait pas 😅', 'groupomania/post/1662115208483-2', '2022-08-29 10:40:09', '2022-08-29 10:40:09', 13),
-(16, 'Lundi c\'est la rentrée ! Bon courage à tout ceux qui ont des enfants. \r\nLes miens sont contents de retrouver leurs amis, ils ont pas compris que l\'école c\'est avant tout pour travailler 😂', NULL, '2022-09-01 10:42:53', '2022-09-01 10:42:53', 12),
+(16, 'Lundi c\'est la rentrée, je suis content de revoir toute l\'équipe :)', NULL, '2022-09-01 10:42:53', '2022-09-01 10:42:53', 12),
 (17, 'Petite randonnée dans les Pyrénées avant de rentrer sur Paris.', 'groupomania/post/1662115779025-2', '2022-09-02 10:49:40', '2022-09-02 12:02:19', 3);
 
 INSERT INTO `user_like_post` (`userId`, `postId`, `createdAt`, `updatedAt`) VALUES
