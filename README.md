@@ -95,7 +95,7 @@ npm start # Démarrer l'application React
 
 **De la fake data a été intégrée dans le réseau social pour remplir l'application et faciliter les tests**
 
-**Les identifiants du compte administrateur sont disponibles dans le fichier 'admin.txt'**
+**Les identifiants du compte administrateur sont disponibles dans les livrables, dans le fichier 'PRUVOST_Bastien_03_compte-admin_062022.txt'**
 
 ## Credits
 
