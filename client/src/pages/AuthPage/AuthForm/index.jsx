@@ -10,7 +10,7 @@ const AuthForm = ({ signinMode }) => {
   const { signin, signup } = useContext(AuthContext);
   const [isLoading, setLoading] = useState(false);
   const [responseErrorMsg, setResponseErrorMsg] = useState([]);
-  const { formState, watch, handleSubmit, register } = useForm({ mode: 'onSubmit' });
+  const { formState, watch, handleSubmit, register } = useForm({ mode: 'onBlur' });
   const { errors } = formState;
   const password = useRef({});
   password.current = watch('password');
