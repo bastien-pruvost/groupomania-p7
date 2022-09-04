@@ -44,7 +44,7 @@ app.use(helmet({ crossOriginResourcePolicy: { policy: 'same-site' } }));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public'))); // Uncomment if images are saved locally
 
 app.use(addAuthFeatures);
 
