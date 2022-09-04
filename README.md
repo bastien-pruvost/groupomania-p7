@@ -59,7 +59,7 @@ source database/groupomania.sql; -- Importer le dump sql situé dans le dossier 
 
 3. **Initialisez le Backend**
 
-Les fichiers '.env' sont disponibles dans les livrables dans le dossier 'PRUVOST_Bastien_04_fichiers-env_062022' pour éviter de rendre publique certaines données (dont les clés de l'API Cloudinary pour l'hébérgement des images)
+Pour éviter de rendre publique certaines données (dont les clés de l'API Cloudinary pour l'hébérgement des images), les fichiers '.env' sont disponibles dans les livrables dans le dossier 'PRUVOST_Bastien_04_fichiers-env_062022'
 
 - Copiez le fichier '.env' du dossier 'server' dans le dossier '/groupomania-p7/server'
 
