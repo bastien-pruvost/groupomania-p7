@@ -61,7 +61,7 @@ exports.postValidator = [
     .withMessage(`L'image ne doit pas dépasser 1 MB`),
   body()
     .custom((value, { req }) => req.body.content != null)
-    .withMessage(`Le formulaire doit contenir un champ content meme si il est vide`),
+    .withMessage(`Le formulaire doit contenir un champ 'content' meme si il est vide`),
   body()
     .custom(
       (value, { req }) =>
