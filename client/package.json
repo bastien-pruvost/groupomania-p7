@@ -1,7 +1,8 @@
 {
   "name": "groupomania-client",
   "version": "0.1.0",
-  "description": "Groupomania client build with React",
+  "homepage": ".",
+  "description": "Groupomania client",
   "author": "Bastien-Pruvost",
   "license": "ISC",
   "scripts": {
@@ -29,7 +30,7 @@
     "emoji-mart": "^5.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.34.2",
+    "react-hook-form": "^7.35.0",
     "react-router-dom": "^6.4.0",
     "validator": "^13.7.0"
   },
