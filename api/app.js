@@ -20,11 +20,7 @@ const app = express();
 
 // Set headers for all responses
 app.use((req, res, next) => {
-  const allowedOrigins = [
-    'http://localhost:3000',
-    'http://192.168.1.25:3000',
-    'http://127.0.0.1:3000'
-  ];
+  const allowedOrigins = [process.env.CLIENT_URL];
   const { origin } = req.headers;
   if (allowedOrigins.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);
