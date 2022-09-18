@@ -1,6 +1,6 @@
 # Groupomania - Openclassrooms - P7
 
-## A propos du projet
+## À propos du projet
 
 Projet 7 du parcours Développeur Web Openclassrooms.
 Ce projet consiste à créer un réseau social d'entreprise.
