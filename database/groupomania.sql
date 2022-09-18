@@ -4,7 +4,7 @@
 -- https://tableplus.com/
 --
 -- Database: groupomania
--- Generation Time: 2022-09-04 13:56:39.7640
+-- Generation Time: 2022-09-18 22:25:59.3730
 -- -------------------------------------------------------------
 
 
@@ -31,7 +31,7 @@ CREATE TABLE `comments` (
   KEY `postId` (`postId`),
   CONSTRAINT `comments_ibfk_33` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `comments_ibfk_34` FOREIGN KEY (`postId`) REFERENCES `posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `posts`;
 CREATE TABLE `posts` (
@@ -44,7 +44,7 @@ CREATE TABLE `posts` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `user_like_comment`;
 CREATE TABLE `user_like_comment` (
@@ -92,13 +92,13 @@ CREATE TABLE `users` (
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `comments` (`id`, `content`, `createdAt`, `updatedAt`, `userId`, `postId`) VALUES
 (1, 'Cela serait super de pouvoir mettre des \"J\'aime\" sur les commentaires !', '2022-09-02 11:04:39', '2022-09-02 11:05:36', 9, 12),
 (2, 'Merci pour cette idée Patrice, nous ajoutons cela à la liste des fonctionnalités à ajouter !', '2022-09-02 11:06:55', '2022-09-02 11:06:55', 1, 12),
 (3, 'Une barre de recherche en haut de la page pour trouver des collègues serait vraiment appréciée 🤔', '2022-09-02 11:08:38', '2022-09-02 11:08:38', 21, 12),
-(4, 'Merci pour votre idée Juliette.\nLa barre de recherche est prévu vous devriez la retrouver sur le site d\'ici la fin du mois de septembre.', '2022-09-02 11:11:39', '2022-09-02 11:11:39', 1, 12),
+(4, 'Merci pour votre idée Juliette.\nLa barre de recherche est prévu vous devriez la retrouver sur le site d\'ici peu de temps 😉', '2022-09-02 11:11:39', '2022-09-18 20:24:39', 1, 12),
 (6, 'Pour moi ce sera repos, la semaine a été dur !', '2022-09-02 11:15:59', '2022-09-02 11:15:59', 14, 5),
 (7, 'Travaux de rénovation a la maison... On est bienôt sur la fin !', '2022-09-02 11:15:59', '2022-09-02 11:15:59', 19, 5),
 (8, 'Randonnée pour ma part ! Dans quel coin fais tu tes sorties VTT ?', '2022-09-02 11:15:59', '2022-09-02 11:15:59', 3, 5),
@@ -108,7 +108,6 @@ INSERT INTO `comments` (`id`, `content`, `createdAt`, `updatedAt`, `userId`, `po
 (12, 'Team télétravail :)', '2022-09-02 11:34:56', '2022-09-02 11:34:56', 12, 8),
 (13, 'Avec les nouveaux locaux je dirais presque présentiel 🤔', '2022-09-02 11:34:56', '2022-09-02 11:34:56', 16, 8),
 (14, 'Les deux ! Ca évite la routine c\'est top !', '2022-09-02 11:34:56', '2022-09-02 11:34:56', 20, 8),
-(15, 'Super beau paysage, j\'adore les Pyrénées 😍', '2022-09-02 11:38:18', '2022-09-02 11:38:18', 11, 17),
 (16, 'Bienvenue dans la capitale ;)', '2022-09-02 11:39:18', '2022-09-02 11:39:18', 10, 15),
 (17, 'C\'est grand je m\'y perds 😂', '2022-09-02 11:41:21', '2022-09-02 11:41:21', 21, 7),
 (18, 'Ça me rajoute du temps de trajet c\'est dommage... Mais sinon ce sont des jolis locaux !', '2022-09-02 11:42:36', '2022-09-02 11:42:36', 12, 7);
@@ -130,7 +129,7 @@ INSERT INTO `posts` (`id`, `content`, `imagePath`, `createdAt`, `updatedAt`, `us
 (14, 'Je suis ravi d\'avoir travaillé sur la création de ce réseau social.\r\nContent de voir que cela vous plait 😁', NULL, '2022-08-27 10:38:17', '2022-08-27 10:38:17', 2),
 (15, 'Ça y est j\'ai déménagé sur Paris, fini les 2h de transports pour venir travailler..\r\nEt la vue ne me déplait pas 😅', 'groupomania/post/1662115208483-2', '2022-08-29 10:40:09', '2022-08-29 10:40:09', 13),
 (16, 'Lundi c\'est la rentrée, je suis content de revoir toute l\'équipe :)', NULL, '2022-09-01 10:42:53', '2022-09-01 10:42:53', 12),
-(17, 'Petite randonnée dans les Pyrénées avant de rentrer sur Paris.', 'groupomania/post/1662115779025-2', '2022-09-02 10:49:40', '2022-09-02 12:02:19', 3);
+(17, 'Petite randonnée dans les Pyrénées avant de rentrer sur Paris.', 'groupomania/post/1662115779025-2', '2022-09-02 10:49:40', '2022-09-18 20:23:07', 3);
 
 INSERT INTO `user_like_post` (`userId`, `postId`, `createdAt`, `updatedAt`) VALUES
 (1, 14, '2022-09-02 11:15:01', '2022-09-02 11:15:01'),
@@ -284,11 +283,12 @@ INSERT INTO `user_like_post` (`userId`, `postId`, `createdAt`, `updatedAt`) VALU
 (24, 1, '2022-09-02 10:06:20', '2022-09-02 10:06:20'),
 (24, 8, '2022-09-02 11:15:17', '2022-09-02 11:15:17'),
 (24, 9, '2022-09-02 11:15:17', '2022-09-02 11:15:17'),
-(24, 10, '2022-09-02 11:15:17', '2022-09-02 11:15:17');
+(24, 10, '2022-09-02 11:15:17', '2022-09-02 11:15:17'),
+(25, 17, '2022-09-06 13:04:45', '2022-09-06 13:04:45');
 
 INSERT INTO `users` (`id`, `email`, `password`, `lastname`, `firstname`, `profilePicPath`, `coverPicPath`, `profession`, `birthDate`, `city`, `phoneNumber`, `linkedinUrl`, `bio`, `isAdmin`, `createdAt`, `updatedAt`) VALUES
 (1, 'admin@groupomania.fr', '$argon2id$v=19$m=17408,t=3,p=1$nvso4JBkRO9c/65x079s4g$hqlJCfKlSmOM6GAatvj+JtR+rci/W9NIO5k+ZIcuhHw', 'Groupomania', 'Administrateur', 'groupomania/profile/1661946780019-1', NULL, 'Administrateur du site', NULL, NULL, NULL, NULL, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Viverra ipsum nunc aliquet bibendum. Aliquam nulla facilisi cras fermentum. Etiam dignissim diam quis enim lobortis scelerisque. Risus commodo viverra maecenas accumsan lacus.', 1, '2022-06-30 22:20:56', '2022-08-31 11:53:31'),
-(2, 'bastien@email.fr', '$argon2id$v=19$m=17408,t=3,p=1$anBhW/Y/davUeW3gtFp/Mw$AABBq4glKEbXo0zySqDFnUlWndc/VLdK9SKkbRKUlBc', 'Pruvost', 'Bastien', 'groupomania/profile/1661945337469-2', 'groupomania/cover/1661945336745-2', 'Développeur Web', '2000-07-08', 'Toulouse', '0612345678', 'https://www.linkedin.com/in/bastien-pruvost-dev/', 'Développeur Web Junior en formation.', 0, '2022-06-30 22:26:59', '2022-08-31 14:30:39'),
+(2, 'bastien@email.fr', '$argon2id$v=19$m=17408,t=3,p=1$anBhW/Y/davUeW3gtFp/Mw$AABBq4glKEbXo0zySqDFnUlWndc/VLdK9SKkbRKUlBc', 'Pruvost', 'Bastien', 'groupomania/profile/1663368637961-2', 'groupomania/cover/1661945336745-2', 'Développeur Web', '2000-07-08', 'Toulouse', '0612345678', 'https://www.linkedin.com/in/bastien-pruvost-dev/', 'Développeur Web Junior en formation.', 0, '2022-06-30 22:26:59', '2022-09-16 22:50:39'),
 (3, 'linette.pouchard@email.fr', '$argon2id$v=19$m=17408,t=3,p=1$7rzT+iPxDRWu0XRmY3FeJA$Toz8V1yhLqzFmz/k5ZDDag/hc1B98PNu/iXq7Cnha0w', 'Pouchard', 'Linette', 'groupomania/profile/1661948572549-1', 'groupomania/cover/1661948975192-1', 'Ingénieur DevOps', '2000-09-12', 'Aubervilliers', NULL, 'https://www.linkedin.com/', 'Passionnée de rando et de photos. Je suis DevOps chez Groupomania depuis 4 ans.', 0, '2022-06-30 22:28:02', '2022-08-31 12:29:36'),
 (4, 'marie.dubeau@email.fr', '$argon2id$v=19$m=17408,t=3,p=1$iabf+HMFhCh3VonMctKVKg$G2R6KVHO01drJ9Dl/N8Js3epGURG6IX/cohzkbvx6OA', 'Dubeau', 'Marie', 'groupomania/profile/1661948580979-1', 'groupomania/cover/1661949066793-1', 'UI / UX Designer', NULL, 'Paris', '0612345678', 'https://www.linkedin.com/', NULL, 0, '2022-06-30 22:30:13', '2022-08-31 12:31:07'),
 (5, 'julie.monrency@email.fr', '$argon2id$v=19$m=17408,t=3,p=1$XzNiaWUuFCmh57saSa8lGQ$20+cGE2RcJurRQZclcsVn4L8CEzag5GbP3rukHiLcfA', 'Monrency', 'Julie', 'groupomania/profile/1661948591022-1', 'groupomania/cover/1661949121539-1', 'Business analyst', '2000-05-02', 'Yerres', NULL, NULL, NULL, 0, '2022-06-30 22:31:03', '2022-08-31 12:32:02'),
@@ -310,7 +310,8 @@ INSERT INTO `users` (`id`, `email`, `password`, `lastname`, `firstname`, `profil
 (21, 'juliette.durand@email.fr', '$argon2id$v=19$m=17408,t=3,p=1$ybxYQBfthT870SQX8TC98g$CTEIVyCcORYrEFEo7tZGwE+KZHgIMNNIx3J5A3TC1IQ', 'Durand', 'Juliette', 'groupomania/profile/1661948770132-1', 'groupomania/cover/1661950089843-1', 'UI Designer', NULL, 'Ivry', '0612345678', '', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pharetra et ultrices neque ornare aenean. Sed viverra ipsum nunc aliquet bibendum enim. Ac ut consequat semper viverra nam libero. Sit amet dictum sit amet. A condimentum vitae sapien pellentesque habitant morbi. Ornare suspendisse sed nisi lacus sed viverra tellus in hac. Viverra accumsan in nisl nisi scelerisque eu. Lacinia quis vel eros donec ac odio tempor orci. Ridiculus mus mauris vitae ultricies leo integer malesuada nunc. Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar pellentesque. Sed sed risus pretium quam. Viverra mauris in aliquam sem fringilla ut. Mi ipsum faucibus vitae aliquet. Malesuada pellentesque elit eget gravida cum sociis natoque. Eu sem integer vitae justo eget magna fermentum. Nulla facilisi morbi tempus iaculis urna id. Mauris rhoncus aenean vel elit scelerisque. Mus mauris vitae ultricies leo integer malesuada nunc vel risus.', 0, '2022-06-30 22:45:19', '2022-08-31 12:48:10'),
 (22, 'william.johnson@email.fr', '$argon2id$v=19$m=17408,t=3,p=1$DmIW9u/wMI9FM6LSXjDnEw$H+7H6MhGmJYLnMInytoaFuLFxzwu8OBJ+UYEl9M/syg', 'Johnson', 'William', 'groupomania/profile/1661948784125-1', 'groupomania/cover/1661950112796-1', 'Data analyst', NULL, 'Gif-sur-Yvette', NULL, 'https://www.linkedin.com/', '', 0, '2022-06-30 22:46:44', '2022-08-31 12:48:33'),
 (23, 'andrea.dario@email.fr', '$argon2id$v=19$m=17408,t=3,p=1$PJrYp4lKtmBWG1Isopp7AQ$Eb8aTd6Q8eXR+zY7HObJ9IARA2WE/NzU0kIseomAc1s', 'Dario', 'Andréa', 'groupomania/profile/1661948799513-1', 'groupomania/cover/1661950134566-1', 'Manager', NULL, 'Paris', '0612345678', 'https://www.linkedin.com/', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pharetra et ultrices neque ornare aenean. Sed viverra ipsum nunc aliquet bibendum enim. Ac ut consequat semper viverra nam libero. Sit amet dictum sit amet. A condimentum vitae sapien pellentesque habitant morbi. Ornare suspendisse sed nisi lacus sed viverra tellus in hac. Viverra accumsan in nisl nisi scelerisque eu. Lacinia quis vel eros donec ac odio tempor orci. Ridiculus mus mauris vitae ultricies leo integer.', 0, '2022-06-30 22:48:16', '2022-08-31 12:48:55'),
-(24, 'sophia.krylova@email.fr', '$argon2id$v=19$m=17408,t=3,p=1$O5n6lOrvh92sa6d//6Etnw$0Hh9C7ftFn6cAVRaW6hvgNB1JoR9Mp0zudG5ZuNFG1Y', 'Krylova', 'Sophia', 'groupomania/profile/1661948810647-1', 'groupomania/cover/1661950154993-1', 'Assistante de gestion', NULL, 'Mantes-la-Jolie', NULL, 'https://www.linkedin.com/', '', 0, '2022-06-30 22:49:43', '2022-08-31 12:49:15');
+(24, 'sophia.krylova@email.fr', '$argon2id$v=19$m=17408,t=3,p=1$O5n6lOrvh92sa6d//6Etnw$0Hh9C7ftFn6cAVRaW6hvgNB1JoR9Mp0zudG5ZuNFG1Y', 'Krylova', 'Sophia', 'groupomania/profile/1661948810647-1', 'groupomania/cover/1661950154993-1', 'Assistante de gestion', NULL, 'Mantes-la-Jolie', NULL, 'https://www.linkedin.com/', '', 0, '2022-06-30 22:49:43', '2022-08-31 12:49:15'),
+(25, 'eric@email.fr', '$argon2id$v=19$m=17408,t=3,p=1$0Udfl6Y4GCebzZB3qJf6Iw$q8zuMxgd4BuzgGikUyc1rgJBvm9FZ8eyLZATemMHNKM', 'Eric', 'Jean', 'groupomania/profile/1662469659983-25', 'groupomania/cover/1662469696130-25', 'Développeur', '2000-04-03', 'Paris', NULL, NULL, 'Bonjour je suis Jean Eric', 0, '2022-09-06 13:04:10', '2022-09-06 13:08:17');
 
 
 
