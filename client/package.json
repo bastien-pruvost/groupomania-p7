@@ -1,7 +1,6 @@
 {
   "name": "groupomania-client",
   "version": "0.1.0",
-  "homepage": ".",
   "description": "Groupomania client",
   "author": "Bastien-Pruvost",
   "license": "ISC",
