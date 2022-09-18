@@ -61,12 +61,12 @@ source database/groupomania.sql; -- Importer le dump sql situé dans le dossier 
 
 Pour éviter de rendre publique certaines données (dont les clés de l'API Cloudinary pour l'hébérgement des images), les fichiers '.env' sont disponibles dans les livrables dans le dossier 'PRUVOST_Bastien_04_fichiers-env_062022'
 
-- Copiez le fichier '.env' du dossier 'server' dans le dossier '/groupomania-p7/server'
+- Copiez le fichier '.env' du dossier 'server' dans le dossier '/groupomania-p7/api'
 
 - Dans le dossier 'groupomania-p7', executez les commandes suivantes dans un nouveau terminal :
 
 ```bash
-cd server # Se déplacer dans le dossier server
+cd api # Se déplacer dans le dossier api
 npm install # Installer les packages et dépendances nécessaires
 npm start # Démarrer le serveur
 ```
