@@ -4,15 +4,19 @@ import styles from './Button.module.css';
 const Button = (props) => {
   const { kind, color, customClass, link, navLink, children, ...propsRest } = props;
 
-  let kindStyle = '';
-  let colorStyle = '';
-  const customStyle = customStyle || '';
+  let kindClass = '';
+  let colorClass = '';
 
-  if (kind === 'fill') kindStyle = styles.fill;
-  if (kind === 'outline') kindStyle = styles.outline;
-  if (kind === 'ghost') kindStyle = styles.ghost;
+  if (kind === 'fill') kindClass = styles.fill;
+  if (kind === 'outline') kindClass = styles.outline;
+  if (kind === 'ghost') kindClass = styles.ghost;
 
-  const buttonClassName = ``;
+  if (color === 'red') colorClass = styles.red;
+  if (color === 'grey') colorClass = styles.grey;
+
+  const buttonClassName = `${kindClass || styles.fill} ${colorClass || styles.grey} ${
+    customClass || ''
+  }`;
 
   if (link)
     return (

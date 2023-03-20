@@ -20,11 +20,7 @@ const app = express();
 
 // Set headers for all responses
 app.use((req, res, next) => {
-  const allowedOrigins = [
-    'http://localhost:3000',
-    'http://192.168.1.25:3000',
-    'http://127.0.0.1:3000'
-  ];
+  const allowedOrigins = [process.env.CLIENT_URL];
   const { origin } = req.headers;
   if (allowedOrigins.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);
@@ -47,6 +43,11 @@ app.use(express.urlencoded({ extended: true }));
 // app.use(express.static(path.join(__dirname, 'public'))); // Uncomment if images are saved locally
 
 app.use(addAuthFeatures);
+
+// app.use(express.static(path.join(__dirname, '../client/build')));
+// app.get('/*', (req, res, next) => {
+//   res.sendFile(path.join(__dirname, '../client/build/index.html'));
+// });
 
 app.use('/', routes);
 
