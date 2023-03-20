@@ -1,9 +1,15 @@
 {
-  "name": "groupomania-server",
+  "name": "groupomania-api",
   "version": "1.0.0",
-  "description": "Groupomania server build with Node.js and Express.js",
-  "author": "Bastien-Pruvost",
-  "license": "ISC",
+  "private": true,
+  "description": "Groupomania API",
+  "keywords": [],
+  "homepage": "https://github.com/bastien-pruvost/groupomania-p7#readme",
+  "license": "MIT",
+  "author": {
+    "name": "Bastien Pruvost",
+    "url": "https://github.com/bastien-pruvost"
+  },
   "main": "bin/www",
   "scripts": {
     "start": "nodemon -r dotenv/config bin/www"

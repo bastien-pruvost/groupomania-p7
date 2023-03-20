@@ -11,7 +11,7 @@ export const AuthContextProvider = ({ children }) => {
 
   if (isAuthLoading) {
     return <Loader />;
-  } else {
-    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
   }
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

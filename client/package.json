@@ -1,9 +1,15 @@
 {
   "name": "groupomania-client",
-  "version": "0.1.0",
-  "description": "Groupomania client",
-  "author": "Bastien-Pruvost",
-  "license": "ISC",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Groupomania Client",
+  "keywords": [],
+  "homepage": "https://github.com/bastien-pruvost/groupomania-p7#readme",
+  "license": "MIT",
+  "author": {
+    "name": "Bastien Pruvost",
+    "url": "https://github.com/bastien-pruvost"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
